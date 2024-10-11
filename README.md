@@ -9,6 +9,33 @@ This repo is a implementation of Sajit Khadka's Blog.
 - Shadncn
 - PostgreSQL
 
-## Credits
+### Database Schema
 
-The template is taken from [JollyBlog](https://github.com/jolbol1/nextjs-velite-blog-template). Huge thanks to him for making this template available.
+- **Blog Posts Table**:
+  - `id` :
+  - `title` :
+  - `description` :
+  - `created_at` :
+  - `updated_at` :
+  - `author_id` :
+- **Tags Table**:
+  - `id` :
+  - `name` :
+- **BlogPostTags Table**:
+  - `blog_post_id` :
+  - `tag_id` :
+- **Comments Table**:
+  - `id` :
+  - `blog_post_id` :
+  - `user_id` :
+  - `content` :
+  - `created_at` :
+  - `parent_comment_id` :
+  - `upvotes` :
+  - `downvotes` :
+- **Users Table**:
+  - `id` :
+  - `username` :
+  - `email` :
+  - `password_hash` :
+  - `role` :

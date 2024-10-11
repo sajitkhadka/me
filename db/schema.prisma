@@ -1,0 +1,66 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id            String     @id @default(uuid())
+    username      String
+    email         String     @unique
+    password_hash String
+    role          String
+    blogPosts     BlogPost[]
+    comments      Comment[]
+    createdAt     DateTime   @default(now())
+    updatedAt     DateTime   @updatedAt
+}
+
+model BlogPost {
+    id          String        @id @default(uuid())
+    authorId    String
+    title       String
+    description String
+    createdAt   DateTime      @default(now())
+    updatedAt   DateTime      @updatedAt
+    author      User          @relation(fields: [authorId], references: [id])
+    comments    Comment[]
+    tags        BlogPostTag[]
+}
+
+model Comment {
+    id              String    @id @default(uuid())
+    parentCommentId String?
+    content         String
+    createdAt       DateTime  @default(now())
+    updatedAt       DateTime  @updatedAt
+    upvotes         Int       @default(0)
+    downvotes       Int       @default(0)
+    userId          String?
+    blogPostId      String
+    user            User?     @relation(fields: [userId], references: [id])
+    blogPost        BlogPost  @relation(fields: [blogPostId], references: [id])
+    // Self-relation for nested comments (replies)
+    parentComment   Comment?  @relation("CommentReplies", fields: [parentCommentId], references: [id])
+    replies         Comment[] @relation("CommentReplies")
+}
+
+model Tag {
+    id           String        @id @default(uuid())
+    name         String        @unique
+    blogPostTags BlogPostTag[]
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @updatedAt
+}
+
+model BlogPostTag {
+    blogPostId String
+    tagId      String
+    blogPost   BlogPost @relation(fields: [blogPostId], references: [id])
+    tag        Tag      @relation(fields: [tagId], references: [id])
+
+    @@id([blogPostId, tagId])
+}
