@@ -1,39 +1,43 @@
-"use client"
-import ParticlesAnimation from "@/components/particles-animation";
-import TechIcon, { techStack } from "@/components/tech-icon/tech-icon";
+import Underline from "@/components/custom-ui/underline";
+import ParticlesAnimation from "@/components/animation/particles-animation";
 import { buttonVariants } from "@/components/ui/button";
-import userService from "@/db/user.service";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 import Link from "next/link";
+
+export const metadata = {
+  title: "Sajit Khadka",
+  description:
+    "Personal blog of Sajit Khadka, a software engineer and web developer. He writes about his experiences, thoughts and opinions on technology, development and life.",
+  openGraph: {
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sajit Khadka - Blog of a software engineer and web developer",
+    description:
+      "Personal blog of Sajit Khadka, a software engineer and web developer. He writes about his experiences, thoughts and opinions on technology, development and life.",
+    images: ["https://sajit.me/avatar.png"],
+    creator: "@sajitkhadka",
+  },
+};
 
 export default function Home() {
   return (
     <>
       <main className="flex-grow container max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-32">
         <ParticlesAnimation />
-        <div className="relative z-10 flex flex-col md:flex-row justify-between items-center">
+        <div className="relative z-0 flex flex-col md:flex-row justify-between items-center pointer-events-none">
           <section className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-3xl font-bold text-balance">
                 Hello, I am Sajit
               </h1>
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: '2rem' }}
-                transition={{ duration: 0.9, delay: 0.9 }}
-                className="h-1 bg-gray-900"
-              ></motion.div>
+              <Underline />
             </div>
             {/* <p className="text-muted-foreground leading-relaxed text-balance">
               Welcome to my blog. I&apos;m a software developer passionate about learning, coding, and sharing my journey.
             </p> */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              className="pt-4 flex flex-col sm:flex-row gap-4 "
-            >
+            <div className="pt-4 flex flex-col sm:flex-row gap-4 pointer-events-auto">
               <Link
                 href="/blog"
                 className={cn(buttonVariants({ size: "sm", animation: "custom" }), "w-full sm:w-fit")}
@@ -50,7 +54,7 @@ export default function Home() {
               >
                 About me
               </Link>
-            </motion.div>
+            </div>
           </section>
           {/* <motion.section
             initial={{ opacity: 0 }}
@@ -70,55 +74,6 @@ export default function Home() {
           </motion.section> */}
         </div>
       </main>
-      {/* <section className="space-y-9 py-24 md:py-40">
-        <div className="container flex flex-col gap-4 text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-balance">
-            Hello, I&apos;m Sajit
-          </h1>
-          <p className="max-w-[42rem] mx-auto text-muted-foreground sm:text-xl text-balance">
-            Welcome to my blog. I&apos;m a software developer passionate about learning, coding, and sharing my journey.
-          </p>
-          <div className="flex flex-col gap-4 justify-center sm:flex-row">
-            <Link
-              href="/blog"
-              className={cn(buttonVariants({ size: "lg" }), "w-full sm:w-fit")}
-            >
-              View my blog
-            </Link>
-            <Link
-              href="/about"
-              target="_blank"
-              rel="noreferrer"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "lg" }),
-                "w-full sm:w-fit"
-              )}
-            >
-              About me
-            </Link>
-          </div>
-        </div>
-      </section> */}
-      {/* <section className="container max-w-4xl py-6 lg:py-10 flex flex-col space-y-6 mt-60">
-        <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-center">
-          Latest Posts
-        </h2>
-        <ul className="flex flex-col">
-          {latestPosts.map((post) => (
-            post.published && (
-              <li key={post.slug} className="first:border-t first:border-border">
-                <PostItem
-                  slug={post.slug}
-                  title={post.title}
-                  description={post.description}
-                  date={post.date}
-                  tags={post.tags}
-                />
-              </li>
-            )
-          ))}
-        </ul>
-      </section> */}
     </>
   );
 }

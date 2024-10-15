@@ -2,6 +2,7 @@ import { getAllTags, sortTagsByCount } from "@/lib/utils";
 import { Metadata } from "next";
 // import { posts } from "#site/content";
 import { Tag } from "@/components/tag";
+import tagsService from "@/db/tags.service";
 
 export const metadata: Metadata = {
   title: "Tags",
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function TagsPage() {
-  const tags = getAllTags([]);
+  const tags = await tagsService.getAllTags();
   const sortedTags = sortTagsByCount(tags);
 
   return (
@@ -22,7 +23,7 @@ export default async function TagsPage() {
       <hr className="my-4" />
       <div className="flex flex-wrap gap-2">
         {sortedTags?.map((tag) => (
-          <Tag tag={tag} count={tags[tag]} key={tag} />
+          <Tag tag={tag.name} key={tag.id} count={tag._count.blogPostTags} />
         ))}
       </div>
     </div>

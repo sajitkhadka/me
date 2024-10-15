@@ -1,6 +1,8 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { slug } from "github-slugger";
+import { Tag } from "@prisma/client";
+import { Tags } from "@/db/tags.service";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -36,14 +38,7 @@ export function getAllTags(posts: Array<any>) {
   return tags;
 }
 
-export function sortTagsByCount(tags: Record<string, number>) {
-  return Object.keys(tags).sort((a, b) => tags[b] - tags[a])
-}
+export function sortTagsByCount(tags: Tags) {
+  return tags.sort((a, b) => b._count.blogPostTags - a._count.blogPostTags);
 
-export function getPostsByTagSlug(posts: Array<any>, tag: string) {
-  return posts.filter(post => {
-    if (!post.tags) return false
-    const slugifiedTags = post.tags.map((tag: any) => slug(tag))
-    return slugifiedTags.includes(tag)
-  })
 }

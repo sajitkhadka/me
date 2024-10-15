@@ -5,8 +5,10 @@ export const siteConfig = {
   author: "Sajit Khadka",
   links: {
     linkedin: "https://www.linkedin.com/in/sajitkhadka/",
-    x: "https://x.com/SajitKhadka"
-  }
+    x: "https://x.com/SajitKhadka",
+    github: "https://github.com/sajitkhadka",
+  },
+  avatarUrl: "https://sajit.me/avatar.png",
   // links: {
   //   twitter: "https://twitter.com/jollyshopland",
   //   github: "https://github.com/jolbol1",

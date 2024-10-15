@@ -20,15 +20,18 @@ model User {
 }
 
 model BlogPost {
-    id          String        @id @default(uuid())
-    authorId    String
-    title       String
-    description String
-    createdAt   DateTime      @default(now())
-    updatedAt   DateTime      @updatedAt
-    author      User          @relation(fields: [authorId], references: [id])
-    comments    Comment[]
-    tags        BlogPostTag[]
+    id        String        @id @default(uuid())
+    authorId  String
+    title     String
+    published Boolean       @default(false)
+    summary   String        @default("")
+    content   String        @default("")
+    reaction  Int           @default(0)
+    createdAt DateTime      @default(now())
+    updatedAt DateTime      @updatedAt
+    author    User          @relation(fields: [authorId], references: [id])
+    comments  Comment[]
+    tags      BlogPostTag[]
 }
 
 model Comment {
