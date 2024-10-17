@@ -48,7 +48,7 @@ export default async function AboutPage() {
           <p> Aside from my software development career, I&apos;m also deeply interested in sharing my personal growth and learning experiences. On this blog, you&apos;ll find posts documenting my journey as an English as a Second Language (ESL) learner, insights into my fitness routine, and reflections on the ever-evolving world of technology.</p>
           <p>I believe in continuous improvement, whether it&apos;s mastering new tech stacks or pushing my limits in the gym. Whether you&apos;re here for tech insights or just curious about my personal stories, I hope you’ll find something helpful or inspiring. Thanks for stopping by—let’s learn and grow together! </p> */}
             <p>Hi, I’m Sajit Khadka! I’m a passionate software developer who loves bringing ideas to life through code.</p>
-            <p>When I&apos;m not immersed in tech, you&apos;ll likely find me lost in a good book, binge-watching the latest TV shows or anime, or trying out new hobbies. Fitness is important to me, and I enjoy working out regularly to stay in shape.</p>
+            <p>When I&apos;m not immersed in tech, you&apos;ll likely find me binge-watching the latest TV shows or anime, reading or trying out new hobbies. Fitness is important to me, and I enjoy working out regularly to stay in shape.</p>
           </div>
         </div>
       </div>
