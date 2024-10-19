@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import blogPostService from '@/db/blogpost.service';
-import { Tag } from "@/components/tag";
+import { Tag } from "@/components/custom-ui/tag";
 import { Calendar } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import Comments from "./comments";

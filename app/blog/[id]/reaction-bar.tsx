@@ -3,7 +3,7 @@
 import { startTransition, useEffect, useState } from 'react'
 import { Heart, MessageSquare, Share } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import SharePopup from './SharePopup'
+import SharePopup from './share-popup'
 import { addReaction } from './actions'
 
 interface ReactionBarProps {

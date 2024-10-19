@@ -2,9 +2,9 @@ import { Calendar } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "../../components/ui/button";
 import { cn, formatDate } from "@/lib/utils";
-import { Tag } from "../../components/tag";
+import { Tag } from "../../components/custom-ui/tag";
 import { Tag as TagType } from "@prisma/client";
-import Reaction from "./Reaction";
+// import Reaction from "./reaction";
 
 interface PostItemProps {
   slug: string;
@@ -40,11 +40,11 @@ export function PostItem({
             ))}
           </div>
         </div>
-        <Reaction
+        {/* <Reaction
           reactionsCount={totalReactions}
           commentsCount={totalComments}
           postId={slug}
-        />
+        /> */}
       </div>
       <div className="max-w-none text-muted-foreground">{summary}</div>
       <div className="flex justify-between items-center">

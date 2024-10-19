@@ -1,8 +1,8 @@
 // import { posts } from "#site/content";
 import { PostItem } from "@/app/blog/post-item";
 import Posts from "@/app/blog/posts";
-import TagComponent from "@/app/blog/TagsComponent";
-import { Tag } from "@/components/tag";
+import TagComponent from "@/app/blog/tags-sidebar";
+import { Tag } from "@/components/custom-ui/tag";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import blogPostService from "@/db/blogpost.service";
 import tagsService from "@/db/tags.service";

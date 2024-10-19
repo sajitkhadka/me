@@ -1,7 +1,7 @@
 'use client'
 
 import { startTransition, useEffect, useState } from 'react'
-import CommentItem from './CommentItem'
+import CommentItem from './comment-item'
 import { Button } from '@/components/ui/button'
 import commentService, { IComment } from '@/db/comments.service'
 import { getCommentsByBlogPostId } from './actions'

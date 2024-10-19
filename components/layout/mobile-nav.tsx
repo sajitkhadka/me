@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-import { Button } from "./ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Button } from "../ui/button";
 import { Menu } from "lucide-react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
-import { Icons } from "./icons";
+import { Icons } from "../custom-ui/icons";
 import { siteConfig } from "@/config/site";
 
 export function MobileNav() {

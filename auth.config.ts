@@ -1,31 +1,41 @@
-import { PrismaAdapter } from '@auth/prisma-adapter';
 import type { NextAuthConfig } from 'next-auth';
 import Google from 'next-auth/providers/google';
-import prisma from './lib/prisma';
+import { NextRequest, NextResponse } from 'next/server';
+import { publicPages, privatePages, guestOnlyPages } from './pages.config';
+
+// Helper functions
+const isLoggedIn = (auth: any) => !!auth?.user;
+
+const handleRedirect = (url: URL, pathname: string) => NextResponse.redirect(new URL(pathname, url));
+
+// Authorization logic
+const handleAuthorization = ({ auth, request: { nextUrl } }: any) => {
+    const { pathname } = nextUrl;
+    if (publicPages.includes(pathname)) {
+        return true;
+    }
+    if (privatePages.includes(pathname)) {
+        if (!isLoggedIn(auth)) {
+            return handleRedirect(nextUrl, '/auth/login');
+        }
+        return true;
+    }
+    if (guestOnlyPages.includes(pathname)) {
+        if (isLoggedIn(auth)) {
+            return handleRedirect(nextUrl, '/blog/create');
+        }
+        return true;
+    }
+
+    return true;
+};
 
 export const authConfig = {
     pages: {
         signIn: '/auth/login',
     },
     callbacks: {
-        authorized({ auth, request: { nextUrl } }) {
-            const isLoggedIn = !!auth?.user;
-            //   const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
-            //   if (isOnDashboard) {
-            //     if (isLoggedIn) return true;
-            //     return false; // Redirect unauthenticated users to login page
-            //   } else if (isLoggedIn) {
-            //     return Response.redirect(new URL('/dashboard', nextUrl));
-            //   }
-
-            const isLoginPage = nextUrl.pathname === '/auth/login';
-            if (isLoginPage && isLoggedIn) {
-                return Response.redirect(new URL('/blog/create', nextUrl));
-            }
-            return true;
-        },
+        authorized: handleAuthorization,
     },
-    // adapter: PrismaAdapter(prisma),
     providers: [Google],
-    // session: { strategy: "jwt" }
 } satisfies NextAuthConfig;

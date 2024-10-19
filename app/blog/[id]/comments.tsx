@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import { IComment } from '@/db/comments.service'
-import CommentList from './CommentList'
-import ReactionBar from './ReactionBar'
-import CommentForm from './CommentForm'
+import CommentList from './comment-list'
+import ReactionBar from './reaction-bar'
+import CommentForm from './comment-form'
 import commentService from '@/db/comments.service'
 
 interface CommentsProps {

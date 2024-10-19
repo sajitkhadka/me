@@ -6,7 +6,7 @@ import { IComment } from '@/db/comments.service'
 import { formatDistanceToNow } from 'date-fns'
 import { startTransition, useEffect, useState } from 'react'
 import { addDownvote, addUpvote, getRepliesByCommentId } from './actions'
-import CommentForm from './CommentForm'
+import CommentForm from './comment-form'
 
 interface CommentItemProps {
     comment: IComment

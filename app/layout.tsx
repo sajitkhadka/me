@@ -2,10 +2,10 @@ import type { Metadata, Viewport } from "next";
 // import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { SiteHeader } from "@/components/site-header";
-import { Providers } from "@/components/providers";
+import { SiteHeader } from "@/components/layout/site-header";
+import { Providers } from "@/components/layout/providers";
 import { siteConfig } from "@/config/site";
-import { SiteFooter } from "@/components/site-footer";
+import { SiteFooter } from "@/components/layout/site-footer";
 import { JetBrains_Mono } from "next/font/google";
 
 // const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });

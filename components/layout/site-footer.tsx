@@ -3,7 +3,7 @@ import { siteConfig } from "@/config/site";
 // import { Mail } from "lucide-react";
 import { Linkedin, Mail, X } from 'lucide-react';
 import { motion } from "framer-motion";
-import { Icons } from "./icons";
+import { Icons } from "../custom-ui/icons";
 
 export function SiteFooter() {
   return (

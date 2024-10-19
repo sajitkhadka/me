@@ -1,13 +1,13 @@
 import { PostItem } from "@/app/blog/post-item";
 import { QueryPagination } from "@/components/query-pagination";
-import { Tag } from "@/components/tag";
+import { Tag } from "@/components/custom-ui/tag";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import blogPostService from "@/db/blogpost.service";
 import { getAllTags, sortTagsByCount } from "@/lib/utils";
 import { Metadata } from "next";
 import tagService from "@/db/tags.service";
 import Posts from "./posts";
-import TagComponent from "./TagsComponent";
+import TagComponent from "./tags-sidebar";
 
 export const metadata: Metadata = {
   title: "Sajit Khadka's Blog",
