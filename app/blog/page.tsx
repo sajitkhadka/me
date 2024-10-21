@@ -1,13 +1,8 @@
-import { PostItem } from "@/app/blog/post-item";
-import { QueryPagination } from "@/components/query-pagination";
-import { Tag } from "@/components/custom-ui/tag";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import blogPostService from "@/db/blogpost.service";
-import { getAllTags, sortTagsByCount } from "@/lib/utils";
 import { Metadata } from "next";
-import tagService from "@/db/tags.service";
 import Posts from "./posts";
 import TagComponent from "./tags-sidebar";
+import { auth } from "@/auth";
 
 export const metadata: Metadata = {
   title: "Sajit Khadka's Blog",
@@ -45,13 +40,12 @@ export interface BlogPageProps {
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const currentPage = Number(searchParams?.page) || 1;
   const allPosts = await blogPostService.getAllBlogPosts(
-    { published: true },
     {
       limit: POSTS_PER_PAGE,
       offset: POSTS_PER_PAGE * (currentPage - 1),
     });
   const totalPages = Math.ceil(
-    (await blogPostService.getBlogPostCount({ published: true })) / POSTS_PER_PAGE
+    (await blogPostService.getBlogPostCount()) / POSTS_PER_PAGE
   );
 
   const displayPosts = allPosts;

@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 export type DataItem = Record<"value" | "label", string>;
 
 export function MultiSelect({
-    label = "Select an item",
+    label,
     placeholder = "Select an item",
     parentClassName,
     data = [],

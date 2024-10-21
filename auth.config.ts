@@ -1,7 +1,8 @@
 import type { NextAuthConfig, Session } from 'next-auth';
+import Github from 'next-auth/providers/github';
 import Google from 'next-auth/providers/google';
 import { NextRequest, NextResponse } from 'next/server';
-import { publicPages, privatePages, guestOnlyPages } from './pages.config';
+import { guestOnlyPages, privatePages, publicPages } from './pages.config';
 
 // Helper functions
 const isLoggedIn = (auth: any) => !!auth?.user;
@@ -51,5 +52,5 @@ export const authConfig = {
             return session;
         },
     },
-    providers: [Google],
+    providers: [Google, Github],
 } satisfies NextAuthConfig;

@@ -2,6 +2,7 @@ import { IPostData } from "@/app/blog/create/actions";
 import prisma from "@/lib/prisma";
 import { BlogPost, BlogPostTag, Comment, Tag, User } from "@prisma/client";
 import { Pagination } from "./types";
+import { auth } from "@/auth";
 
 export type BlogPosts = (BlogPost & {
   author: User
@@ -13,7 +14,8 @@ export type BlogPosts = (BlogPost & {
   };
 })[];
 class BlogPostService {
-  async getAllBlogPosts(options: { published?: boolean } = { published: true }, pagination: Pagination): Promise<BlogPosts> {
+  async getAllBlogPosts(pagination: Pagination): Promise<BlogPosts> {
+    const session = await auth();
     return await prisma.blogPost.findMany({
       include: {
         author: true,
@@ -33,13 +35,24 @@ class BlogPostService {
       },
       take: pagination.limit,
       skip: pagination.offset,
-      where: options
+      where: {
+        OR: [
+          { published: true },
+          { author: { id: session?.user.id } },
+        ]
+      }
     });
   }
 
   async getBlogPostById(id: string) {
+    const session = await auth();
     return prisma.blogPost.findUnique({
-      where: { id },
+      where: {
+        id, OR: [
+          { published: true },
+          { author: { id: session?.user.id } },
+        ]
+      },
       include: {
         author: true,
         tags: {
@@ -60,17 +73,21 @@ class BlogPostService {
   }
 
 
-  async getBlogPostByTag(options: { published?: boolean, tag: string }, pagination: Pagination): Promise<BlogPosts> {
+  async getBlogPostByTag(tag: string, pagination: Pagination): Promise<BlogPosts> {
+    const session = await auth();
     return prisma.blogPost.findMany({
       where: {
         tags: {
           some: {
             tag: {
-              name: options.tag,
+              name: tag,
             },
           },
         },
-        published: options.published,
+        OR: [
+          { published: true },
+          { author: { id: session?.user.id } },
+        ]
       },
       include: {
         author: true,
@@ -105,6 +122,10 @@ class BlogPostService {
   }
 
   async add(data: IPostData) {
+    const session = await auth();
+    if (!session?.user?.id) {
+      throw new Error('Please login to create a blog post');
+    }
     return await prisma.blogPost.create({
       data: {
         ...data,
@@ -128,23 +149,33 @@ class BlogPostService {
     })
   }
 
-  getBlogPostCount(options: { published?: boolean }): Promise<number> {
+  async getBlogPostCount(): Promise<number> {
+    const session = await auth();
     return prisma.blogPost.count({
-      where: options,
+      where: {
+        OR: [
+          { published: true },
+          { author: { id: session?.user?.id } },
+        ]
+      }
     });
   }
 
-  getBlogPostCountByTag(options: { published?: boolean, tag: string }): Promise<number> {
+  async getBlogPostCountByTag(tag: string): Promise<number> {
+    const session = await auth();
     return prisma.blogPost.count({
       where: {
         tags: {
           some: {
             tag: {
-              name: options.tag,
+              name: tag,
             },
           },
         },
-        published: options.published,
+        OR: [
+          { published: true },
+          { author: { id: session?.user?.id } },
+        ]
       }
     });
   }

@@ -1,14 +1,29 @@
-"use client";
+import Link from 'next/link'
+import { siteConfig } from '@/config/site'
+import { Icons } from '../custom-ui/icons'
+import { auth } from '@/auth'
+import { NavLink } from './nav-link'
+import { Session } from 'next-auth'
 
-import { siteConfig } from "@/config/site";
-import { Icons } from "../custom-ui/icons";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
+type NavItem = {
+  href: string
+  label: string
+  requiresAuth?: boolean
+  requiresNoAuth?: boolean
+}
 
-export function MainNav() {
-  const pathname = usePathname();
+export const navItems: NavItem[] = [
+  { href: '/blog', label: 'Blog' },
+  { href: '/about', label: 'About' },
+  { href: '/auth/login', label: 'Login', requiresNoAuth: true },
+  { href: '/blog/create', label: 'Create Post', requiresAuth: true },
+]
+
+export type NavProps = {
+  session: Session | null
+}
+
+export async function MainNav({ session }: NavProps) {
   return (
     <nav className="flex items-center space-x-4 lg:space-x-6">
       <Link href="/" className="mr-6 flex items-center space-x-2">
@@ -16,24 +31,18 @@ export function MainNav() {
         {/* <Image src={"/logo.png"} alt="Sajit.me Logo" width={100} height={20} /> */}
         <span className="font-bold">{siteConfig.name}</span>
       </Link>
-      <Link
-        href="/blog"
-        className={cn(
-          "text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block",
-          pathname === "/blog" ? "text-foreground" : "text-foreground/60"
-        )}
-      >
-        Blog
-      </Link>
-      <Link
-        href="/about"
-        className={cn(
-          "text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block",
-          pathname === "/about" ? "text-foreground" : "text-foreground/60"
-        )}
-      >
-        About
-      </Link>
+      {navItems.map((item) => {
+        const showItem =
+          (!item.requiresAuth && !item.requiresNoAuth) ||
+          (item.requiresAuth && session?.user) ||
+          (item.requiresNoAuth && !session?.user)
+
+        return showItem ? (
+          <NavLink key={item.href} href={item.href}>
+            {item.label}
+          </NavLink>
+        ) : null
+      })}
     </nav>
-  );
+  )
 }

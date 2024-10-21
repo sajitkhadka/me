@@ -4,6 +4,7 @@ import { buttonVariants } from "../../components/ui/button";
 import { cn, formatDate } from "@/lib/utils";
 import { Tag } from "../../components/custom-ui/tag";
 import { Tag as TagType } from "@prisma/client";
+import Reaction from "./reaction";
 // import Reaction from "./reaction";
 
 interface PostItemProps {
@@ -40,20 +41,17 @@ export function PostItem({
             ))}
           </div>
         </div>
-        {/* <Reaction
-          reactionsCount={totalReactions}
-          commentsCount={totalComments}
-          postId={slug}
-        /> */}
+
       </div>
       <div className="max-w-none text-muted-foreground">{summary}</div>
       <div className="flex justify-between items-center">
         <dl>
-          <dt className="sr-only">Published On</dt>
-          <dd className="text-sm sm:text-base font-normal flex items-center gap-1">
-            <Calendar className="h-4 w-4" />
-            <time dateTime={date}>{formatDate(date)}</time>
-          </dd>
+          <Reaction
+            reactionsCount={totalReactions}
+            commentsCount={totalComments}
+            postId={slug}
+            createdDate={new Date(date)}
+          />
         </dl>
         <Link
           href={"/blog/" + slug}

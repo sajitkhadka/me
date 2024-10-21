@@ -39,14 +39,14 @@ export default async function TagPage({ params }: TagPageProps) {
   // const title = tag.split("-").join(" ");
   const currentPage = Number(params?.page) || 1;
   const allPosts = await blogPostService.getBlogPostByTag(
-    { tag, published: true },
+    tag,
     {
       limit: POSTS_PER_PAGE,
       offset: POSTS_PER_PAGE * (currentPage - 1),
     }
   );
   const totalPages = Math.ceil(
-    (await blogPostService.getBlogPostCountByTag({ published: true, tag })) / 5
+    (await blogPostService.getBlogPostCountByTag(tag)) / 5
   );
 
 
