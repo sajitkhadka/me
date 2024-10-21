@@ -1,11 +1,10 @@
 'use client'
 
-import { useState } from 'react'
 import { IComment } from '@/db/comments.service'
+import { useState } from 'react'
+import CommentForm from './comment-form'
 import CommentList from './comment-list'
 import ReactionBar from './reaction-bar'
-import CommentForm from './comment-form'
-import commentService from '@/db/comments.service'
 
 interface CommentsProps {
     postId: string

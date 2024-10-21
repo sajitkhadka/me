@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   },
 };
 
-const POSTS_PER_PAGE = 5;
+export const POSTS_PER_PAGE = 10;
 
-interface BlogPageProps {
+export interface BlogPageProps {
   searchParams: {
     page?: string;
   };
@@ -44,17 +44,18 @@ interface BlogPageProps {
  */
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const currentPage = Number(searchParams?.page) || 1;
-  const allPosts = await blogPostService.getAllBlogPosts();
-  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
-
-  const displayPosts = allPosts.slice(
-    POSTS_PER_PAGE * (currentPage - 1),
-    POSTS_PER_PAGE * currentPage
+  const allPosts = await blogPostService.getAllBlogPosts(
+    { published: true },
+    {
+      limit: POSTS_PER_PAGE,
+      offset: POSTS_PER_PAGE * (currentPage - 1),
+    });
+  const totalPages = Math.ceil(
+    (await blogPostService.getBlogPostCount({ published: true })) / POSTS_PER_PAGE
   );
 
-  const tags = await tagService.getAllTags();
+  const displayPosts = allPosts;
 
-  const sortedTags = sortTagsByCount(tags);
 
   return (
     <div className="container flex flex-col-reverse max-w-6xl py-6 gap-10 lg:py-10 sm:grid sm:grid-cols-12">
@@ -64,7 +65,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           totalPages={totalPages}
         />
       </div>
-      <TagComponent sortedTags={sortedTags} />
+      <TagComponent />
     </div>
   );
 }

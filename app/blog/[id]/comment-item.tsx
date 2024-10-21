@@ -78,11 +78,11 @@ export default function CommentItem({ comment, postId, depth = 0, onAddReply }: 
         <div className={`space-y-2 ${depth > 0 ? 'ml-4 pl-4 border-l' : ''}`}>
             <div className="flex items-start space-x-4">
                 <Avatar>
-                    <AvatarFallback>{comment.user?.username?.[0] || 'A'}</AvatarFallback>
+                    <AvatarFallback>{comment.user?.username?.[0] || comment.user?.name?.[0] || 'A'}</AvatarFallback>
                 </Avatar>
                 <div className="flex-1 space-y-1">
                     <div className='flex gap-5'>
-                        <span className="text-sm font-medium">{comment.user?.username || 'Anonymous'}</span>
+                        <span className="text-sm font-medium">{comment.user?.username || comment.user?.name || 'Anonymous'}</span>
                         <span className="text-sm text-gray-500 dark:text-gray-400">
                             {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
                         </span>

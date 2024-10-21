@@ -1,27 +1,29 @@
 'use client'
 
-import { useEffect, useState, useTransition } from 'react'
-import { useForm, Controller } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
+import { DataItem, MultiSelect } from '@/components/custom-ui/multi-select'
 import Editor from '@/components/editor/advanced-editor'
-import { MultiSelect } from '@/components/custom-ui/multi-select'
-import { Skeleton } from '@/components/ui/skeleton'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { fetchTags, createBlogPost } from './actions'
-import { defaultValue } from './default-value'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Textarea } from '@/components/ui/textarea'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useEffect, useState, useTransition } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import * as z from 'zod'
+import { createBlogPost, fetchTags } from './actions'
 import './prosemirror.css'
+import { SessionProvider, useSession } from 'next-auth/react';
 
+import { Tags } from '@/db/tags.service'
 import CodeBlock from '@tiptap/extension-code-block'
 import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
 import { generateJSON } from '@tiptap/html'
-import { Tags } from '@/db/tags.service'
+import { auth } from '@/auth'
+import { getUserSession } from '@/app/auth/login/actions'
 
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required').max(100, 'Title must be 100 characters or less'),
@@ -36,7 +38,10 @@ export default function CreateBlogPost() {
     const [tags, setTags] = useState<Tags>([])
     const [isPending, startTransition] = useTransition()
     const [submitError, setSubmitError] = useState('')
-
+    const [selectedItems, setSelectedItems] = useState<DataItem[]>([]);
+    const [inputValue, setInputValue] = useState("");
+    const { data: session, status } = useSession();
+    const [success, setSuccess] = useState(false);
     const {
         control,
         handleSubmit,
@@ -47,7 +52,7 @@ export default function CreateBlogPost() {
         defaultValues: {
             title: '',
             summary: '',
-            content: defaultValue,
+            content: '',
             tags: [],
         },
     })
@@ -61,13 +66,19 @@ export default function CreateBlogPost() {
     const onSubmit = async (data: FormData) => {
         setSubmitError('')
         startTransition(async () => {
+            setSubmitError('')
+            setSuccess(false);
+            const session = await getUserSession();
+            if (!session?.user?.id) {
+                setSubmitError('Please login to create a blog post');
+                return;
+            }
             const result = await createBlogPost({
                 ...data,
-                authorId: '2f827e65-3bd7-4dc6-807d-e5f9fba0eed7', // Replace with actual user ID
+                authorId: session?.user?.id
             })
             if (result.success) {
-                // Handle successful submission (e.g., show success message, redirect)
-                console.log('Blog post created:', result.post)
+                setSuccess(true);
             } else {
                 result.error && setSubmitError(result.error)
             }
@@ -80,6 +91,11 @@ export default function CreateBlogPost() {
                 <CardTitle>Create Your Blog Post</CardTitle>
             </CardHeader>
             <CardContent>
+                {success && (
+                    <div className="bg-green-100 p-4 rounded-md border border-green-200 mb-4">
+                        <p className="text-green-700">Blog post created successfully!</p>
+                    </div>
+                )}
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-2">
                         <label htmlFor="title" className="text-sm font-medium">
@@ -137,6 +153,10 @@ export default function CreateBlogPost() {
                                         {...field}
                                         placeholder="Select Tags"
                                         data={tags.map((tag) => ({ label: tag.name, value: tag.name }))}
+                                        inputValue={inputValue}
+                                        onInputValueChange={setInputValue}
+                                        selected={selectedItems}
+                                        onSelectedChange={setSelectedItems}
                                     // onChange={(value) => setValue('tags', value.map((tag) => tag.value))}
                                     />
                                 )}

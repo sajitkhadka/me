@@ -1,5 +1,6 @@
 'use server'
 
+import { auth } from '@/auth';
 import blogPostService from '@/db/blogpost.service';
 import commentService from '@/db/comments.service'
 import { Pagination } from '@/db/types';
@@ -8,7 +9,7 @@ import exp from 'constants';
 export async function createComment(formData: FormData) {
     const content = formData.get('content') as string
     const postId = formData.get('postId') as string
-    const userId = (formData.get('userId') as string) || undefined;
+    const userId = (await auth())?.user.id;
     const parentId = formData.get('parentId') as string
 
     if (!content.trim() || !postId) {

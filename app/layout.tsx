@@ -3,11 +3,11 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/components/layout/site-header";
-import { Providers } from "@/components/layout/providers";
+import ThemeProvider from "@/components/providers/theme-provider";
 import { siteConfig } from "@/config/site";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { JetBrains_Mono } from "next/font/google";
-
+import SessionProvider from "@/components/providers/session-provider";
 // const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -43,13 +43,15 @@ export default function RootLayout({
           jetbrainsMono.variable
         )}
       >
-        <Providers>
-          <div className="relative flex min-h-dvh flex-col bg-background">
-            <SiteHeader />
-            <main className="flex-1">{children}</main>
-            <SiteFooter />
-          </div>
-        </Providers>
+        <ThemeProvider>
+          <SessionProvider>
+            <div className="relative flex min-h-dvh flex-col bg-background">
+              <SiteHeader />
+              <main className="flex-1">{children}</main>
+              <SiteFooter />
+            </div>
+          </SessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

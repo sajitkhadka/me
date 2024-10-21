@@ -1,4 +1,4 @@
-import type { NextAuthConfig } from 'next-auth';
+import type { NextAuthConfig, Session } from 'next-auth';
 import Google from 'next-auth/providers/google';
 import { NextRequest, NextResponse } from 'next/server';
 import { publicPages, privatePages, guestOnlyPages } from './pages.config';
@@ -9,7 +9,10 @@ const isLoggedIn = (auth: any) => !!auth?.user;
 const handleRedirect = (url: URL, pathname: string) => NextResponse.redirect(new URL(pathname, url));
 
 // Authorization logic
-const handleAuthorization = ({ auth, request: { nextUrl } }: any) => {
+const handleAuthorization = ({ auth, request: { nextUrl } }: {
+    request: NextRequest;
+    auth: Session | null;
+}) => {
     const { pathname } = nextUrl;
     if (publicPages.includes(pathname)) {
         return true;
@@ -36,6 +39,17 @@ export const authConfig = {
     },
     callbacks: {
         authorized: handleAuthorization,
+        jwt({ token, account, user }) {
+            if (account) {
+                token.accessToken = account.access_token
+                token.id = user?.id
+            }
+            return token
+        },
+        session({ session, token }) {
+            session.user.id = token.id;
+            return session;
+        },
     },
     providers: [Google],
 } satisfies NextAuthConfig;

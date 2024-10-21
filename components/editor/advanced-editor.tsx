@@ -51,7 +51,6 @@ const Editor = ({ initialValue, onChange }: EditorProp) => {
           },
         }}
         onUpdate={({ editor }) => {
-          console.log(editor.getHTML())
           onChange(editor.getHTML());
         }}
         slotAfter={<ImageResizer />}

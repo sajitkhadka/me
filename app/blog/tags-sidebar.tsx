@@ -1,9 +1,12 @@
 import { Tag } from "@/components/custom-ui/tag";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Tags } from "@/db/tags.service";
+import tagService, { Tags } from "@/db/tags.service";
+import { sortTagsByCount } from "@/lib/utils";
 import { slug } from "github-slugger";
 
-export default function TagsSidebar({ sortedTags, tagparam }: { sortedTags: Tags, tagparam?: string }) {
+export default async function TagsSidebar({ tagparam }: { tagparam?: string }) {
+    const tags = await tagService.getAllTags({ published: true });
+    const sortedTags = sortTagsByCount(tags);
     return (
         <div className="col-span-12 h-fit sm:col-span-4 sm:col-start-10">
             <Card>

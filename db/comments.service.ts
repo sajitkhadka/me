@@ -3,7 +3,8 @@ import { Comment, User } from "@prisma/client";
 import { Pagination } from "./types";
 
 export type IComment = Comment & {
-  user: User | null, _count: {
+  user: User | null,
+  _count: {
     replies: number;
   }
 }

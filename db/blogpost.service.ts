@@ -1,6 +1,7 @@
 import { IPostData } from "@/app/blog/create/actions";
 import prisma from "@/lib/prisma";
 import { BlogPost, BlogPostTag, Comment, Tag, User } from "@prisma/client";
+import { Pagination } from "./types";
 
 export type BlogPosts = (BlogPost & {
   author: User
@@ -12,7 +13,7 @@ export type BlogPosts = (BlogPost & {
   };
 })[];
 class BlogPostService {
-  async getAllBlogPosts(): Promise<BlogPosts> {
+  async getAllBlogPosts(options: { published?: boolean } = { published: true }, pagination: Pagination): Promise<BlogPosts> {
     return await prisma.blogPost.findMany({
       include: {
         author: true,
@@ -30,6 +31,9 @@ class BlogPostService {
       orderBy: {
         createdAt: 'desc',
       },
+      take: pagination.limit,
+      skip: pagination.offset,
+      where: options
     });
   }
 
@@ -56,16 +60,17 @@ class BlogPostService {
   }
 
 
-  async getBlogPostByTag(tag: string): Promise<BlogPosts> {
+  async getBlogPostByTag(options: { published?: boolean, tag: string }, pagination: Pagination): Promise<BlogPosts> {
     return prisma.blogPost.findMany({
       where: {
         tags: {
           some: {
             tag: {
-              name: tag,
+              name: options.tag,
             },
           },
         },
+        published: options.published,
       },
       include: {
         author: true,
@@ -83,6 +88,8 @@ class BlogPostService {
       orderBy: {
         createdAt: 'desc',
       },
+      take: pagination.limit,
+      skip: pagination.offset,
     });
   }
 
@@ -120,6 +127,28 @@ class BlogPostService {
       },
     })
   }
+
+  getBlogPostCount(options: { published?: boolean }): Promise<number> {
+    return prisma.blogPost.count({
+      where: options,
+    });
+  }
+
+  getBlogPostCountByTag(options: { published?: boolean, tag: string }): Promise<number> {
+    return prisma.blogPost.count({
+      where: {
+        tags: {
+          some: {
+            tag: {
+              name: options.tag,
+            },
+          },
+        },
+        published: options.published,
+      }
+    });
+  }
+
 
 }
 
