@@ -1,8 +1,7 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import { formatDate } from '@/lib/utils'
-import { Calendar, Heart, MessageCircle, MessageSquare, ThumbsUp } from 'lucide-react'
+import { Calendar, MessageCircle, ThumbsUp } from 'lucide-react'
 
 interface ReactionBarProps {
     reactionsCount: number
@@ -10,7 +9,6 @@ interface ReactionBarProps {
     postId: string
     createdDate: Date
 }
-
 
 export default function Reaction({ reactionsCount, commentsCount, createdDate }: ReactionBarProps) {
     return (

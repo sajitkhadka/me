@@ -1,4 +1,5 @@
 export const siteConfig = {
+  gaId: "G-ZE4RM867YC",
   name: "sajit.me",
   url: "https://sajit.me",
   description: "I am Sajit.",

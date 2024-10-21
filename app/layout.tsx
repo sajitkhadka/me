@@ -8,6 +8,7 @@ import { siteConfig } from "@/config/site";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { JetBrains_Mono } from "next/font/google";
 import SessionProvider from "@/components/providers/session-provider";
+import { GoogleAnalytics } from "@next/third-parties/google";
 // const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -49,6 +50,7 @@ export default function RootLayout({
               <SiteHeader />
               <main className="flex-1">{children}</main>
               <SiteFooter />
+              <GoogleAnalytics gaId={siteConfig.gaId} />
             </div>
           </SessionProvider>
         </ThemeProvider>
