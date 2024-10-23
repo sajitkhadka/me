@@ -5,7 +5,7 @@ import { sortTagsByCount } from "@/lib/utils";
 import { slug } from "github-slugger";
 
 export default async function TagsSidebar({ tagparam }: { tagparam?: string }) {
-    const tags = await tagService.getAllTags({ published: true });
+    const tags = await tagService.getAllTags();
     const sortedTags = sortTagsByCount(tags);
     return (
         <div className="col-span-12 h-fit sm:col-span-4 sm:col-start-10">

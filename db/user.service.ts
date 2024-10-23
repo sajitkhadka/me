@@ -2,8 +2,12 @@ import prisma from "@/lib/prisma";
 
 
 class UserService {
-    async fetchUser() {
-        return prisma.user.findFirst();
+    async fetchAdmin() {
+        return prisma.user.findFirst({
+            where: {
+                role: 'admin'
+            }
+        });
     }
 }
 

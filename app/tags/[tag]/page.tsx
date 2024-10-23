@@ -1,25 +1,24 @@
 // import { posts } from "#site/content";
 import { POSTS_PER_PAGE } from "@/app/blog/page";
-import { PostItem } from "@/app/blog/post-item";
 import Posts from "@/app/blog/posts";
 import TagComponent from "@/app/blog/tags-sidebar";
-import { Tag } from "@/components/custom-ui/tag";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import blogPostService from "@/db/blogpost.service";
 import tagsService from "@/db/tags.service";
-import { sortTagsByCount } from "@/lib/utils";
 import { slug } from "github-slugger";
 import { Metadata } from "next";
 
 interface TagPageProps {
   params: {
     tag: string;
+  };
+  searchParams: {
     page?: string;
   };
 }
 
 export async function generateMetadata({
   params,
+  searchParams
 }: TagPageProps): Promise<Metadata> {
   const { tag } = params;
   return {
@@ -28,25 +27,25 @@ export async function generateMetadata({
   };
 }
 
-export const generateStaticParams = async () => {
-  const tags = await tagsService.getAllTags();
-  const paths = tags.map((tag) => ({ tag: slug(tag.name) }));
-  return paths;
-};
+// export const generateStaticParams = async () => {
+//   const tags = await tagsService.getAllTags();
+//   const paths = tags.map((tag) => ({ tag: slug(tag.name) }));
+//   return paths;
+// };
 
-export default async function TagPage({ params }: TagPageProps) {
+export default async function TagPage({ params, searchParams }: TagPageProps) {
   const { tag } = params;
-  // const title = tag.split("-").join(" ");
-  const currentPage = Number(params?.page) || 1;
+  const currentPage = Number(searchParams?.page) || 1;
+  const _tag = tag.split('-').join(' ');
   const allPosts = await blogPostService.getBlogPostByTag(
-    tag,
+    _tag,
     {
       limit: POSTS_PER_PAGE,
       offset: POSTS_PER_PAGE * (currentPage - 1),
     }
   );
   const totalPages = Math.ceil(
-    (await blogPostService.getBlogPostCountByTag(tag)) / 5
+    (await blogPostService.getBlogPostCountByTag(_tag)) / 5
   );
 
 

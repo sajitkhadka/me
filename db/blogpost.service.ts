@@ -80,7 +80,10 @@ class BlogPostService {
         tags: {
           some: {
             tag: {
-              name: tag,
+              name: {
+                contains: tag,
+                mode: 'insensitive',
+              },
             },
           },
         },
@@ -108,6 +111,7 @@ class BlogPostService {
       take: pagination.limit,
       skip: pagination.offset,
     });
+
   }
 
   async addReaction(blogPostId: string) {
@@ -168,7 +172,11 @@ class BlogPostService {
         tags: {
           some: {
             tag: {
-              name: tag,
+              name: {
+                contains: tag,
+                mode: 'insensitive',
+              },
+
             },
           },
         },

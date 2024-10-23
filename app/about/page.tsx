@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { siteConfig } from "@/config/site";
 import { Metadata } from "next";
 import Image from "next/image";
+import { getAboutMe } from "./actions";
 
 export const metadata: Metadata = {
   title: "About Me - Sajit Khadka",
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AboutPage() {
+  const aboutMe = await getAboutMe();
   return (
     <div className="container max-w-6xl py-6 lg:py-10">
       <ParticlesAnimation />
@@ -47,8 +49,8 @@ export default async function AboutPage() {
             {/* <p>Welcome to my blog! I&apos;m Sajit Khadka, a passionate software developer with over 6 years of experience in full-stack development. My journey in tech has been marked by a love for learning, problem-solving, and building scalable, user-friendly applications. I&apos;ve had the privilege of working on a wide range of projects, from developing live video-calling features to designing enterprise-level software solutions.</p>
           <p> Aside from my software development career, I&apos;m also deeply interested in sharing my personal growth and learning experiences. On this blog, you&apos;ll find posts documenting my journey as an English as a Second Language (ESL) learner, insights into my fitness routine, and reflections on the ever-evolving world of technology.</p>
           <p>I believe in continuous improvement, whether it&apos;s mastering new tech stacks or pushing my limits in the gym. Whether you&apos;re here for tech insights or just curious about my personal stories, I hope you’ll find something helpful or inspiring. Thanks for stopping by—let’s learn and grow together! </p> */}
-            <p>Hi, I’m Sajit Khadka! I’m a passionate software developer who loves bringing ideas to life through code.</p>
-            <p>When I&apos;m not immersed in tech, you&apos;ll likely find me binge-watching the latest TV shows or anime, reading or trying out new hobbies. Fitness is important to me, and I enjoy working out regularly to stay in shape.</p>
+
+            <p dangerouslySetInnerHTML={{ __html: aboutMe || "" }} />
           </div>
         </div>
       </div>

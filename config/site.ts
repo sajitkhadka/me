@@ -10,11 +10,6 @@ export const siteConfig = {
     github: "https://github.com/sajitkhadka",
   },
   avatarUrl: "https://sajit.me/avatar.png",
-  // links: {
-  //   twitter: "https://twitter.com/jollyshopland",
-  //   github: "https://github.com/jolbol1",
-  //   personalSite: "https://jamesshopland.com",
-  // },
 };
 
 export type SiteConfig = typeof siteConfig;

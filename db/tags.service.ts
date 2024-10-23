@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 export type Tags = (Tag & { _count: { blogPostTags: number; }; })[]
 
 export class TagService {
-    async getAllTags(options: { published?: boolean } = { published: true }): Promise<Tags> {
+    async getAllTags(): Promise<Tags> {
         const session = await auth();
         return prisma.tag.findMany({
             select: {

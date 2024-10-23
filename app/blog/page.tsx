@@ -2,7 +2,6 @@ import blogPostService from "@/db/blogpost.service";
 import { Metadata } from "next";
 import Posts from "./posts";
 import TagComponent from "./tags-sidebar";
-import { auth } from "@/auth";
 
 export const metadata: Metadata = {
   title: "Sajit Khadka's Blog",
@@ -16,7 +15,7 @@ export const metadata: Metadata = {
     title: "Sajit Khadka's Blog",
     description:
       "Personal blog of Sajit Khadka, a software engineer and web developer. He writes about his experiences, thoughts and opinions on technology, development and life.",
-    images: ["https://sajit.me/images/sajit-khadka.jpg"],
+    // images: ["https://sajit.me/images/sajit-khadka.jpg"],
     creator: "@sajitkhadka",
   },
 };
@@ -48,14 +47,12 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     (await blogPostService.getBlogPostCount()) / POSTS_PER_PAGE
   );
 
-  const displayPosts = allPosts;
-
 
   return (
     <div className="container flex flex-col-reverse max-w-6xl py-6 gap-10 lg:py-10 sm:grid sm:grid-cols-12">
       <div className="col-span-12 col-start-1 sm:col-span-9">
         <Posts
-          displayPosts={displayPosts}
+          displayPosts={allPosts}
           totalPages={totalPages}
         />
       </div>

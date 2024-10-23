@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { notFound } from "next/navigation"
+import { Metadata, ResolvingMetadata } from 'next'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
@@ -13,6 +14,49 @@ import AuthorCard from "./author-card"
 interface PostPageProps {
   params: {
     id: string
+  }
+}
+
+export async function generateMetadata(
+  { params }: PostPageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const post = await blogPostService.getBlogPostById(params.id)
+
+  if (!post) {
+    return {
+      title: 'Post Not Found',
+    }
+  }
+
+  const previousImages = (await parent).openGraph?.images || []
+
+  return {
+    title: post.title,
+    description: post.content.substring(0, 160), // First 160 characters as description
+    openGraph: {
+      title: post.title,
+      description: post.content.substring(0, 160),
+      type: 'article',
+      publishedTime: post.createdAt.toISOString(),
+      authors: post?.author?.name ? [post?.author?.name] : [],
+      tags: post.tags?.map(tag => tag.tag.name),
+      images: [
+        {
+          url: post.coverImage || '/default-og-image.jpg', // Assuming you have a coverImage field, otherwise use a default
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+        ...previousImages,
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.content.substring(0, 160),
+      images: [post.coverImage || '/default-og-image.jpg'],
+    },
   }
 }
 

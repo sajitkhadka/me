@@ -4,6 +4,7 @@ model User {
     username      String?         @unique
     email         String?         @unique
     emailVerified DateTime?
+    description   String?
     image         String?
     accounts      Account[]
     sessions      Session[]
