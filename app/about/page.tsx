@@ -1,5 +1,4 @@
 import ParticlesAnimation from "@/components/animation/particles-animation";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { siteConfig } from "@/config/site";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -16,13 +15,13 @@ export const metadata: Metadata = {
     title: "About Me - Sajit Khadka",
     description:
       "Personal blog of Sajit Khadka, a software engineer and web developer. He writes about his experiences, thoughts and opinions on technology, development and life.",
-    images: [siteConfig.avatarUrl],
+    images: [siteConfig.author.avatarUrl],
     creator: "@sajitkhadka",
   },
 };
 
 export default async function AboutPage() {
-  const aboutMe = await getAboutMe();
+  const { description, image, author, title } = await getAboutMe();
   return (
     <div className="container max-w-6xl py-6 lg:py-10">
       <ParticlesAnimation />
@@ -37,20 +36,16 @@ export default async function AboutPage() {
         <hr className="my-8" />
         <div className="flex flex-col md:flex-row gap-10 items-center md:items-start">
           <div className="min-w-48 max-w-48 flex flex-col gap-2">
-            <Image src="/avatar.png" alt={siteConfig.author} width={200} height={200} />
+            <Image src={image ? `/api/image/${image}` : siteConfig.author.avatarUrl} alt={author || siteConfig.author.name} width={200} height={200} />
             <h2 className="text-2xl font-bold text-center break-words">
-              {siteConfig.author}
+              {author || siteConfig.author.name}
             </h2>
             <p className="text-muted-foreground text-center break-words">
-              Software Developer
+              {title || siteConfig.author.title}
             </p>
           </div>
           <div className="text-md py-4 flex flex-col gap-10">
-            {/* <p>Welcome to my blog! I&apos;m Sajit Khadka, a passionate software developer with over 6 years of experience in full-stack development. My journey in tech has been marked by a love for learning, problem-solving, and building scalable, user-friendly applications. I&apos;ve had the privilege of working on a wide range of projects, from developing live video-calling features to designing enterprise-level software solutions.</p>
-          <p> Aside from my software development career, I&apos;m also deeply interested in sharing my personal growth and learning experiences. On this blog, you&apos;ll find posts documenting my journey as an English as a Second Language (ESL) learner, insights into my fitness routine, and reflections on the ever-evolving world of technology.</p>
-          <p>I believe in continuous improvement, whether it&apos;s mastering new tech stacks or pushing my limits in the gym. Whether you&apos;re here for tech insights or just curious about my personal stories, I hope you’ll find something helpful or inspiring. Thanks for stopping by—let’s learn and grow together! </p> */}
-
-            <p dangerouslySetInnerHTML={{ __html: aboutMe || "" }} />
+            <p dangerouslySetInnerHTML={{ __html: description || siteConfig.author.description }} />
           </div>
         </div>
       </div>

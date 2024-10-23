@@ -6,7 +6,7 @@ import { Calendar, MessageCircle, ThumbsUp } from 'lucide-react'
 interface ReactionBarProps {
     reactionsCount: number
     commentsCount: number
-    postId: string
+    postId: number
     createdDate: Date
 }
 

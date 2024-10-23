@@ -50,7 +50,7 @@ export default function RootLayout({
               <SiteHeader />
               <main className="flex-1">{children}</main>
               <SiteFooter />
-              <GoogleAnalytics gaId={siteConfig.gaId} />
+              {process.env.GAID && <GoogleAnalytics gaId={process.env.GAID} />}
             </div>
           </SessionProvider>
         </ThemeProvider>

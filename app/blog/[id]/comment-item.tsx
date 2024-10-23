@@ -10,7 +10,7 @@ import CommentForm from './comment-form'
 
 interface CommentItemProps {
     comment: IComment
-    postId: string
+    postId: number
     depth?: number,
     onAddReply?: (comment: IComment) => void
 }

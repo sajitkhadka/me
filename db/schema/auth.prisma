@@ -6,6 +6,7 @@ model User {
     emailVerified DateTime?
     description   String?
     image         String?
+    title         String?
     accounts      Account[]
     sessions      Session[]
     // Optional for WebAuthn support

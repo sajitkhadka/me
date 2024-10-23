@@ -12,7 +12,7 @@ export type IComment = Comment & {
 class CommentService {
   async createComment(
     content: string,
-    blogPostId: string,
+    blogPostId: number,
     parentCommentId?: string,
     userId?: string
   ): Promise<IComment> {
@@ -34,7 +34,7 @@ class CommentService {
     });
   }
 
-  async getCommentsByBlogPostId(blogPostId: string, pagination: Pagination): Promise<(IComment)[]> {
+  async getCommentsByBlogPostId(blogPostId: number, pagination: Pagination): Promise<(IComment)[]> {
     return prisma.comment.findMany({
       where: {
         blogPostId,
@@ -77,7 +77,7 @@ class CommentService {
     });
   }
 
-  async getCommentCountByBlogPostId(blogPostId: string): Promise<number> {
+  async getCommentCountByBlogPostId(blogPostId: number): Promise<number> {
     return prisma.comment.count({
       where: {
         blogPostId,

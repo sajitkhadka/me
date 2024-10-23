@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Pencil } from "lucide-react"
 import { User } from "@prisma/client"
+import { siteConfig } from "@/config/site"
 
 export default function AuthorCard({ author }: { author: User }) {
     return (
@@ -15,9 +16,9 @@ export default function AuthorCard({ author }: { author: User }) {
             </CardHeader>
             <CardContent className="py-0 m-0">
                 <div className="flex items-start gap-4">
-                    {author.name && author.image && <Image
-                        src={author.image}
-                        alt={author.name}
+                    {<Image
+                        src={author.image ? `/api/image/${author.image}` : siteConfig.author.avatarUrl}
+                        alt={author.name || siteConfig.author.name}
                         width={80}
                         height={80}
                         className="rounded-full"

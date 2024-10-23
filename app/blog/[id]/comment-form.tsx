@@ -9,7 +9,7 @@ import { useFormStatus } from 'react-dom'
 import { createComment } from './actions'
 
 interface CommentFormProps {
-    postId: string
+    postId: number
     parentId?: string
     onCommentAdded?: (comment: IComment) => void
 }

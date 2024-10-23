@@ -20,7 +20,7 @@ export default function Posts({ displayPosts, totalPages }: { displayPosts: Blog
                         {displayPosts.map((post) => (
                             <li key={post.id}>
                                 <PostItem
-                                    slug={post.id}
+                                    postId={post.id}
                                     date={post.createdAt.toISOString()}
                                     title={post.title}
                                     summary={post.summary}

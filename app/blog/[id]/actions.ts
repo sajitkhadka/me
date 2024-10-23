@@ -16,7 +16,7 @@ export async function createComment(formData: FormData) {
         throw new Error('Missing required fields')
     }
     try {
-        return await commentService.createComment(content, postId, parentId, userId)
+        return await commentService.createComment(content, parseInt(postId), parentId, userId)
     } catch (error) {
         console.error('Error submitting comment:', error)
         throw new Error('Failed to submit comment. Please try again.')
@@ -27,11 +27,11 @@ export async function getRepliesByCommentId(commentId: string, limit: number, of
     return await commentService.getRepliesByCommentId(commentId, { limit, offset })
 }
 
-export async function addReaction(postId: string) {
+export async function addReaction(postId: number) {
     return await blogPostService.addReaction(postId)
 }
 
-export async function getCommentsByBlogPostId(postId: string, options: Pagination) {
+export async function getCommentsByBlogPostId(postId: number, options: Pagination) {
     return await commentService.getCommentsByBlogPostId(postId, options)
 }
 

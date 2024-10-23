@@ -1,15 +1,12 @@
-import Image from "next/image"
-import { notFound } from "next/navigation"
-import { Metadata, ResolvingMetadata } from 'next'
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Calendar } from "lucide-react"
 import blogPostService from '@/db/blogpost.service'
 import commentService from "@/db/comments.service"
 import { formatDate } from "@/lib/utils"
-import Comments from "./comments"
+import { Calendar } from "lucide-react"
+import { Metadata, ResolvingMetadata } from 'next'
+import { notFound } from "next/navigation"
 import AuthorCard from "./author-card"
+import Comments from "./comments"
 
 interface PostPageProps {
   params: {
@@ -21,7 +18,7 @@ export async function generateMetadata(
   { params }: PostPageProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const post = await blogPostService.getBlogPostById(params.id)
+  const post = await blogPostService.getBlogPostById(parseInt(params.id))
 
   if (!post) {
     return {
@@ -43,7 +40,7 @@ export async function generateMetadata(
       tags: post.tags?.map(tag => tag.tag.name),
       images: [
         {
-          url: post.coverImage || '/default-og-image.jpg', // Assuming you have a coverImage field, otherwise use a default
+          url: `/api/image/${post.coverImage}`,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -55,15 +52,16 @@ export async function generateMetadata(
       card: 'summary_large_image',
       title: post.title,
       description: post.content.substring(0, 160),
-      images: [post.coverImage || '/default-og-image.jpg'],
+      images: [`/api/image/${post.coverImage}`],
     },
   }
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const post = await blogPostService.getBlogPostById(params.id)
-  const initialComments = await commentService.getCommentsByBlogPostId(params.id, { limit: 5, offset: 0 })
-  const totalComments = await commentService.getCommentCountByBlogPostId(params.id)
+  const id = parseInt(params.id)
+  const post = await blogPostService.getBlogPostById(id)
+  const initialComments = await commentService.getCommentsByBlogPostId(id, { limit: 5, offset: 0 })
+  const totalComments = await commentService.getCommentCountByBlogPostId(id)
 
   if (!post) {
     notFound()

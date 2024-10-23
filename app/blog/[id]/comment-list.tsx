@@ -8,7 +8,7 @@ import { getCommentsByBlogPostId } from './actions'
 
 interface CommentListProps {
     initialComments: IComment[]
-    postId: string
+    postId: number
     totalComments: number
 }
 

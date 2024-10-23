@@ -9,7 +9,7 @@ import { addReaction } from './actions'
 interface ReactionBarProps {
     reactionsCount: number
     commentsCount: number
-    postId: string
+    postId: number
 }
 
 

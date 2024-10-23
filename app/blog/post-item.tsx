@@ -8,7 +8,7 @@ import Reaction from "./reaction";
 // import Reaction from "./reaction";
 
 interface PostItemProps {
-  slug: string;
+  postId: number;
   title: string;
   summary?: string;
   date: string;
@@ -18,7 +18,7 @@ interface PostItemProps {
 }
 
 export function PostItem({
-  slug,
+  postId,
   title,
   summary,
   date,
@@ -32,7 +32,7 @@ export function PostItem({
         <div>
           <div>
             <h2 className="text-xl font-medium">
-              <Link href={"/blog/" + slug}>{title}</Link>
+              <Link href={"/blog/" + postId}>{title}</Link>
             </h2>
           </div>
           <div className="flex gap-2 mt-3">
@@ -49,12 +49,12 @@ export function PostItem({
           <Reaction
             reactionsCount={totalReactions}
             commentsCount={totalComments}
-            postId={slug}
+            postId={postId}
             createdDate={new Date(date)}
           />
         </dl>
         <Link
-          href={"/blog/" + slug}
+          href={"/blog/" + postId}
           className={cn(buttonVariants({ variant: "link" }), "py-0")}
         >
           Read more →

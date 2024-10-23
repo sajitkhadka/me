@@ -7,7 +7,7 @@ import CommentList from './comment-list'
 import ReactionBar from './reaction-bar'
 
 interface CommentsProps {
-    postId: string
+    postId: number
     initialComments: IComment[]
     totalComments: number
     totalReactions: number

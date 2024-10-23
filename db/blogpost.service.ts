@@ -44,7 +44,7 @@ class BlogPostService {
     });
   }
 
-  async getBlogPostById(id: string) {
+  async getBlogPostById(id: number) {
     const session = await auth();
     return prisma.blogPost.findUnique({
       where: {
@@ -114,7 +114,7 @@ class BlogPostService {
 
   }
 
-  async addReaction(blogPostId: string) {
+  async addReaction(blogPostId: number) {
     return prisma.blogPost.update({
       where: { id: blogPostId },
       data: {

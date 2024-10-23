@@ -1,5 +1,5 @@
 model BlogPost {
-    id         String        @id @default(uuid())
+    id         Int           @id @default(autoincrement())
     authorId   String
     title      String
     coverImage String?
@@ -12,6 +12,14 @@ model BlogPost {
     author     User          @relation(fields: [authorId], references: [id])
     comments   Comment[]
     tags       BlogPostTag[]
+    images     Image[]
+}
+
+model Image {
+    id         String    @id @default(uuid())
+    blogPostId Int?
+    image      String
+    blogPost   BlogPost? @relation(fields: [blogPostId], references: [id])
 }
 
 model Comment {
@@ -23,7 +31,7 @@ model Comment {
     upvotes         Int       @default(0)
     downvotes       Int       @default(0)
     userId          String?
-    blogPostId      String
+    blogPostId      Int
     user            User?     @relation(fields: [userId], references: [id])
     blogPost        BlogPost  @relation(fields: [blogPostId], references: [id])
     // Self-relation for nested comments (replies)
@@ -32,7 +40,7 @@ model Comment {
 }
 
 model Tag {
-    id           String        @id @default(uuid())
+    id           Int           @id @default(autoincrement())
     name         String        @unique
     blogPostTags BlogPostTag[]
     createdAt    DateTime      @default(now())
@@ -40,8 +48,8 @@ model Tag {
 }
 
 model BlogPostTag {
-    blogPostId String
-    tagId      String
+    blogPostId Int
+    tagId      Int
     blogPost   BlogPost @relation(fields: [blogPostId], references: [id])
     tag        Tag      @relation(fields: [tagId], references: [id])
 
