@@ -21,6 +21,7 @@ const getExtensionFromContentType = (contentType: string | undefined): string =>
 
 export async function GET(req: NextRequest, { params }: { params: { fileName: string } }) {
     const { fileName } = params;
+    console.log("requested", fileName);
 
     if (!fileName || typeof fileName !== 'string') {
         return NextResponse.json({ error: 'File ID is required' }, { status: 400 });
@@ -50,7 +51,8 @@ export async function GET(req: NextRequest, { params }: { params: { fileName: st
             headers: {
                 'Content-Type': contentType || 'application/octet-stream',
                 'Content-Disposition': `attachment; filename="${fileName}.${fileExtension}"`,
-                'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=600',
+                // 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=600',
+                'Cache-Control': 'public, max-age=31536000, immutable'
             },
         });
 

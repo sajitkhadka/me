@@ -1,7 +1,6 @@
 'use client'
 
 import { DataItem, MultiSelect } from '@/components/custom-ui/multi-select'
-import Editor from '@/components/editor/advanced-editor'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -9,21 +8,15 @@ import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Textarea } from '@/components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useSession } from 'next-auth/react'
 import { useEffect, useState, useTransition } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { createBlogPost, fetchTags } from './actions'
 import './prosemirror.css'
-import { SessionProvider, useSession } from 'next-auth/react';
 
-import { Tags } from '@/db/tags.service'
-import CodeBlock from '@tiptap/extension-code-block'
-import Document from '@tiptap/extension-document'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
-import { generateJSON } from '@tiptap/html'
-import { auth } from '@/auth'
 import { getUserSession } from '@/app/auth/login/actions'
+import { Tags } from '@/db/tags.service'
 
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required').max(100, 'Title must be 100 characters or less'),
@@ -129,10 +122,11 @@ export default function CreateBlogPost() {
                             name="content"
                             control={control}
                             render={({ field }) => (
-                                <Editor
-                                    initialValue={generateJSON(field.value, [Document, Paragraph, Text, CodeBlock])}
-                                    onChange={(value) => setValue('content', value)}
-                                />
+                                // <Editor
+                                //     initialValue={generateJSON(field.value, [Document, Paragraph, Text, CodeBlock])}
+                                //     onChange={(value) => setValue('content', value)}
+                                // />
+                                <div>editor</div>
                             )}
                         />
                         {errors.content && <p className="text-sm text-red-500">{errors.content.message}</p>}
