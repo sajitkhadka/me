@@ -7,6 +7,7 @@ model BlogPost {
     summary    String        @default("")
     content    String        @default("")
     reaction   Int           @default(0)
+    deprecated Boolean       @default(false)
     createdAt  DateTime      @default(now())
     updatedAt  DateTime      @updatedAt
     author     User          @relation(fields: [authorId], references: [id])
