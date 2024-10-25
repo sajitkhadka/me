@@ -13,10 +13,10 @@ import { useEffect, useState, useTransition } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { createBlogPost, fetchTags } from './actions'
-import './prosemirror.css'
 
 import { getUserSession } from '@/app/auth/login/actions'
 import { Tags } from '@/db/tags.service'
+import { Editor } from '@/editor'
 
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required').max(100, 'Title must be 100 characters or less'),
@@ -122,11 +122,10 @@ export default function CreateBlogPost() {
                             name="content"
                             control={control}
                             render={({ field }) => (
-                                // <Editor
-                                //     initialValue={generateJSON(field.value, [Document, Paragraph, Text, CodeBlock])}
-                                //     onChange={(value) => setValue('content', value)}
-                                // />
-                                <div>editor</div>
+                                <Editor
+                                    // initialValue={generateJSON(field.value, [Document, Paragraph, Text, CodeBlock])}
+                                    onChange={(value) => setValue('content', value)}
+                                />
                             )}
                         />
                         {errors.content && <p className="text-sm text-red-500">{errors.content.message}</p>}
