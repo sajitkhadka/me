@@ -73,25 +73,25 @@ export const ImageBlock = Image.extend({
     return {
       setImageBlock:
         attrs =>
-        ({ commands }) => {
-          return commands.insertContent({ type: 'imageBlock', attrs: { src: attrs.src } })
-        },
+          ({ commands }) => {
+            return commands.insertContent({ type: 'imageBlock', attrs: { src: attrs.src } })
+          },
 
       setImageBlockAt:
         attrs =>
-        ({ commands }) => {
-          return commands.insertContentAt(attrs.pos, { type: 'imageBlock', attrs: { src: attrs.src } })
-        },
+          ({ commands }) => {
+            return commands.insertContentAt(attrs.pos, { type: 'imageBlock', attrs: { src: attrs.src } })
+          },
 
       setImageBlockAlign:
         align =>
-        ({ commands }) =>
-          commands.updateAttributes('imageBlock', { align }),
+          ({ commands }) =>
+            commands.updateAttributes('imageBlock', { align }),
 
       setImageBlockWidth:
         width =>
-        ({ commands }) =>
-          commands.updateAttributes('imageBlock', { width: `${Math.max(0, Math.min(100, width))}%` }),
+          ({ commands }) =>
+            commands.updateAttributes('imageBlock', { width: `${Math.max(0, Math.min(100, width))}%` }),
     }
   },
 
