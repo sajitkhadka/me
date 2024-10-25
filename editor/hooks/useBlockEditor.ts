@@ -19,7 +19,7 @@ export const useBlockEditor = ({ initialContent }: { initialContent: Content }) 
           ctx.editor.commands.focus('start', { scrollIntoView: true })
         }
       },
-      content: initialContent,
+      // content: initialContent,
       extensions: ExtensionKit().filter((e): e is AnyExtension => e !== undefined),
       editorProps: {
         attributes: {

@@ -16,10 +16,17 @@ model BlogPost {
 }
 
 model Image {
-    id         String    @id @default(uuid())
-    blogPostId Int?
+    id         String   @id @default(uuid())
+    blogPostId Int
+    image      String // Image URL or path to storage
+    uploadedAt DateTime @default(now())
+    blogPost   BlogPost @relation(fields: [blogPostId], references: [id])
+}
+
+model PendingImage {
+    id         String   @id @default(uuid())
     image      String
-    blogPost   BlogPost? @relation(fields: [blogPostId], references: [id])
+    uploadedAt DateTime @default(now()) // In case you need more control
 }
 
 model Comment {

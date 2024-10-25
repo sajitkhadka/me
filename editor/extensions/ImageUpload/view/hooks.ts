@@ -1,17 +1,17 @@
 import { DragEvent, useCallback, useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
-import { API } from '@/lib/api'
+import { ImageApi } from '@/lib/api/ImageApi'
 
-export const useUploader = ({ onUpload }: { onUpload: (url: string) => void }) => {
+export const useUploader = ({ onUpload }: { onUpload: (url: string, imageId: string) => void }) => {
   const [loading, setLoading] = useState(false)
 
   const uploadFile = useCallback(
     async (file: File) => {
       setLoading(true)
       try {
-        const { url } = await API.uploadImage(file)
+        const { url, imageId } = await ImageApi.upload(file)
 
-        onUpload(url)
+        onUpload(url, imageId)
       } catch (errPayload: any) {
         const error = errPayload?.response?.data?.error || 'Something went wrong'
         toast.error(error)

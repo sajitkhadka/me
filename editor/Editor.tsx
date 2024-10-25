@@ -25,6 +25,25 @@ export const Editor = ({ onChange }: { onChange: (content: string) => void }) =>
 
   editor.on('update', ({ editor }) => {
     onChange(editor.getHTML())
+    console.log(editor.storage.imageTracker.uploadedImages)
+    // const state = editor.state
+    // const removedImages: Array<{ imageId: string, url: string }> = [] // Array to track removed images
+
+    // // Check for changes to the document
+    // if (state.doc.content.size !== state.prevDoc?.content.size) {
+    //   state.doc.descendants((node, pos) => {
+    //     // Assuming you have an image node type called 'imageBlock'
+    //     if (node.type.name === 'imageBlock' && !node.attrs.src) {
+    //       const imageId = node.attrs.imageId // Assuming you have stored the imageId in node attributes
+    //       removedImages.push(imageId)
+    //     }
+    //   })
+    // }
+
+    // // Remove the images from the tracker
+    // removedImages.forEach(imageId => {
+    //   editor.commands.removeImageFromTracker(imageId)
+    // })
   })
 
   return (

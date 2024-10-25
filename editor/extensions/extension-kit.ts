@@ -1,5 +1,6 @@
 'use client'
-import { API } from '@/lib/api'
+
+import { ImageApi } from '@/lib/api/ImageApi'
 import {
   BlockquoteFigure,
   CharacterCount,
@@ -48,6 +49,7 @@ import {
 import { ImageUpload } from './ImageUpload'
 import { TableOfContentsNode } from './TableOfContentsNode'
 import { isChangeOrigin } from '@tiptap/extension-collaboration'
+import ImageTracker from './ImageTracker/ImageTracker'
 
 export const ExtensionKit = () => [
   Document,
@@ -106,19 +108,19 @@ export const ExtensionKit = () => [
     },
   }),
   ImageBlock,
+  ImageTracker,
   FileHandler.configure({
     allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
     onDrop: (currentEditor, files, pos) => {
       files.forEach(async file => {
-        const { url } = await API.uploadImage(file)
-
+        const { url, imageId } = await ImageApi.upload(file)
+        currentEditor.commands.addImageToTracker({ imageId, url })
         currentEditor.chain().setImageBlockAt({ pos, src: url }).focus().run()
       })
     },
     onPaste: (currentEditor, files) => {
       files.forEach(async file => {
-        const { url } = await API.uploadImage(file)
-
+        const { url } = await ImageApi.upload(file)
         return currentEditor
           .chain()
           .setImageBlockAt({ pos: currentEditor.state.selection.anchor, src: url })

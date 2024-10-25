@@ -5,7 +5,7 @@ import { Icon } from '@/components/ui/Icon'
 import { cn } from '@/lib/utils'
 import { ChangeEvent, useCallback } from 'react'
 
-export const ImageUploader = ({ onUpload }: { onUpload: (url: string) => void }) => {
+export const ImageUploader = ({ onUpload }: { onUpload: (url: string, imageId: string) => void }) => {
   const { loading, uploadFile } = useUploader({ onUpload })
   const { handleUploadClick, ref } = useFileUpload()
   const { draggedInside, onDrop, onDragEnter, onDragLeave } = useDropZone({ uploader: uploadFile })

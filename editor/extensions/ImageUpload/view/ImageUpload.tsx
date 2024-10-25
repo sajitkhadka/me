@@ -5,8 +5,9 @@ import { ImageUploader } from './ImageUploader'
 
 export const ImageUpload = ({ getPos, editor }: { getPos: () => number; editor: Editor }) => {
   const onUpload = useCallback(
-    (url: string) => {
+    (url: string, imageId: string) => {
       if (url) {
+        editor.commands.addImageToTracker({ imageId, url })
         editor.chain().setImageBlock({ src: url }).deleteRange({ from: getPos(), to: getPos() }).focus().run()
       }
     },
