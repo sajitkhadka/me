@@ -1,12 +1,9 @@
-import { siteConfig } from "@/config/site";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { buttonVariants } from "../ui/button";
-import { Icons } from "../custom-ui/icons";
+
 import { MainNav } from "./main-nav";
 import { MobileNav } from "./mobile-nav";
 import { ModeToggle } from "./mode-toggle";
 import { auth } from "@/auth";
+import SignOutButton from "./sign-out";
 
 export async function SiteHeader() {
   const session = await auth();
@@ -46,7 +43,10 @@ export async function SiteHeader() {
                 <span className="sr-only">Twitter</span>
               </div>
             </Link> */}
+
+
             <ModeToggle />
+            {session?.user ? <div className="hidden sm:block"><SignOutButton /> </div> : null}
             <MobileNav session={session} />
           </nav>
         </div>

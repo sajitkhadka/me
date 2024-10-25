@@ -48,7 +48,7 @@ export default function RootLayout({
           <SessionProvider>
             <div className="relative flex min-h-dvh flex-col bg-background">
               <SiteHeader />
-              <main className="flex-1">{children}</main>
+              <main className="flex-grow flex">{children}</main>
               <SiteFooter />
               {process.env.GAID && <GoogleAnalytics gaId={process.env.GAID} />}
             </div>

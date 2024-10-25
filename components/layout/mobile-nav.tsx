@@ -10,6 +10,8 @@ import { Icons } from '../custom-ui/icons'
 import { MobileLink } from './nav-link'
 import { navItems, NavProps } from './main-nav'
 import { Session } from 'next-auth'
+import SignOutButton from './sign-out'
+import { Separator } from '../ui/separator'
 
 
 
@@ -52,6 +54,8 @@ export function MobileNav({ session }: NavProps) {
             ) : null
           })}
         </div>
+        <Separator className='my-4' />
+        {session?.user ? <SignOutButton variant="link" className='p-0' /> : null}
       </SheetContent>
     </Sheet>
   )
