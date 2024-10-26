@@ -133,6 +133,7 @@ class BlogPostService {
     return await prisma.blogPost.create({
       data: {
         ...data,
+        coverImage: data.coverImage?.url,
         published: false,
         reaction: 0,
         tags: {

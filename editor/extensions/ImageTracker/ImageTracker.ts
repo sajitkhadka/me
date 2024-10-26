@@ -1,10 +1,10 @@
 import { Extension, Command, RawCommands } from '@tiptap/core'
 import { Plugin } from '@tiptap/pm/state';
-
+export type ImageType = { imageId: string; url: string }
 declare module '@tiptap/core' {
     interface Commands<ReturnType> {
         imageTracker: {
-            addImageToTracker: (image: { imageId: string; url: string }) => ReturnType
+            addImageToTracker: (image: ImageType) => ReturnType
             removeImageFromTracker: (imageId: string) => ReturnType
         }
     }
@@ -15,14 +15,14 @@ export const ImageTracker = Extension.create({
 
     addStorage() {
         return {
-            uploadedImages: [] as Array<{ imageId: string, url: string }>,
+            uploadedImages: [] as Array<ImageType>,
         }
     },
 
     addCommands() {
         return {
             addImageToTracker:
-                (image: { imageId: string; url: string }): Command =>
+                (image: ImageType): Command =>
                     ({ editor }) => {
                         editor.storage.imageTracker.uploadedImages.push(image)
                         return true
@@ -30,7 +30,7 @@ export const ImageTracker = Extension.create({
             removeImageFromTracker:
                 (imgSrc: string): Command =>
                     ({ editor }) => {
-                        const index = editor.storage.imageTracker.uploadedImages.findIndex((img: any) => img.url === imgSrc)
+                        const index = editor.storage.imageTracker.uploadedImages.findIndex((img: ImageType) => img.url === imgSrc)
                         if (index !== -1) {
                             editor.storage.imageTracker.uploadedImages.splice(index, 1)
                         }

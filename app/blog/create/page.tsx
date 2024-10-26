@@ -17,12 +17,18 @@ import { createBlogPost, fetchTags } from './actions'
 import { getUserSession } from '@/app/auth/login/actions'
 import { Tags } from '@/db/tags.service'
 import { Editor } from '@/editor'
-
+import ImageUploader from '@/components/custom-ui/ImageUploader'
+const imageSchema = z.object({
+    url: z.string().trim().min(1),
+    imageId: z.string().trim().min(1),
+})
 const formSchema = z.object({
     title: z.string().min(1, 'Title is required').max(100, 'Title must be 100 characters or less'),
     summary: z.string().min(1, 'Summary is required').max(300, 'Summary must be 300 characters or less'),
     content: z.string().min(1, 'Content is required'),
     tags: z.array(z.string()).min(1, 'At least one tag is required'),
+    coverImage: imageSchema.optional(),
+    uploadedImages: z.array(imageSchema),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -33,7 +39,7 @@ export default function CreateBlogPost() {
     const [submitError, setSubmitError] = useState('')
     const [selectedItems, setSelectedItems] = useState<DataItem[]>([]);
     const [inputValue, setInputValue] = useState("");
-    const { data: session, status } = useSession();
+
     const [success, setSuccess] = useState(false);
     const {
         control,
@@ -46,7 +52,9 @@ export default function CreateBlogPost() {
             title: '',
             summary: '',
             content: '',
+            coverImage: undefined,
             tags: [],
+            uploadedImages: [],
         },
     })
 
@@ -67,9 +75,13 @@ export default function CreateBlogPost() {
                 return;
             }
             const result = await createBlogPost({
-                ...data,
-                authorId: session?.user?.id
-            })
+                content: data.content,
+                summary: data.summary,
+                title: data.title,
+                coverImage: data.coverImage,
+                tags: data.tags,
+                authorId: session?.user?.id,
+            }, data.uploadedImages)
             if (result.success) {
                 setSuccess(true);
             } else {
@@ -115,6 +127,21 @@ export default function CreateBlogPost() {
                     </div>
 
                     <div className="space-y-2">
+                        <label htmlFor="coverImage" className="text-sm font-medium">
+                            Cover Image
+                        </label>
+                        <Controller
+                            name="coverImage"
+                            control={control}
+                            render={({ field }) => <ImageUploader onUpload={(url, imageId) => {
+                                setValue('coverImage', { url, imageId })
+                                console.log(url, imageId)
+                            }} />}
+                        />
+                        {errors.coverImage && <p className="text-sm text-red-500">{errors.coverImage.message}</p>}
+                    </div>
+
+                    <div className="space-y-2">
                         <label htmlFor="content" className="text-sm font-medium">
                             Content
                         </label>
@@ -124,11 +151,15 @@ export default function CreateBlogPost() {
                             render={({ field }) => (
                                 <Editor
                                     // initialValue={generateJSON(field.value, [Document, Paragraph, Text, CodeBlock])}
-                                    onChange={(value) => setValue('content', value)}
+                                    onChange={(value, uploadedImages) => {
+                                        setValue('content', value)
+                                        setValue('uploadedImages', uploadedImages)
+                                    }}
                                 />
                             )}
                         />
                         {errors.content && <p className="text-sm text-red-500">{errors.content.message}</p>}
+                        {errors.uploadedImages && <p className="text-sm text-red-500 mt-4">{errors.uploadedImages.message}</p>}
                     </div>
 
                     <div className="space-y-2">

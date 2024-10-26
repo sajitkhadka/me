@@ -1,5 +1,5 @@
 import { Spinner } from '@/components/ui/Spinner'
-import { useDropZone, useFileUpload, useUploader } from './hooks'
+import { useDropZone, useFileUpload, useUploader } from '@/hooks/image-upload'
 import { Button } from '@/components/ui/button'
 import { Icon } from '@/components/ui/Icon'
 import { cn } from '@/lib/utils'

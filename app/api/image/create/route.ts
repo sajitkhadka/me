@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
         // Delete the temporary file
         fs.unlinkSync(tempPath);
 
-        const pendingImage = await imageService.uploadImage(response.data.id);
+        const pendingImage = await imageService.createPendingImage(response.data.id);
 
         return NextResponse.json({ fileId: response.data.id, imageId: pendingImage.id });
     } catch (error) {
