@@ -70,7 +70,7 @@ export default async function PostPage({ params }: PostPageProps) {
   return (
     <div className="container py-6 max-w-3xl mx-auto">
       <article className="prose dark:prose-invert max-w-none">
-        <h1 className="mb-4">{post.title}</h1>
+        <h1 className="mb-4 text-2xl">{post.title}</h1>
         <div className="flex items-center gap-4 mb-6">
           <div className="flex items-center text-sm text-muted-foreground">
             <Calendar className="w-4 h-4 mr-2" />

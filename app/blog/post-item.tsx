@@ -44,7 +44,7 @@ export function PostItem({
 
       </div>
       <div className="max-w-none text-muted-foreground">{summary}</div>
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col justify-start sm:justify-between sm:items-center  sm:flex-row">
         <dl>
           <Reaction
             reactionsCount={totalReactions}
@@ -55,7 +55,7 @@ export function PostItem({
         </dl>
         <Link
           href={"/blog/" + postId}
-          className={cn(buttonVariants({ variant: "link" }), "py-0")}
+          className={cn(buttonVariants({ variant: "link" }), "py-0 justify-start")}
         >
           Read more →
         </Link>

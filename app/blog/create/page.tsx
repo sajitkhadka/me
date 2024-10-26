@@ -8,16 +8,18 @@ import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Textarea } from '@/components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useSession } from 'next-auth/react'
 import { useEffect, useState, useTransition } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { createBlogPost, fetchTags } from './actions'
 
 import { getUserSession } from '@/app/auth/login/actions'
+import ImageUploader from '@/components/custom-ui/ImageUploader'
 import { Tags } from '@/db/tags.service'
 import { Editor } from '@/editor'
-import ImageUploader from '@/components/custom-ui/ImageUploader'
+import { X } from 'lucide-react'
+import Image from 'next/image'
+
 const imageSchema = z.object({
     url: z.string().trim().min(1),
     imageId: z.string().trim().min(1),
@@ -44,8 +46,9 @@ export default function CreateBlogPost() {
     const {
         control,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, },
         setValue,
+        getValues
     } = useForm<FormData>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -57,6 +60,7 @@ export default function CreateBlogPost() {
             uploadedImages: [],
         },
     })
+
 
     useEffect(() => {
         startTransition(() => {
@@ -133,10 +137,33 @@ export default function CreateBlogPost() {
                         <Controller
                             name="coverImage"
                             control={control}
-                            render={({ field }) => <ImageUploader onUpload={(url, imageId) => {
-                                setValue('coverImage', { url, imageId })
-                                console.log(url, imageId)
-                            }} />}
+                            render={({ field }) => (
+                                field.value?.url ? (
+                                    <div className="relative">
+                                        <Image
+                                            src={field.value.url}
+                                            alt="Uploaded cover"
+                                            width={400}
+                                            height={300}
+                                            className="w-full h-auto rounded-lg"
+                                        />
+                                        <button
+                                            onClick={() => {
+                                                setValue('coverImage', undefined)
+                                            }}
+                                            className="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md"
+                                            aria-label="Remove image"
+                                        >
+                                            <X className="w-4 h-4 text-gray-600" />
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <ImageUploader onUpload={(url, imageId) => {
+                                        setValue('coverImage', { url, imageId })
+                                    }}
+                                    />
+                                )
+                            )}
                         />
                         {errors.coverImage && <p className="text-sm text-red-500">{errors.coverImage.message}</p>}
                     </div>

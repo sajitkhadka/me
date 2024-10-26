@@ -50,6 +50,7 @@ import { ImageUpload } from './ImageUpload'
 import { TableOfContentsNode } from './TableOfContentsNode'
 import { isChangeOrigin } from '@tiptap/extension-collaboration'
 import ImageTracker from './ImageTracker/ImageTracker'
+import History from '@tiptap/extension-history'
 
 export const ExtensionKit = () => [
   Document,
@@ -64,10 +65,10 @@ export const ExtensionKit = () => [
     levels: [1, 2, 3, 4, 5, 6],
   }),
   HorizontalRule,
-  UniqueID.configure({
-    types: ['paragraph', 'heading', 'blockquote', 'codeBlock', 'table'],
-    filterTransaction: transaction => !isChangeOrigin(transaction),
-  }),
+  // UniqueID.configure({
+  //   types: ['paragraph', 'heading', 'blockquote', 'codeBlock', 'table'],
+  //   filterTransaction: transaction => !isChangeOrigin(transaction),
+  // }),
   StarterKit.configure({
     document: false,
     dropcursor: false,
@@ -100,12 +101,12 @@ export const ExtensionKit = () => [
   TableOfContents,
   TableOfContentsNode,
   ImageUpload.configure({
-    clientId: 'image-upload',
-    onUpload: (url: string) => {
-      const image = document.createElement('img')
-      image.src = url
-      document.body.append(image)
-    },
+    // clientId: 'image-upload',
+    // onUpload: (url: string) => {
+    //   const image = document.createElement('img')
+    //   image.src = url
+    //   document.body.append(image)
+    // },
   }),
   ImageBlock,
   ImageTracker,
@@ -160,6 +161,10 @@ export const ExtensionKit = () => [
     width: 2,
     class: 'ProseMirror-dropcursor border-black',
   }),
+  History.configure({
+    depth: 25,
+  })
+
 ]
 
 export default ExtensionKit
