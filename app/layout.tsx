@@ -9,7 +9,8 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { JetBrains_Mono } from "next/font/google";
 import SessionProvider from "@/components/providers/session-provider";
 import { GoogleAnalytics } from "@next/third-parties/google";
-// const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from "@vercel/analytics/react"
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"], weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
@@ -51,6 +52,8 @@ export default function RootLayout({
               <main className="flex-grow flex">{children}</main>
               <SiteFooter />
               {process.env.GAID && <GoogleAnalytics gaId={process.env.GAID} />}
+              <SpeedInsights />
+              <Analytics />
             </div>
           </SessionProvider>
         </ThemeProvider>
