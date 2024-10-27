@@ -20,23 +20,31 @@ export const metadata: Metadata = {
   },
 };
 
+function isValidURL(str: string) {
+  try {
+    new URL(str);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+
 export default async function AboutPage() {
   const { description, image, author, title } = await getAboutMe();
   return (
-    <div className="container max-w-6xl py-6 lg:py-10">
+    <div className="container max-w-6xl py-3 lg:py-10">
       <ParticlesAnimation />
       <div className="relative z-10 pointer-events-none">
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
-          <div className="flex-1 space-x-4">
-            <h1 className="inline-block font-bold text-2xl lg:text-2xl">
-              About Me
-            </h1>
-          </div>
         </div>
-        <hr className="my-8" />
+        <div className="my-8" />
         <div className="flex flex-col md:flex-row gap-10 items-center md:items-start">
           <div className="min-w-48 max-w-48 flex flex-col gap-2">
-            <Image src={image ? `/api/image/${image}` : siteConfig.author.avatarUrl} alt={author || siteConfig.author.name} width={200} height={200} />
+            <div className="rounded-lg">
+              <Image src={image ? isValidURL(image) ? image : `/api/image/${image}` : siteConfig.author.avatarUrl} alt={author || siteConfig.author.name} width={200} height={200} />
+            </div>
+
             <h2 className="text-2xl font-bold text-center break-words">
               {author || siteConfig.author.name}
             </h2>
@@ -44,7 +52,7 @@ export default async function AboutPage() {
               {title || siteConfig.author.title}
             </p>
           </div>
-          <div className="text-md py-4 flex flex-col gap-10">
+          <div className="text-md py-4 flex flex-col gap-4">
             <p dangerouslySetInnerHTML={{ __html: description || siteConfig.author.description }} />
           </div>
         </div>

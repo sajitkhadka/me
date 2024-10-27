@@ -5,6 +5,7 @@ model User {
     email         String?         @unique
     emailVerified DateTime?
     description   String?
+    authorInfo    String?
     image         String?
     title         String?
     accounts      Account[]
