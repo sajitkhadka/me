@@ -1,7 +1,7 @@
 import { IPostData } from "@/app/blog/create/actions";
 import prisma from "@/lib/prisma";
 import { BlogPost, BlogPostTag, Comment, Tag, User } from "@prisma/client";
-import { Pagination } from "./types";
+import { BlogPostType, Pagination } from "./types";
 import { auth } from "@/auth";
 
 export type BlogPosts = (BlogPost & {
@@ -189,6 +189,61 @@ class BlogPostService {
     });
   }
 
+  async getPostByType(typeId: number) {
+    return prisma.blogPost.findFirst({
+      where: {
+        typeId,
+      },
+      include: {
+        author: true,
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
+        comments: {
+          include: {
+            user: true,
+          },
+          orderBy: {
+            createdAt: 'desc',
+          },
+        },
+      },
+    });
+  }
+
+  async update(id: number, data: IPostData) {
+    const session = await auth();
+    return prisma.blogPost.update({
+      where: {
+        id,
+        author: {
+          id: session?.user?.id,
+        },
+      },
+      data: {
+        ...data,
+        coverImage: data.coverImage?.url,
+        published: false,
+        reaction: 0,
+        tags: {
+          create: data.tags.map((tag) => ({
+            tag: {
+              connectOrCreate: {
+                where: {
+                  name: tag,
+                },
+                create: {
+                  name: tag,
+                },
+              },
+            },
+          })),
+        }
+      },
+    })
+  }
 
 }
 

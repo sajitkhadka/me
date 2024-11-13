@@ -10,10 +10,20 @@ model BlogPost {
     deprecated Boolean       @default(false)
     createdAt  DateTime      @default(now())
     updatedAt  DateTime      @updatedAt
+    typeId     Int
     author     User          @relation(fields: [authorId], references: [id])
+    type       BlogType      @relation(fields: [typeId], references: [id])
     comments   Comment[]
     tags       BlogPostTag[]
     images     Image[]
+}
+
+model BlogType {
+    id        Int        @id @default(autoincrement())
+    name      String
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    blogPosts BlogPost[]
 }
 
 model Image {

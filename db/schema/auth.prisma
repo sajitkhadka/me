@@ -4,7 +4,7 @@ model User {
     username      String?         @unique
     email         String?         @unique
     emailVerified DateTime?
-    description   String?
+    // description   String?
     authorInfo    String?
     image         String?
     title         String?
