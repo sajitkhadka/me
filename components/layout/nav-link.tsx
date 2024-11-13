@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from "@/lib/utils";
+import { absoluteUrl, cn } from "@/lib/utils";
 import Link, { LinkProps } from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -8,7 +8,7 @@ function NavLink({ href, children }: { href: string, children: React.ReactNode }
     const pathname = usePathname();
     return (
         <Link
-            href={href}
+            href={absoluteUrl(href)}
             className={cn(
                 "text-sm font-medium transition-colors hover:text-primary hidden sm:inline-block",
                 pathname === href ? "text-foreground" : "text-foreground/60"

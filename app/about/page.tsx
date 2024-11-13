@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { getAboutMe, getAuthor } from "./actions";
 import { Article } from "@/components/layout/article";
+import { absoluteUrl } from "@/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
   const aboutMe = await getAboutMe();
@@ -54,7 +55,7 @@ function isValidURL(str: string) {
 export default async function AboutPage() {
   const aboutMe = await getAboutMe();
   const { author, image } = await getAuthor();
-  const imageUrl = image ? isValidURL(image) ? image : `/api/image/${image}` : null;
+  const imageUrl = image ? isValidURL(image) ? image : absoluteUrl(`/api/image/${image}`) : null;
 
   return (
     <div className="container max-w-6xl py-3 lg:py-10">

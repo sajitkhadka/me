@@ -14,6 +14,14 @@ export type BlogPosts = (BlogPost & {
   };
 })[];
 class BlogPostService {
+
+  async getPublicBlogPosts(): Promise<BlogPost[]> {
+    return await prisma.blogPost.findMany({
+      where: {
+        published: true,
+      }
+    })
+  }
   async getAllBlogPosts(pagination: Pagination): Promise<BlogPosts> {
     const session = await auth();
     return await prisma.blogPost.findMany({

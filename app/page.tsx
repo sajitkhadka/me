@@ -1,7 +1,7 @@
 import Underline from "@/components/custom-ui/underline";
 import ParticlesAnimation from "@/components/animation/particles-animation";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { absoluteUrl, cn } from "@/lib/utils";
 import Link from "next/link";
 
 export const metadata = {
@@ -39,14 +39,14 @@ export default function Home() {
             </p> */}
             <div className="pt-4 flex flex-col sm:flex-row gap-4 pointer-events-auto">
               <Link
-                href="/blog"
+                href={absoluteUrl("/blog")}
                 className={cn(buttonVariants({ size: "sm", animation: "custom" }), "w-full sm:w-fit")}
               >
                 Explore my blog
               </Link>
 
               <Link
-                href="/about"
+                href={absoluteUrl("/about")}
                 className={cn(
                   buttonVariants({ variant: "outline", size: "sm", animation: "custom" }),
                   "w-full sm:w-fit"

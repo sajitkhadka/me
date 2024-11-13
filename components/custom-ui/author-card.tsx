@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
+import { absoluteUrl } from "@/lib/utils"
 import { User } from "@prisma/client"
 import { Pencil } from "lucide-react"
 import Image from "next/image"
@@ -9,7 +10,7 @@ export default function AuthorCard({ author }: { author: User }) {
             <CardContent className="py-0 m-0">
                 <div className="flex items-start gap-4 rounded-full">
                     <Image
-                        src={`/api/image/${author.image}`}
+                        src={absoluteUrl(`/api/image/${author.image}`)}
                         alt={author.name || "Author"}
                         width={80}
                         height={80}

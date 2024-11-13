@@ -5,6 +5,7 @@ import { Linkedin, Mail, X } from 'lucide-react';
 import { motion } from "framer-motion";
 import { Icons } from "../custom-ui/icons";
 import Link from "next/link";
+import { absoluteUrl } from "@/lib/utils";
 
 export function SiteFooter() {
   return (
@@ -30,7 +31,7 @@ export function SiteFooter() {
           </a>
         </div>
         <p className="text-sm text-muted-foreground">
-          <span>&copy; {new Date().getFullYear()}</span> Sajit Khadka | <span><Link href="/privacy-policy">Privacy Policy</Link></span>
+          <span>&copy; {new Date().getFullYear()}</span> Sajit Khadka | <span><Link href={absoluteUrl("/privacy-policy")}>Privacy Policy</Link></span>
         </p>
       </div>
     </motion.footer>

@@ -4,6 +4,7 @@ import commentService from "@/db/comments.service"
 import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from "next/navigation"
 import Comments from "./comments"
+import { absoluteUrl } from "@/lib/utils"
 
 interface PostPageProps {
   params: {
@@ -27,17 +28,17 @@ export async function generateMetadata(
 
   return {
     title: post.title,
-    description: post.content.substring(0, 160), // First 160 characters as description
+    description: post.summary,
     openGraph: {
       title: post.title,
-      description: post.content.substring(0, 160),
+      description: post.summary,
       type: 'article',
       publishedTime: post.createdAt.toISOString(),
       authors: post?.author?.name ? [post?.author?.name] : [],
       tags: post.tags?.map(tag => tag.tag.name),
       images: [
         {
-          url: `/api/image/${post.coverImage}`,
+          url: absoluteUrl(`/api/image/${post.coverImage}`),
           width: 1200,
           height: 630,
           alt: post.title,
@@ -48,8 +49,8 @@ export async function generateMetadata(
     twitter: {
       card: 'summary_large_image',
       title: post.title,
-      description: post.content.substring(0, 160),
-      images: [`/api/image/${post.coverImage}`],
+      description: post.summary,
+      images: [absoluteUrl(`/api/image/${post.coverImage}`)],
     },
   }
 }

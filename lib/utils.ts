@@ -42,3 +42,17 @@ export function sortTagsByCount(tags: Tags) {
   return tags.sort((a, b) => b._count.blogPostTags - a._count.blogPostTags);
 
 }
+
+export function absoluteUrl(path: string) {
+  let baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  if (!baseUrl) {
+    return path;
+  }
+  if (baseUrl.endsWith('/')) {
+    baseUrl = baseUrl.slice(0, -1);
+  }
+  if (path.startsWith('/')) {
+    path = path.slice(1);
+  }
+  return `${baseUrl}/${path}`;
+}
