@@ -1,11 +1,8 @@
-import { Badge } from "@/components/ui/badge"
+import { Article } from "@/components/layout/article"
 import blogPostService from '@/db/blogpost.service'
 import commentService from "@/db/comments.service"
-import { formatDate } from "@/lib/utils"
-import { Calendar } from "lucide-react"
 import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from "next/navigation"
-import AuthorCard from "./author-card"
 import Comments from "./comments"
 
 interface PostPageProps {
@@ -69,25 +66,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <div className="container py-6 max-w-3xl mx-auto">
-      <article className="prose dark:prose-invert max-w-none">
-        <h1 className="mb-4 text-2xl">{post.title}</h1>
-        <div className="flex items-center gap-4 mb-6">
-          <div className="flex items-center text-sm text-muted-foreground">
-            <Calendar className="w-4 h-4 mr-2" />
-            <time dateTime={post.createdAt.toDateString()}>{formatDate(post.createdAt.toDateString())}</time>
-          </div>
-          <div className="flex gap-2">
-            {post.tags?.map((tag) => (
-              <Badge key={tag.tagId} variant="secondary">
-                {tag.tag.name}
-              </Badge>
-            ))}
-          </div>
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
-        <hr className="my-8" />
-        <AuthorCard author={post.author} />
-      </article>
+      <Article post={post} />
       <div className="mt-8">
         <Comments postId={post.id} initialComments={initialComments} totalComments={totalComments} totalReactions={post.reaction} />
       </div>

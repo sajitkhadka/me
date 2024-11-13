@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import { Linkedin, Mail, X } from 'lucide-react';
 import { motion } from "framer-motion";
 import { Icons } from "../custom-ui/icons";
+import Link from "next/link";
 
 export function SiteFooter() {
   return (
@@ -16,20 +17,20 @@ export function SiteFooter() {
       <div className="max-w-3xl mx-auto flex justify-center items-center flex-col gap-3">
         <div className="flex space-x-5">
           <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" className="font-bold hover:text-gray-600 transition-colors duration-200">
-            <Linkedin size={18} />
+            <Icons.linkedin className="h-5 w-5" />
             <span className="sr-only">LinkedIn</span>
           </a>
-          <a href={siteConfig.links.x} target="_blank" rel="noopener noreferrer" className="font-bold hover:text-gray-600 transition-colors duration-200">
-            <Icons.twitter />
-            <span className="sr-only">X</span>
+          <a href="https://github.com/sajitkhadka" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-gray-600 transition-colors duration-200">
+            <Icons.gitHub className="h-5 w-5" />
+            <span className="sr-only">GitHub</span>
           </a>
           <a href="mailto:sajitkhadka@gmail.com" className="font-bold hover:text-gray-600 transition-colors duration-200">
-            <Mail size={18} />
+            <Mail size={20} />
             <span className="sr-only">Email</span>
           </a>
         </div>
         <p className="text-sm text-muted-foreground">
-          Sajit Khadka
+          <span>&copy; {new Date().getFullYear()}</span> Sajit Khadka | <span><Link href="/privacy-policy">Privacy Policy</Link></span>
         </p>
       </div>
     </motion.footer>

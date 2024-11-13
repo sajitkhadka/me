@@ -2,23 +2,44 @@ import ParticlesAnimation from "@/components/animation/particles-animation";
 import { siteConfig } from "@/config/site";
 import { Metadata } from "next";
 import Image from "next/image";
-import { getAboutMe } from "./actions";
+import { getAboutMe, getAuthor } from "./actions";
+import { Article } from "@/components/layout/article";
 
-export const metadata: Metadata = {
-  title: "About Me - Sajit Khadka",
-  description: "Personal blog of Sajit Khadka, a software engineer and web developer. He writes about his experiences, thoughts and opinions on technology, development and life.",
-  openGraph: {
-    type: "article",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About Me - Sajit Khadka",
-    description:
-      "Personal blog of Sajit Khadka, a software engineer and web developer. He writes about his experiences, thoughts and opinions on technology, development and life.",
-    images: [siteConfig.author.avatarUrl],
-    creator: "@sajitkhadka",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const aboutMe = await getAboutMe();
+  const { author, image, authorInfo } = await getAuthor();
+  const authorName = author || "Sajit Khadka";
+  const title = aboutMe?.title;
+  const pageTitle = title ? `${title} - ${authorName}` : `About Me - ${authorName}`;
+
+  return {
+    title: pageTitle,
+    description: authorInfo || "Personal blog of Sajit Khadka, a software engineer and web developer. He writes about his experiences, thoughts, and opinions on technology, development, and life.",
+    openGraph: {
+      type: "article",
+      title: pageTitle,
+      description: aboutMe?.title,
+      images: [
+        {
+          url: `/api/image/${image}`,
+          width: 800,
+          height: 600,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: pageTitle,
+      description: aboutMe?.title,
+      creator: "@sajitkhadka",
+      images: [
+        `/api/image/${image}`
+      ],
+    },
+  };
+}
+
+
 
 function isValidURL(str: string) {
   try {
@@ -31,7 +52,10 @@ function isValidURL(str: string) {
 
 
 export default async function AboutPage() {
-  const { description, image, author, title } = await getAboutMe();
+  const aboutMe = await getAboutMe();
+  const { author, image } = await getAuthor();
+  const imageUrl = image ? isValidURL(image) ? image : `/api/image/${image}` : null;
+
   return (
     <div className="container max-w-6xl py-3 lg:py-10">
       <ParticlesAnimation />
@@ -42,19 +66,19 @@ export default async function AboutPage() {
         <div className="flex flex-col md:flex-row gap-10 items-center md:items-start">
           <div className="min-w-48 max-w-48 flex flex-col gap-2">
             <div className="rounded-lg">
-              <Image src={image ? isValidURL(image) ? image : `/api/image/${image}` : siteConfig.author.avatarUrl} alt={author || siteConfig.author.name} width={200} height={200} />
+              {imageUrl ? <Image src={imageUrl} alt={author || siteConfig.author.name} width={200} height={200} /> : null}
             </div>
 
             <h2 className="text-2xl font-bold text-center break-words">
               {author || siteConfig.author.name}
             </h2>
             <p className="text-muted-foreground text-center break-words">
-              {title || siteConfig.author.title}
+              {aboutMe?.title || siteConfig.author.title}
             </p>
           </div>
-          <div className="text-md py-4 flex flex-col gap-4">
-            <p dangerouslySetInnerHTML={{ __html: description || siteConfig.author.description }} />
-          </div>
+          {aboutMe && <div className="text-md py-4 flex flex-col gap-4">
+            <Article post={aboutMe} includeAuthor={false} />
+          </div>}
         </div>
       </div>
     </div>

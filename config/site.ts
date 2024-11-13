@@ -6,7 +6,6 @@ export const siteConfig = {
     name: "Sajit Khadka",
     title: "Software Engineer",
     description: "I am a software engineer and web developer. I write about my experiences, thoughts and opinions on technology, development and life.",
-    avatarUrl: "/avatar.png",
   },
   links: {
     linkedin: "https://www.linkedin.com/in/sajitkhadka/",

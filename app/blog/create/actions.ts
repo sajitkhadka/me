@@ -3,9 +3,11 @@
 import { auth } from '@/auth';
 import blogPostService from '@/db/blogpost.service';
 import imageService from '@/db/image.service';
+import postTypeService from '@/db/posttype.service';
 import tagService from '@/db/tags.service';
 import { ImageType } from '@/editor/extensions/ImageTracker';
 import prisma from '@/lib/prisma';
+import { BlogType } from '@prisma/client';
 
 export interface IPostData {
     title: string
@@ -14,6 +16,7 @@ export interface IPostData {
     tags: string[]
     authorId: string
     coverImage?: ImageType,
+    typeId: number
 }
 
 export async function fetchTags() {
@@ -45,5 +48,15 @@ export async function createBlogPost(data: IPostData, uploadedImages: ImageType[
     } catch (error) {
         console.error('Failed to create blog post:', error)
         return { success: false, error: 'Failed to create blog post' }
+    }
+}
+
+export async function getPostTypes() {
+    try {
+        const postTypes = await postTypeService.getAllPostTypes();
+        return { data: postTypes, success: true };
+    } catch (error) {
+        console.error('Error fetching post types:', error);
+        return { data: [] as BlogType[], success: false, error: 'Failed to fetch post types' };
     }
 }

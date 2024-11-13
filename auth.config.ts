@@ -3,6 +3,7 @@ import Github from 'next-auth/providers/github';
 import Google from 'next-auth/providers/google';
 import { NextRequest, NextResponse } from 'next/server';
 import { guestOnlyPages, privatePages, publicPages } from './pages.config';
+import { User } from '@prisma/client';
 
 // Helper functions
 const isLoggedIn = (auth: any) => !!auth?.user;
@@ -40,15 +41,19 @@ export const authConfig = {
     },
     callbacks: {
         authorized: handleAuthorization,
-        jwt({ token, account, user }) {
+        jwt({ token, account, user }) {  //This is invoked when user logs in for the first time and used to create token
             if (account) {
                 token.accessToken = account.access_token
                 token.id = user?.id
+                token.role = (user as User)?.role
+                token.image = user?.image
             }
             return token
         },
-        session({ session, token }) {
+        session({ session, token }) {  // the session contains the current user information and we can modify to use the token
             session.user.id = token.id;
+            session.user.role = token.role;
+            session.user.image = token.image;
             return session;
         },
     },

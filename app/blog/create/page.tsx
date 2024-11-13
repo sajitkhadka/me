@@ -19,6 +19,11 @@ import { Tags } from '@/db/tags.service'
 import { Editor } from '@/editor'
 import { X } from 'lucide-react'
 import Image from 'next/image'
+import { BlogPostType } from '@/db/types'
+import { useSession } from 'next-auth/react'
+import postTypeService, { PostTypeService } from '@/db/posttype.service'
+import { PostTypeDropdown } from './post-type-dropdown'
+import React from 'react'
 
 const imageSchema = z.object({
     url: z.string().trim().min(1),
@@ -31,6 +36,7 @@ const formSchema = z.object({
     tags: z.array(z.string()).min(1, 'At least one tag is required'),
     coverImage: imageSchema.optional(),
     uploadedImages: z.array(imageSchema),
+    typeId: z.number(),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -41,14 +47,15 @@ export default function CreateBlogPost() {
     const [submitError, setSubmitError] = useState('')
     const [selectedItems, setSelectedItems] = useState<DataItem[]>([]);
     const [inputValue, setInputValue] = useState("");
-
     const [success, setSuccess] = useState(false);
+    const { data: session } = useSession();
+
+    const successRef = React.useRef<HTMLDivElement>(null);
     const {
         control,
         handleSubmit,
         formState: { errors, },
         setValue,
-        getValues
     } = useForm<FormData>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -58,6 +65,7 @@ export default function CreateBlogPost() {
             coverImage: undefined,
             tags: [],
             uploadedImages: [],
+            typeId: 1,
         },
     })
 
@@ -85,9 +93,11 @@ export default function CreateBlogPost() {
                 coverImage: data.coverImage,
                 tags: data.tags,
                 authorId: session?.user?.id,
+                typeId: data.typeId,
             }, data.uploadedImages)
             if (result.success) {
                 setSuccess(true);
+                successRef.current?.scrollIntoView({ behavior: 'smooth' });
             } else {
                 result.error && setSubmitError(result.error)
             }
@@ -99,9 +109,9 @@ export default function CreateBlogPost() {
             <CardHeader>
                 <CardTitle>Create Your Blog Post</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent ref={successRef}>
                 {success && (
-                    <div className="bg-green-100 p-4 rounded-md border border-green-200 mb-4">
+                    <div className="bg-green-100 p-4 rounded-md border border-green-200 mb-4" >
                         <p className="text-green-700">Blog post created successfully!</p>
                     </div>
                 )}
@@ -215,6 +225,23 @@ export default function CreateBlogPost() {
                         )}
                         {errors.tags && <p className="text-sm text-red-500">{errors.tags.message}</p>}
                     </div>
+
+                    {session?.user?.role === 'admin' && (
+                        <div className="space-y-2">
+                            <label htmlFor="type" className="text-sm font-medium">
+                                Blog Type
+                            </label>
+                            <Controller
+                                name="typeId"
+                                control={control}
+                                render={({ field: { onChange, value } }) => (
+                                    <PostTypeDropdown
+                                        onSelect={onChange}
+                                    />
+                                )}
+                            />
+                        </div>
+                    )}
 
                     {submitError && (
                         <Alert variant="destructive">
