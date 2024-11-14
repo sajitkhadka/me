@@ -1,8 +1,7 @@
 import { Tag } from "@/components/custom-ui/tag";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import tagService, { Tags } from "@/db/tags.service";
-import { sortTagsByCount } from "@/lib/utils";
-import { slug } from "github-slugger";
+import { createSlug, sortTagsByCount } from "@/lib/utils";
 
 export default async function TagsSidebar({ tagparam }: { tagparam?: string }) {
     const tags = await tagService.getAllTags();
@@ -15,7 +14,7 @@ export default async function TagsSidebar({ tagparam }: { tagparam?: string }) {
                 </CardHeader>
                 <CardContent className="flex flex-wrap gap-2 px-4 pt-0 pb-4">
                     {sortedTags?.map((tag) => (
-                        <Tag tag={tag.name} key={tag.id} count={tag._count.blogPostTags} current={slug(tag.name) === tagparam} />
+                        <Tag tag={tag.name} key={tag.id} count={tag._count.blogPostTags} current={createSlug(tag.name) === tagparam} />
                     ))}
                 </CardContent>
             </Card>

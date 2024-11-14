@@ -1,16 +1,12 @@
 import blogPostService from "@/db/blogpost.service"
 import { BlogPostType } from "@/db/types"
-import { absoluteUrl } from "@/lib/utils"
-import GithubSlugger from 'github-slugger'
+import { absoluteUrl, createSlug } from "@/lib/utils"
 import { MetadataRoute } from 'next'
-
-const slugger = new GithubSlugger()
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const posts = await blogPostService.getPublicBlogPosts()
 
     const blogPostUrls = posts.map(post => ({
-        url: absoluteUrl(`/blog/${post.id}/${slugger.slug(post.title)}`),
+        url: absoluteUrl(`/blog/${post.id}/${createSlug(post.title)}`),
         lastModified: post.updatedAt,
     }))
     const privacyPolicy = await blogPostService.getPostByType(BlogPostType.PrivacyPolicy);

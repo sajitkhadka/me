@@ -1,14 +1,10 @@
 import { Calendar } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "../../components/ui/button";
-import { absoluteUrl, cn, formatDate } from "@/lib/utils";
+import { absoluteUrl, cn, createSlug, formatDate } from "@/lib/utils";
 import { Tag } from "../../components/custom-ui/tag";
 import { Tag as TagType } from "@prisma/client";
 import Reaction from "./reaction";
-// import Reaction from "./reaction";
-import GithubSlugger from 'github-slugger'
-
-const slugger = new GithubSlugger()
 
 interface PostItemProps {
   postId: number;
@@ -35,7 +31,7 @@ export function PostItem({
         <div>
           <div>
             <h2 className="text-xl font-medium">
-              <Link href={absoluteUrl("/blog/" + postId) + "/" + slugger.slug(title)}>{title}</Link>
+              <Link href={absoluteUrl("/blog/" + postId) + "/" + createSlug(title)}>{title}</Link>
             </h2>
           </div>
           <div className="flex gap-2 mt-3">
@@ -57,7 +53,7 @@ export function PostItem({
           />
         </dl>
         <Link
-          href={(absoluteUrl("/blog/" + postId) + "/" + slugger.slug(title))}
+          href={(absoluteUrl("/blog/" + postId) + "/" + createSlug(title))}
           className={cn(buttonVariants({ variant: "link" }), "py-0 justify-start")}
         >
           Read more →

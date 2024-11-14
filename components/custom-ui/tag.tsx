@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { slug } from "github-slugger";
 import { badgeVariants } from "../ui/badge";
-import { absoluteUrl } from "@/lib/utils";
+import { absoluteUrl, createSlug } from "@/lib/utils";
 
 interface TagProps {
   tag: string;
@@ -15,7 +14,7 @@ export function Tag({ tag, current, count }: TagProps) {
         variant: current ? "default" : "secondary",
         className: "no-underline rounded-md",
       })}
-      href={absoluteUrl(`/tags/${slug(tag)}`)}
+      href={absoluteUrl(`/tags/${createSlug(tag)}`)}
     >
       {tag} {count ? `(${count})` : null}
     </Link>

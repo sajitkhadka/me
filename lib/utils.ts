@@ -1,7 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { slug } from "github-slugger";
-import { Tag } from "@prisma/client";
 import { Tags } from "@/db/tags.service";
 
 export function cn(...inputs: ClassValue[]) {
@@ -55,4 +53,14 @@ export function absoluteUrl(path: string) {
     path = path.slice(1);
   }
   return `${baseUrl}/${path}`;
+}
+
+
+export function createSlug(title: string) {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
 }

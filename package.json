@@ -1,6 +1,6 @@
 {
   "name": "sajit.me",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -83,7 +83,6 @@
     "cmdk": "^1.0.0",
     "date-fns": "^4.1.0",
     "framer-motion": "^11.11.8",
-    "github-slugger": "^2.0.0",
     "google-auth-library": "^9.14.2",
     "googleapis": "^144.0.0",
     "iframe-resizer": "^4.4.5",
