@@ -48,7 +48,7 @@ export async function GET(req: NextRequest, { params }: { params: { fileName: st
             status: 200,
             headers: {
                 'Content-Type': contentType || 'application/octet-stream',
-                'Content-Disposition': `attachment; filename="${fileName}.${fileExtension}"`,
+                'Content-Disposition': `inline; filename="${fileName}.${fileExtension}"`,
                 // 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=600',
                 'Cache-Control': 'public, max-age=31536000, immutable'
             },
