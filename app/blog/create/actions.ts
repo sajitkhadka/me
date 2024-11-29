@@ -37,9 +37,13 @@ export async function createBlogPost(data: IPostData, uploadedImages: ImageType[
         }
         //for all uploaded images delete the record from pendingImages and add it to images
         const post = await prisma.$transaction(async () => {
+            if (!data.coverImage?.imageId && uploadedImages.length > 0) {
+                data.coverImage = uploadedImages[0];
+            }
             const createPost = await blogPostService.add(data);
             const pendingImages = uploadedImages.map((image) => image.imageId)
-            await imageService.savePendingImages(createPost.id, pendingImages);
+            const pendingImagesDetails = await imageService.getPendingImages(pendingImages);
+            await imageService.savePendingImages(createPost.id, pendingImagesDetails.map((image) => image.image));
             if (data.coverImage?.imageId) pendingImages.push(data.coverImage.imageId)
             await imageService.clearPendingImage(pendingImages);
             return createPost;

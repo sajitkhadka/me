@@ -21,8 +21,6 @@ const getExtensionFromContentType = (contentType: string | undefined): string =>
 
 export async function GET(req: NextRequest, { params }: { params: { fileName: string } }) {
     const { fileName } = params;
-    console.log("requested", fileName);
-
     if (!fileName || typeof fileName !== 'string') {
         return NextResponse.json({ error: 'File ID is required' }, { status: 400 });
     }

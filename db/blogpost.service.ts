@@ -138,10 +138,15 @@ class BlogPostService {
     if (!session?.user?.id) {
       throw new Error('Please login to create a blog post');
     }
+    const image = data.coverImage?.imageId ? await prisma.pendingImage.findFirst({
+      where: {
+        id: data.coverImage?.imageId,
+      },
+    }) : null;
     return await prisma.blogPost.create({
       data: {
         ...data,
-        coverImage: data.coverImage?.url,
+        coverImage: image?.image,
         published: false,
         reaction: 0,
         tags: {

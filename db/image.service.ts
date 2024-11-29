@@ -24,6 +24,16 @@ export class ImageService {
         })
     }
 
+    async getPendingImages(imageIds: string[]): Promise<PendingImage[]> {
+        return prisma.pendingImage.findMany({
+            where: {
+                id: {
+                    in: imageIds
+                }
+            }
+        })
+    }
+
     public clearPendingImage = async (imageIds: string[]) => {
         return prisma.pendingImage.deleteMany({
             where: {
