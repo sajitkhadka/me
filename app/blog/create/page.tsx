@@ -250,7 +250,13 @@ export default function CreateBlogPost() {
                         </Alert>
                     )}
 
-                    <Button type="submit" disabled={isPending}>
+                    <Button type="submit" disabled={isPending}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                            }
+                        }}
+                    >
                         {isPending ? 'Creating...' : 'Create Blog Post'}
                     </Button>
                 </form>
