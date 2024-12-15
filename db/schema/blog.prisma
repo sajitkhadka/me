@@ -11,6 +11,7 @@ model BlogPost {
     createdAt  DateTime      @default(now())
     updatedAt  DateTime      @updatedAt
     typeId     Int
+    version    Int           @default(1)
     author     User          @relation(fields: [authorId], references: [id])
     type       BlogType      @relation(fields: [typeId], references: [id])
     comments   Comment[]
