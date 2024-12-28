@@ -1,10 +1,13 @@
 import { Badge } from "@/components/ui/badge"
 import { formatDate } from "@/lib/utils"
 import { BlogPost, BlogPostTag, Tag, User } from "@prisma/client"
-import { Calendar } from "lucide-react"
+import { Calendar, Edit2 } from "lucide-react"
 import AuthorCard from "../custom-ui/author-card"
+import { auth } from "@/auth"
+import { Button } from "../ui/button"
+import Link from "next/link"
 
-export const Article = ({ post, includeAuthor = true }: {
+export const Article = async ({ post, includeAuthor = true }: {
     post: BlogPost & {
         author: User
         tags: (BlogPostTag & {
@@ -14,6 +17,8 @@ export const Article = ({ post, includeAuthor = true }: {
     includeAuthor?: boolean
 }
 ) => {
+    const session = await auth()
+    const user = session?.user;
     return <article className="prose dark:prose-invert max-w-none">
         <h1 className="mb-4 text-2xl">{post.title}</h1>
         <div className="flex items-center gap-4 mb-6">
@@ -28,6 +33,11 @@ export const Article = ({ post, includeAuthor = true }: {
                     </Badge>
                 ))}
             </div>
+            {user.role === "admin" && <div>
+                <Link href={`/blog/${post.id}/edit`} className="px-2 py-1">
+                    <Edit2 className="w-4 h-4" />
+                </Link>
+            </div>}
         </div>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
         <hr className="my-8" />

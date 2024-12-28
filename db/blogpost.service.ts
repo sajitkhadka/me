@@ -1,6 +1,6 @@
-import { IPostData } from "@/app/blog/create/actions";
+import { IPostData, IUpdateData } from "@/app/blog/create/actions";
 import prisma from "@/lib/prisma";
-import { BlogPost, BlogPostTag, Comment, Tag, User } from "@prisma/client";
+import { BlogPost, BlogPostTag, Comment, Image, Prisma, Tag, User } from "@prisma/client";
 import { BlogPostType, Pagination } from "./types";
 import { auth } from "@/auth";
 
@@ -13,6 +13,15 @@ export type BlogPosts = (BlogPost & {
     comments: number;
   };
 })[];
+
+export type BlogPostWithTagComments = (BlogPost & {
+  author: User
+  tags: (BlogPostTag & {
+    tag: Tag;
+  })[];
+  comments: Comment[];
+  images: Image[];
+})
 class BlogPostService {
 
   async getPublicBlogPosts(): Promise<BlogPost[]> {
@@ -52,7 +61,7 @@ class BlogPostService {
     });
   }
 
-  async getBlogPostById(id: number) {
+  async getBlogPostById(id: number): Promise<BlogPostWithTagComments | null> {
     const session = await auth();
     return prisma.blogPost.findUnique({
       where: {
@@ -76,6 +85,7 @@ class BlogPostService {
             createdAt: 'desc',
           },
         },
+        images: true,
       },
     });
   }
@@ -226,35 +236,59 @@ class BlogPostService {
     });
   }
 
-  async update(id: number, data: IPostData) {
+  async update(id: number, data: IUpdateData) {
     const session = await auth();
+    const updates: Prisma.BlogPostUpdateInput = {
+      version: {
+        increment: 1,
+      },
+      updatedAt: new Date(),
+    }
+    if (data.title) {
+      updates.title = data.title;
+    }
+    if (data.content) {
+      updates.content = data.content;
+    }
+    if (data.coverImage) {
+      updates.coverImage = data.coverImage.imageId;
+    }
+    if (data.tags) {
+      updates.tags = {
+        create: data.tags.map((tag) => ({
+          tag: {
+            connectOrCreate: {
+              where: {
+                name: tag,
+              },
+              create: {
+                name: tag,
+              },
+            },
+          },
+        })),
+      }
+    }
+    if (data.published) {
+      updates.published = data.published;
+    }
+
+    if (data.typeId) {
+      updates.type = {
+        connect: {
+          id: data.typeId,
+        },
+      }
+    }
     return prisma.blogPost.update({
       where: {
         id,
         author: {
           id: session?.user?.id,
         },
+        version: data.version
       },
-      data: {
-        ...data,
-        coverImage: data.coverImage?.url,
-        published: false,
-        reaction: 0,
-        tags: {
-          create: data.tags.map((tag) => ({
-            tag: {
-              connectOrCreate: {
-                where: {
-                  name: tag,
-                },
-                create: {
-                  name: tag,
-                },
-              },
-            },
-          })),
-        }
-      },
+      data: updates,
     })
   }
 

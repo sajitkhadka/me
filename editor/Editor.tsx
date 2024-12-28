@@ -1,12 +1,12 @@
 'use client'
 import { useBlockEditor } from '@/editor/hooks/useBlockEditor'
 import '@/editor/styles/index.css'
-import { EditorContent } from '@tiptap/react'
+import { Content, EditorContent } from '@tiptap/react'
 import { useRef } from 'react'
 
 import { useSidebar } from '@/editor/hooks/useSidebar'
 
-import { initialContent } from '@/lib/data/initialContent'
+// import { initialContent } from '@/lib/data/initialContent'
 import ImageBlockMenu from './extensions/ImageBlock/components/ImageBlockMenu'
 import { ColumnsMenu } from './extensions/MultiColumn/menus'
 import { TableColumnMenu, TableRowMenu } from './extensions/Table/menus'
@@ -14,9 +14,9 @@ import { ContentItemMenu, LinkMenu, TextMenu } from './menus'
 import { ImageType } from './extensions/ImageTracker'
 
 
-export const Editor = ({ onChange }: { onChange: (content: string, uploadedImages: ImageType[]) => void }) => {
+export const Editor = ({ onChange, initialValue }: { onChange: (content: string, uploadedImages: ImageType[]) => void, initialValue?: string }) => {
   const menuContainerRef = useRef(null)
-  const { editor } = useBlockEditor({ initialContent: initialContent })
+  const { editor } = useBlockEditor({ initialContent: initialValue })
 
   if (!editor) {
     return null

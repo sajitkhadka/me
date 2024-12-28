@@ -13,9 +13,10 @@ interface PostType {
 
 interface PostTypeDropdownProps {
   onSelect: (postTypeId: number) => void
+  value: number
 }
 
-export function PostTypeDropdown({ onSelect }: PostTypeDropdownProps = { onSelect: () => { } }) {
+export function PostTypeDropdown({ onSelect, value }: PostTypeDropdownProps = { value: 0, onSelect: () => { } }) {
   const [postTypes, setPostTypes] = useState<PostType[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -46,7 +47,7 @@ export function PostTypeDropdown({ onSelect }: PostTypeDropdownProps = { onSelec
 
   return (
     <div>
-      <Select onValueChange={(value) => onSelect(Number(value))}>
+      <Select value={value.toString()} onValueChange={(value) => onSelect(Number(value))}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Select a post type" />
         </SelectTrigger>

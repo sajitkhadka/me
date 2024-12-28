@@ -1,5 +1,5 @@
 import type { AnyExtension, Content, Editor } from '@tiptap/core'
-import { useEditor } from '@tiptap/react'
+import { generateJSON, useEditor } from '@tiptap/react'
 import ExtensionKit from '../extensions/extension-kit'
 
 declare global {
@@ -8,7 +8,8 @@ declare global {
   }
 }
 
-export const useBlockEditor = ({ initialContent }: { initialContent: Content }) => {
+export const useBlockEditor = ({ initialContent }: { initialContent?: string }) => {
+  const value = initialContent ? generateJSON(initialContent, ExtensionKit().filter((e): e is AnyExtension => e !== undefined)) : undefined;
   const editor = useEditor(
     {
       immediatelyRender: true,
@@ -19,7 +20,7 @@ export const useBlockEditor = ({ initialContent }: { initialContent: Content }) 
           ctx.editor.commands.focus('start', { scrollIntoView: true })
         }
       },
-      // content: initialContent,
+      content: value,
       extensions: ExtensionKit().filter((e): e is AnyExtension => e !== undefined),
       editorProps: {
         attributes: {

@@ -98,8 +98,8 @@ export const ExtensionKit = () => [
   Highlight.configure({ multicolor: true }),
   Underline,
   CharacterCount.configure({ limit: 50000 }),
-  TableOfContents,
-  TableOfContentsNode,
+  // TableOfContents,
+  // TableOfContentsNode,
   ImageUpload.configure({
     // clientId: 'image-upload',
     // onUpload: (url: string) => {

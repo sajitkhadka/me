@@ -1,12 +1,19 @@
 export class ImageApi {
     private static BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
+    public static getUrl = (imageId: string) => {
+        return `${ImageApi.BASE_URL}/api/image/${imageId}`;
+    }
+    public static getCreateUrl = () => {
+        return `${ImageApi.BASE_URL}/api/image/create`;
+    }
+
     public static upload = async (file: File) => {
         try {
             const formData = new FormData();
             formData.append('file', file);
 
-            const response = await fetch(`${ImageApi.BASE_URL}/api/image/create`, {
+            const response = await fetch(`${ImageApi.getCreateUrl()}`, {
                 method: 'POST',
                 body: formData,
             });
@@ -18,7 +25,7 @@ export class ImageApi {
             const data = await response.json();
 
             return {
-                url: `${ImageApi.BASE_URL}/api/image/${data.fileId}`,
+                url: `${ImageApi.getUrl(data.imageId)}`,
                 imageId: data.imageId,
             };
         } catch (error) {
