@@ -1,4 +1,4 @@
-import ParticlesAnimation from "@/components/animation/particles-animation";
+// import ParticlesAnimation from "@/components/animation/particles-animation";
 import { siteConfig } from "@/config/site";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -59,7 +59,7 @@ export default async function AboutPage() {
 
   return (
     <div className="container max-w-6xl py-3 lg:py-10">
-      <ParticlesAnimation />
+      {/* <ParticlesAnimation /> */}
       <div className="relative z-10 pointer-events-none">
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         </div>

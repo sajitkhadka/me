@@ -1,0 +1,11 @@
+model MyApp {
+    id          String   @id @default(cuid())
+    name        String
+    description String?
+    icon        String
+    color       String?
+    url         String
+    sortOrder   Int      @default(0)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+}

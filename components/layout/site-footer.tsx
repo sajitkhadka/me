@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Icons } from "../custom-ui/icons";
 import Link from "next/link";
 import { absoluteUrl } from "@/lib/utils";
+import { Separator } from "../ui/separator";
 
 export function SiteFooter() {
   return (
@@ -30,9 +31,9 @@ export function SiteFooter() {
             <span className="sr-only">Email</span>
           </a>
         </div>
-        <p className="text-sm text-muted-foreground">
-          <span>&copy; {new Date().getFullYear()}</span> Sajit Khadka | <span><Link href={absoluteUrl("/privacy-policy")}>Privacy Policy</Link></span>
-        </p>
+        <div className="flex text-sm text-muted-foreground space-x-4">
+          <span>&copy; {new Date().getFullYear()} Sajit Khadka</span> <span>|</span>  <Link href={absoluteUrl("/privacy-policy")}>Privacy Policy</Link> <span>|</span> <Link href={absoluteUrl("/about")}>About Me</Link>
+        </div>
       </div>
     </motion.footer>
   );
