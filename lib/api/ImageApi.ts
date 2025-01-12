@@ -25,7 +25,7 @@ export class ImageApi {
             const data = await response.json();
 
             return {
-                url: `${ImageApi.getUrl(data.imageId)}`,
+                url: `${ImageApi.getUrl(data.fileId)}`,
                 imageId: data.imageId,
             };
         } catch (error) {

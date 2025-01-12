@@ -35,9 +35,9 @@ export const Editor = ({ onChange, initialValue }: { onChange: (content: string,
         <ContentItemMenu editor={editor} />
         <LinkMenu editor={editor} appendTo={menuContainerRef} />
         <TextMenu editor={editor} />
-        <ColumnsMenu editor={editor} appendTo={menuContainerRef} />
-        <TableRowMenu editor={editor} appendTo={menuContainerRef} />
-        <TableColumnMenu editor={editor} appendTo={menuContainerRef} />
+        {/* <ColumnsMenu editor={editor} appendTo={menuContainerRef} /> */}
+        {/* <TableRowMenu editor={editor} appendTo={menuContainerRef} /> */}
+        {/* <TableColumnMenu editor={editor} appendTo={menuContainerRef} /> */}
         <ImageBlockMenu editor={editor} appendTo={menuContainerRef} />
       </div>
     </div>
