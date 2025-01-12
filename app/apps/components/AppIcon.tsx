@@ -11,7 +11,7 @@ interface AppIconProps {
 }
 
 export default function AppIcon({ app }: AppIconProps) {
-    const color = app.color || ['#ff6347', '#4682b4', '#0891b2', '#ca8a04'][Math.floor(Math.random() * 6)]
+    const color = app.color || ['#ff6347', '#4682b4', '#0891b2', '#ca8a04'][Math.floor(Math.random() * 4)]
     return (
         <Link href={app.url}>
             <motion.div
@@ -27,8 +27,9 @@ export default function AppIcon({ app }: AppIconProps) {
                         <Image
                             src={ImageApi.getUrl(app.icon) || '/images/bug.svg'}
                             alt={app.name}
-                            layout="fill"
                             className="p-3"
+                            width={56}
+                            height={56}
                         />
                     </div>
                     <span className="text-sm font-medium text-center text-gray-700 group-hover:text-gray-900">
