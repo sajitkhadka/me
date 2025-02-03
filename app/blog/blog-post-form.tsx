@@ -128,7 +128,7 @@ export default function BlogPostForm({ post }: BlogPostFormProps) {
                         <p className="text-green-700">Blog post {post?.id ? 'updated' : 'created'} successfully!</p>
                     </div>
                 )}
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
                     <div className="space-y-2">
                         <label htmlFor="title" className="text-sm font-medium">
                             Title
@@ -267,9 +267,7 @@ export default function BlogPostForm({ post }: BlogPostFormProps) {
 
                     <Button type="button" disabled={isPending}
                         onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                                e.preventDefault();
-                            }
+                            e.preventDefault();
                         }}
                         onClick={handleSubmit(onSubmit)}
                     >
