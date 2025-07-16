@@ -33,7 +33,7 @@ export const Article = async ({ post, includeAuthor = true }: {
                     </Badge>
                 ))}
             </div>
-            {user.role === "admin" && <div>
+            {user?.role === "admin" && <div>
                 <Link href={`/blog/${post.id}/edit`} className="px-2 py-1">
                     <Edit2 className="w-4 h-4" />
                 </Link>
