@@ -1,6 +1,6 @@
 export const siteConfig = {
-  name: "sajit.me",
-  url: "https://sajit.me",
+  name: "sajitkhadka.com",
+  url: "https://sajitkhadka.com",
   description: "I am Sajit.",
   author: {
     name: "Sajit Khadka",

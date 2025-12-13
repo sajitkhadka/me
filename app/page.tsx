@@ -16,7 +16,7 @@ export const metadata = {
     title: "Sajit Khadka - Blog of a software engineer and web developer",
     description:
       "Personal blog of Sajit Khadka, a software engineer and web developer. He writes about his experiences, thoughts and opinions on technology, development and life.",
-    images: ["https://sajit.me/avatar.png"],
+    images: ["https://sajitkhadka.com/avatar.png"],
     creator: "@sajitkhadka",
   },
 };
