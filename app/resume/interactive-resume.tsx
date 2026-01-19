@@ -15,7 +15,6 @@ import {
   Download,
   TrendingUp,
 } from "lucide-react";
-import { getResumeData } from "./actions";
 
 const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
   const [activeTab, setActiveTab] = useState("experience");
@@ -69,7 +68,7 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
       <div className="relative">
         {/* Minimal Header */}
         <div
-          className={`border-b transition-all duration-300 ${scrolled ? "shadow-sm bg-white/80 backdrop-blur-md sticky top-0 z-50" : "bg-white/60 backdrop-blur-sm"}`}
+          className={`border-b transition-all duration-300 ${scrolled ? "shadow-sm bg-white/80 backdrop-blur-md z-50" : "bg-white/60 backdrop-blur-sm"}`}
         >
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
             <div className="flex flex-col sm:flex-row items-start justify-between gap-4 sm:gap-8">
