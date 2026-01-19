@@ -26,6 +26,7 @@
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-tabs": "^1.1.13",
     "@svgr/webpack": "^8.1.0",
     "@tippyjs/react": "^4.2.6",
     "@tiptap-pro/extension-details": "2.11.9",
