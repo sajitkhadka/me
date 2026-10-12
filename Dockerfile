@@ -21,7 +21,8 @@ ENV NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL \
     NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL \
     NEXT_PUBLIC_UMAMI_WEBSITE_ID=$NEXT_PUBLIC_UMAMI_WEBSITE_ID \
     NEXT_TELEMETRY_DISABLED=1
-RUN npm run build
+# Type-check and page collection exceed the default Node heap.
+RUN NODE_OPTIONS=--max-old-space-size=4096 npm run build
 
 FROM node:20-alpine
 RUN apk add --no-cache openssl libc6-compat
