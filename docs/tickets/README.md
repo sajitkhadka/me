@@ -28,7 +28,7 @@ blocked, done, wontfix. Decisions that were genuinely contested go in `docs/adr/
 | [0021](0021-claude-md-and-readme.md) | ↳ Add CLAUDE.md and rewrite README | chore | done |
 | [0022](0022-self-host-on-k3s.md) | Self-host the site on k3s | epic | open |
 | [0023](0023-manifests-argo-and-workflow.md) | ↳ Add Dockerfile, k8s manifests, Argo app and deploy workflow | feature | blocked |
-| [0024](0024-migrate-database-and-secrets.md) | ↳ Migrate the database and secrets | chore | blocked |
+| [0024](0024-migrate-database-and-secrets.md) | ↳ Move secrets to the cluster (database stays on Neon) | chore | blocked |
 | [0025](0025-cloudflare-cache-and-dns-cutover.md) | ↳ Add Cloudflare caching, switch DNS, keep Vercel as fallback | chore | blocked |
 | [0026](0026-spike-chat-with-me-agent.md) | Spike: "chat with me" agent over career material | spike | done |
 | [0027](0027-secure-image-upload-endpoint.md) | Require login on image upload and sanitise the file name | bug | done |

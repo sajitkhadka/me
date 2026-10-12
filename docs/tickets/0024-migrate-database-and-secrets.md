@@ -32,5 +32,5 @@ Check how images are stored (`db/image.service.ts`, `app/api/image`). If they ar
 - Not done: finding where the production database runs, taking a backup, restore, sealed secrets and the backup job all need access to the live database and cluster. Needs Sajit: where does `DATABASE_URL` point today?
 - Security: while editing secrets, note 0027 (the upload endpoint has no login check).
 
-- 2026-10-12: decision from Sajit: keep Neon, only leave Vercel. Production `DATABASE_URL` points at Neon (us-east-2). A read-only `pg_dump` was taken to `D:ackups\me-neon\` (13 tables, row counts beside it). Left to do: seal `me-secrets` with the existing Neon URL and the other values, and run a second dump just before cutover.
+- 2026-10-12: decision from Sajit: keep Neon, only leave Vercel. Production `DATABASE_URL` points at Neon (us-east-2). A read-only `pg_dump` was taken to `D:/backups/me-neon/` (13 tables, row counts beside it). Left to do: seal `me-secrets` with the existing Neon URL and the other values, and run a second dump just before cutover.
 - Neon from a home server: keep `sslmode=require` in the URL; the first request after Neon auto-suspends is slow (cold start), which the uptime probe will also keep warm; latency to us-east-2 adds up per query, so avoid chatty pages.
