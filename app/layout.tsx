@@ -7,9 +7,7 @@ import { siteConfig } from "@/config/site";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import SessionProvider from "@/components/providers/session-provider";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,6 +19,8 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "700"],
   variable: "--font-jetbrainsMono",
 });
+
+const umamiWebsiteId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -51,9 +51,13 @@ export default function RootLayout({
               <SiteHeader />
               <main className="flex-1 w-full">{children}</main>
               <SiteFooter />
-              {process.env.GAID && <GoogleAnalytics gaId={process.env.GAID} />}
-              <SpeedInsights />
-              <Analytics />
+              {umamiWebsiteId && (
+                <Script
+                  src="https://stats.sajitkhadka.com/s.js"
+                  data-website-id={umamiWebsiteId}
+                  strategy="afterInteractive"
+                />
+              )}
             </div>
           </SessionProvider>
         </ThemeProvider>

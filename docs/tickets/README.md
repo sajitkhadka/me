@@ -22,12 +22,13 @@ blocked, done, wontfix. Decisions that were genuinely contested go in `docs/adr/
 | [0015](0015-blog-content-refresh.md) | ↳ Blog: republish or link Confluence posts | chore | blocked |
 | [0016](0016-pdf-resume.md) | ↳ Add a print-friendly PDF resume | feature | done |
 | [0017](0017-editable-resume-data.md) | ↳ Make resume data editable without a script | feature | done |
-| [0018](0018-remove-unused-code-and-files.md) | ↳ Remove unused dependencies, imports and stray files | chore | open |
-| [0019](0019-upgrade-dependencies.md) | ↳ Upgrade Next.js, next-auth and Tiptap | chore | open |
-| [0020](0020-consolidate-analytics.md) | ↳ Consolidate analytics on Umami | chore | open |
+| [0018](0018-remove-unused-code-and-files.md) | ↳ Remove unused dependencies, imports and stray files | chore | done |
+| [0019](0019-upgrade-dependencies.md) | ↳ Upgrade Next.js, next-auth and Tiptap | chore | blocked |
+| [0020](0020-consolidate-analytics.md) | ↳ Consolidate analytics on Umami | chore | done |
 | [0021](0021-claude-md-and-readme.md) | ↳ Add CLAUDE.md and rewrite README | chore | open |
 | [0022](0022-self-host-on-k3s.md) | Self-host the site on k3s | epic | open |
 | [0023](0023-manifests-argo-and-workflow.md) | ↳ Add Dockerfile, k8s manifests, Argo app and deploy workflow | feature | open |
 | [0024](0024-migrate-database-and-secrets.md) | ↳ Migrate the database and secrets | chore | open |
 | [0025](0025-cloudflare-cache-and-dns-cutover.md) | ↳ Add Cloudflare caching, switch DNS, keep Vercel as fallback | chore | open |
 | [0026](0026-spike-chat-with-me-agent.md) | Spike: "chat with me" agent over career material | spike | open |
+| [0027](0027-secure-image-upload-endpoint.md) | Require login on image upload and sanitise the file name | bug | open |

@@ -20,11 +20,10 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
   const [activeTab, setActiveTab] = useState("experience");
   const [hoveredSkill, setHoveredSkill] = useState(null);
   const [scrolled, setScrolled] = useState(false);
-  const [statsVisible, setStatsVisible] = useState(false);
 
   // Use provided data or default data
   const data = resumeData;
-  const { personal, stats, skills, experiences, education } = data;
+  const { personal, skills, experiences, education } = data;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,11 +31,6 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setStatsVisible(true), 500);
-    return () => clearTimeout(timer);
   }, []);
 
   const coreExpertise = data.coreExpertise;
@@ -121,30 +115,6 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
             </div>
           </div>
         </div>
-
-        {/* Stats Bar */}
-        {stats && stats.length > 0 && (
-          <div className="border-b bg-background/60 backdrop-blur-sm">
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-                {stats.map((stat: any, idx: number) => (
-                  <div
-                    key={idx}
-                    className={`text-center transition-all duration-700 ${statsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-                    style={{ transitionDelay: `${stat.delay}ms` }}
-                  >
-                    <div className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
-                      {stat.value}
-                    </div>
-                    <div className="text-xs text-muted-foreground uppercase tracking-wide">
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Main Content */}
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
