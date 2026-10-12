@@ -4,6 +4,7 @@ import Underline from "@/components/custom-ui/underline";
 import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { ogImage } from "@/config/site";
 import { featuredProjects } from "@/config/projects";
 import blogPostService from "@/db/blogpost.service";
 import { absoluteUrl, cn, createSlug, formatDate } from "@/lib/utils";
@@ -14,13 +15,15 @@ export const metadata = {
     "Sajit Khadka is a software engineer building integrations and event-driven backend systems, and runs a home Kubernetes cluster for his own projects.",
   openGraph: {
     type: "website",
+    title: "Sajit Khadka",
+    images: [ogImage("Sajit Khadka", "home")],
   },
   twitter: {
     card: "summary_large_image",
     title: "Sajit Khadka - Software Engineer",
     description:
       "Integrations and event-driven backend systems. Home Kubernetes cluster and side projects.",
-    images: ["https://sajitkhadka.com/avatar.png"],
+    images: [ogImage("Sajit Khadka", "home")],
     creator: "@sajitkhadka",
   },
 };

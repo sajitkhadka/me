@@ -24,6 +24,10 @@ const nextConfig = {
     ],
   },
 
+  async redirects() {
+    return [{ source: "/progress", destination: "/apps", permanent: true }];
+  },
+
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

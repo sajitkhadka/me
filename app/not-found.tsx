@@ -1,22 +1,30 @@
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+
+const links = [
+    { href: '/', label: 'Home' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/apps', label: 'Projects' },
+]
 
 export default function NotFound() {
     return (
-        <div className="flex items-center justify-center w-full bg-gradient-to-r from-slate-500 via-cyan-200 to-slate-700">
-            <div className="text-center text-slate-700">
-                <h1 className="text-6xl font-bold mb-4">404</h1>
-                <h2 className="text-4xl font-semibold mb-4">Page Not Found</h2>
-                <p className="text-xl mb-8">Oops! The page you&apos;re looking for doesn&apos;t exist.</p>
-                <Link
-                    href="/"
-                    className="inline-flex items-center px-6 py-3 text-lg font-semibold text-slate-600 bg-white rounded-full hover:bg-purple-100 transition-colors duration-300"
-                >
-                    <ArrowLeft className="w-5 h-5 mr-2" />
-                    Go Back Home
-                </Link>
+        <div className="container flex flex-col items-center justify-center gap-6 px-4 py-24 text-center">
+            <p className="text-6xl font-bold">404</p>
+            <h1 className="text-2xl font-semibold">Page not found</h1>
+            <p className="text-muted-foreground">The page you are looking for does not exist or has moved.</p>
+            <div className="flex flex-wrap justify-center gap-3">
+                {links.map((link) => (
+                    <Link
+                        key={link.href}
+                        href={link.href}
+                        className={cn(buttonVariants({ variant: link.href === '/' ? 'default' : 'outline', size: 'sm' }))}
+                    >
+                        {link.label}
+                    </Link>
+                ))}
             </div>
         </div>
     )
 }
-

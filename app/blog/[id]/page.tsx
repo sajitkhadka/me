@@ -4,7 +4,8 @@ import commentService from "@/db/comments.service"
 import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from "next/navigation"
 import Comments from "./comments"
-import { absoluteUrl } from "@/lib/utils"
+import { absoluteUrl, createSlug } from "@/lib/utils"
+import { ogImage } from "@/config/site"
 
 interface PostPageProps {
   params: {
@@ -25,10 +26,14 @@ export async function generateMetadata(
   }
 
   const previousImages = (await parent).openGraph?.images || []
+  const image = post.coverImage
+    ? absoluteUrl(`/api/image/${post.coverImage}`)
+    : ogImage(post.title, 'blog')
 
   return {
     title: post.title,
     description: post.summary,
+    alternates: { canonical: `/blog/${post.id}/${createSlug(post.title)}` },
     openGraph: {
       title: post.title,
       description: post.summary,
@@ -38,7 +43,7 @@ export async function generateMetadata(
       tags: post.tags?.map(tag => tag.tag.name),
       images: [
         {
-          url: absoluteUrl(`/api/image/${post.coverImage}`),
+          url: image,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -50,7 +55,7 @@ export async function generateMetadata(
       card: 'summary_large_image',
       title: post.title,
       description: post.summary,
-      images: [absoluteUrl(`/api/image/${post.coverImage}`)],
+      images: [image],
     },
   }
 }

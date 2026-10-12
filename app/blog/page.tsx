@@ -1,21 +1,24 @@
 import blogPostService from "@/db/blogpost.service";
 import { Metadata } from "next";
+import { ogImage } from "@/config/site";
 import Posts from "./posts";
 import TagComponent from "./tags-sidebar";
 
 export const metadata: Metadata = {
-  title: "Sajit Khadka's Blog",
+  title: "Blog",
   description:
-    "Personal blog of Sajit Khadka, a software engineer and web developer. He writes about his experiences, thoughts and opinions on technology, development and life.",
+    "Notes and write-ups by Sajit Khadka on distributed systems, Kubernetes, Postgres and the tools he builds.",
   openGraph: {
-    type: "article",
+    type: "website",
+    title: "Blog - Sajit Khadka",
+    images: [ogImage("Blog", "blog")],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sajit Khadka's Blog",
+    title: "Blog - Sajit Khadka",
     description:
-      "Personal blog of Sajit Khadka, a software engineer and web developer. He writes about his experiences, thoughts and opinions on technology, development and life.",
-    // images: ["https://sajitkhadka.com/images/sajit-khadka.jpg"],
+      "Notes and write-ups by Sajit Khadka on distributed systems, Kubernetes, Postgres and the tools he builds.",
+    images: [ogImage("Blog", "blog")],
     creator: "@sajitkhadka",
   },
 };

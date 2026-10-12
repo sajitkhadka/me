@@ -35,6 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             lastModified: about?.updatedAt,
         },
         { url: absoluteUrl('/apps') },
+        { url: absoluteUrl('/now') },
         ...projectUrls,
         ...blogPostUrls,
     ]

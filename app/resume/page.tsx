@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from "react";
+import { ogImage } from "@/config/site";
 import { getResumeData } from "./actions";
 import InteractiveResume from "./interactive-resume";
 
 export const metadata = {
   title: "Resume of Sajit Khadka",
   description:
-    "Resume of Sajit Khadka, a software engineer and web developer. Explore his skills, experience, education, and projects.",
+    "Resume of Sajit Khadka, a software engineer working on integrations and event-driven backend systems: experience, skills and education.",
   openGraph: {
-    type: "article",
+    type: "profile",
+    title: "Resume of Sajit Khadka",
+    images: [ogImage("Resume of Sajit Khadka", "resume")],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sajit Khadka - Resume of a software engineer and web developer",
+    title: "Resume of Sajit Khadka",
     description:
-      "Resume of Sajit Khadka, a software engineer and web developer. Explore his skills, experience, education, and projects.",
-    images: ["https://sajitkhadka.com/avatar.png"],
+      "Resume of Sajit Khadka, a software engineer working on integrations and event-driven backend systems: experience, skills and education.",
+    images: [ogImage("Resume of Sajit Khadka", "resume")],
     creator: "@sajitkhadka",
   },
 };

@@ -32,7 +32,7 @@ export function SiteFooter() {
           </a>
         </div>
         <div className="flex text-sm text-muted-foreground space-x-4">
-          <span>&copy; {new Date().getFullYear()} Sajit Khadka</span> <span>|</span>  <Link href={absoluteUrl("/privacy-policy")}>Privacy Policy</Link> <span>|</span> <Link href={absoluteUrl("/about")}>About Me</Link>
+          <span>&copy; {new Date().getFullYear()} Sajit Khadka</span> <span>|</span>  <Link href={absoluteUrl("/privacy-policy")}>Privacy Policy</Link> <span>|</span> <Link href={absoluteUrl("/about")}>About Me</Link> <span>|</span> <Link href={absoluteUrl("/now")}>Now</Link>
         </div>
       </div>
     </motion.footer>

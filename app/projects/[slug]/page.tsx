@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { ogImage } from "@/config/site";
 import { getProject, projects } from "@/config/projects";
 
 type Props = { params: { slug: string } };
@@ -17,6 +18,7 @@ export function generateMetadata({ params }: Props): Metadata {
   return {
     title: project.name,
     description: project.tagline,
+    openGraph: { type: "article", title: project.name, description: project.tagline, images: [ogImage(project.name, "project")] },
     alternates: { canonical: `/projects/${project.slug}` },
   };
 }
