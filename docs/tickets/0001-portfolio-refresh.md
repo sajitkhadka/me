@@ -30,8 +30,8 @@ Sources for current facts: `D:\projects\career` (history) and the English traine
 - [x] [0013](0013-theme-refresh.md) Theme refresh
 - [x] [0014](0014-seo-improvements.md) SEO
 - [ ] [0015](0015-blog-content-refresh.md) Blog content
-- [ ] [0016](0016-pdf-resume.md) PDF resume
-- [ ] [0017](0017-editable-resume-data.md) Editable resume data
+- [x] [0016](0016-pdf-resume.md) PDF resume
+- [x] [0017](0017-editable-resume-data.md) Editable resume data
 - [ ] [0018](0018-remove-unused-code-and-files.md) Remove unused code
 - [ ] [0019](0019-upgrade-dependencies.md) Upgrade dependencies
 - [ ] [0020](0020-consolidate-analytics.md) Consolidate analytics

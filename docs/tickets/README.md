@@ -19,9 +19,9 @@ blocked, done, wontfix. Decisions that were genuinely contested go in `docs/adr/
 | [0012](0012-fix-appicon-dark-mode.md) | ↳ Fix dark mode and random colours in AppIcon | bug | done |
 | [0013](0013-theme-refresh.md) | ↳ Refresh theme: one accent, body font, avatar | feature | done |
 | [0014](0014-seo-improvements.md) | ↳ Improve SEO: sitemap, structured data, OG images | chore | done |
-| [0015](0015-blog-content-refresh.md) | ↳ Blog: republish or link Confluence posts | chore | open |
-| [0016](0016-pdf-resume.md) | ↳ Add a print-friendly PDF resume | feature | open |
-| [0017](0017-editable-resume-data.md) | ↳ Make resume data editable without a script | feature | open |
+| [0015](0015-blog-content-refresh.md) | ↳ Blog: republish or link Confluence posts | chore | blocked |
+| [0016](0016-pdf-resume.md) | ↳ Add a print-friendly PDF resume | feature | done |
+| [0017](0017-editable-resume-data.md) | ↳ Make resume data editable without a script | feature | done |
 | [0018](0018-remove-unused-code-and-files.md) | ↳ Remove unused dependencies, imports and stray files | chore | open |
 | [0019](0019-upgrade-dependencies.md) | ↳ Upgrade Next.js, next-auth and Tiptap | chore | open |
 | [0020](0020-consolidate-analytics.md) | ↳ Consolidate analytics on Umami | chore | open |

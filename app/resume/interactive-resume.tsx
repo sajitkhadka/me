@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -38,22 +39,6 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleDownload = async () => {
-    try {
-      const resumeUrl = process.env.NEXT_PUBLIC_RESUME_API_URL;
-      if (!resumeUrl) {
-        alert("Resume download URL is not configured.");
-        return;
-      }
-
-      // Open the resume URL in a new tab to download
-      window.open(resumeUrl, "_blank");
-    } catch (error) {
-      console.error("Error downloading resume:", error);
-      alert("Failed to download resume. Please try again.");
-    }
-  };
-
   const coreExpertise = data.coreExpertise;
 
   return (
@@ -76,13 +61,13 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                   {personal?.summary || "Your professional summary"}
                 </p>
               </div>
-              <button
-                onClick={handleDownload}
+              <Link
+                href="/resume/print"
                 className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 border-2 border-foreground text-foreground rounded-lg font-medium hover:bg-foreground hover:text-background transition-all hover:shadow-lg hover:scale-105"
               >
                 <Download size={18} />
-                Resume
-              </button>
+                Download PDF
+              </Link>
             </div>
 
             {/* Contact Info */}

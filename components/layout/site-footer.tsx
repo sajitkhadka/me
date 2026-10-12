@@ -14,7 +14,7 @@ export function SiteFooter() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.4 }}
-      className="py-4 px-4 sm:px-6 lg:px-8 border-t border-border bg-background/95"
+      className="print:hidden py-4 px-4 sm:px-6 lg:px-8 border-t border-border bg-background/95"
     >
       <div className="max-w-3xl mx-auto flex justify-center items-center flex-col gap-3">
         <div className="flex space-x-5">

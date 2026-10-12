@@ -1,5 +1,5 @@
 import { ogImage } from "@/config/site";
-import { getResumeData } from "./actions";
+import { resume } from "@/config/resume";
 import InteractiveResume from "./interactive-resume";
 
 export const metadata = {
@@ -22,7 +22,6 @@ export const metadata = {
   },
 };
 
-export default async function ResumePage() {
-  const resumeData = await getResumeData();
-  return <InteractiveResume resumeData={resumeData} />;
+export default function ResumePage() {
+  return <InteractiveResume resumeData={resume} />;
 }
