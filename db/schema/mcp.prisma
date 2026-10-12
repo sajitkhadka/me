@@ -1,0 +1,46 @@
+// Personal access tokens for the MCP endpoint (/api/mcp) and the OAuth flow that hands them to
+// hosted clients such as claude.ai. Only SHA-256 hashes are stored; the secret is shown once.
+
+model ApiToken {
+    id         String    @id @default(cuid())
+    userId     String
+    name       String
+    tokenHash  String    @unique
+    // Set when an OAuth client was issued this token, so Settings can label it and a refresh can replace it.
+    clientId   String?
+    expiresAt  DateTime
+    lastUsedAt DateTime?
+    revokedAt  DateTime?
+    createdAt  DateTime  @default(now())
+    user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId])
+}
+
+model OAuthClient {
+    id           String   @id @default(cuid())
+    name         String
+    redirectUris String[]
+    createdAt    DateTime @default(now())
+}
+
+model OAuthCode {
+    codeHash      String   @id
+    clientId      String
+    userId        String
+    redirectUri   String
+    codeChallenge String
+    expiresAt     DateTime
+    createdAt     DateTime @default(now())
+}
+
+model OAuthRefreshToken {
+    tokenHash  String   @id
+    apiTokenId String
+    clientId   String
+    userId     String
+    expiresAt  DateTime
+    createdAt  DateTime @default(now())
+
+    @@index([apiTokenId])
+}
