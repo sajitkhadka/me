@@ -7,6 +7,7 @@ import tagsService from "@/db/tags.service";
 export const metadata: Metadata = {
   title: "Tags",
   description: "Topic I've written about",
+  robots: { index: false, follow: true },
 };
 
 export default async function TagsPage() {

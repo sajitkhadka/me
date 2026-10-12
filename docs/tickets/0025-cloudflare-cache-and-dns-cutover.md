@@ -27,3 +27,5 @@ Use the `cloudflared/README.md` in `k8s-config`. Test with a temporary hostname 
 
 - Not started: every step changes DNS, Cloudflare or the cluster, and the ticket is blocked by 0023 and 0024 (both still open). Needs Sajit.
 - Prep from the code: the tunnel routes hostnames straight to a Service (no Ingress), so the route target is `me.me.svc.cluster.local:80`. `/api/health` exists for an uptime probe. Admin, auth and API paths to leave uncached: `/api/*`, `/auth/*`, `/blog/create`, `/blog/*/edit`. Pages are dynamic (the header reads the session), so Cloudflare cache rules must be explicit, with a short TTL and bypass on the session cookie.
+
+- Added 2026-10-12 (from the Search Console report): route both `sajitkhadka.com` and `www.sajitkhadka.com` to the Service. The app 308-redirects www to the bare host, so no Cloudflare redirect rule is needed (see `deploy/README.md`).

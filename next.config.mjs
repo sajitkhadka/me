@@ -26,7 +26,15 @@ const nextConfig = {
   },
 
   async redirects() {
-    return [{ source: "/progress", destination: "/apps", permanent: true }];
+    return [
+      { source: "/progress", destination: "/apps", permanent: true },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.sajitkhadka.com" }],
+        destination: "https://sajitkhadka.com/:path*",
+        permanent: true,
+      },
+    ];
   },
 
   webpack(config) {

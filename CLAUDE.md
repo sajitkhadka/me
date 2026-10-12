@@ -30,4 +30,4 @@ There are no tests. Check changes with `npx tsc --noEmit` and `npm run lint`.
 - **Env vars.** `.env` is gitignored. `NEXT_PUBLIC_*` values are baked in at build time.
 - The sitemap date for repo-owned pages (`siteRefreshed` in `app/sitemap.ts`) is a constant; bump it
   when those pages change.
-- Tickets are in `docs/tickets/`. Do not push or deploy unasked; the site is on Vercel.
+- Tickets are in `docs/tickets/`. Do not push or deploy unasked; the site is moving from Vercel to the k3s cluster (see `deploy/`).

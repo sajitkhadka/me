@@ -22,6 +22,7 @@ export async function generateMetadata({
   return {
     title: tag,
     description: `Posts on the topic of ${tag}`,
+    robots: { index: false, follow: true },
   };
 }
 

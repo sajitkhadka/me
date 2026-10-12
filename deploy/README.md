@@ -16,3 +16,7 @@ Order matters, because Argo CD syncs any commit to `k8s-config` within minutes:
 No Ingress: public hosts reach the Service through the Cloudflare Tunnel (ticket 0025).
 
 One-time repo setup: a self-hosted runner for this repo; secrets `REGISTRY_USER`, `REGISTRY_PASSWORD`, `TIPTAP_PRO_TOKEN`, `K8S_CONFIG_DEPLOY_KEY`; repo variable `UMAMI_WEBSITE_ID`.
+
+## Hostnames and search indexing
+
+`https://sajitkhadka.com` is the canonical host: the sitemap, robots.txt, canonical tags and `AUTH_URL` all use it. `next.config.mjs` sends `www.sajitkhadka.com` to it with a 308, so both hostnames must route to this Service in the Cloudflare Tunnel (ticket 0025). Do not add a second redirect in Cloudflare, and keep `/api/health` free of redirects. After the cutover, resubmit the sitemap in Search Console and use "Validate fix" on the redirect and duplicate rows.
