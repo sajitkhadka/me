@@ -4,14 +4,15 @@ export default function Layout({
     children: React.ReactNode;
 }) {
     return (
-        <main className="min-h-screen bg-background w-full">
-            <div className="container max-w-7xl mx-auto p-8 box-border">
-                <h1 className="text-2xl font-semibold mb-2">Projects</h1>
-                <p className="mb-6 text-muted-foreground">
+        <div className="container mx-auto max-w-6xl px-4 py-14 sm:px-6">
+            <header className="mb-10 space-y-2">
+                <p className="eyebrow">Selected work</p>
+                <h1 className="text-3xl font-bold sm:text-4xl">Projects</h1>
+                <p className="max-w-2xl text-muted-foreground">
                     Things I build for myself, most of them running on my own Kubernetes cluster.
                 </p>
-                {children}
-            </div>
-        </main>
+            </header>
+            {children}
+        </div>
     );
 }

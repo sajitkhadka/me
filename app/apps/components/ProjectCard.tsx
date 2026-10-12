@@ -10,7 +10,7 @@ export default function ProjectCard({ project }: { project: Project }) {
     project;
 
   return (
-    <Card className="flex h-full flex-col overflow-hidden transition-colors hover:border-primary/40">
+    <Card className="surface surface-hover flex h-full flex-col overflow-hidden">
       {screenshot && (
         <Image
           src={screenshot}
@@ -33,7 +33,7 @@ export default function ProjectCard({ project }: { project: Project }) {
         <p className="flex-1 text-sm text-muted-foreground">{tagline}</p>
         <div className="flex flex-wrap gap-1.5">
           {stack.map((item) => (
-            <Badge key={item} variant="secondary" className="font-normal">
+            <Badge key={item} variant="outline" className="rounded-md bg-background/60 font-mono text-xs font-normal text-muted-foreground">
               {item}
             </Badge>
           ))}

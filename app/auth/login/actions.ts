@@ -2,11 +2,11 @@
 
 import { auth, signIn, signOut } from "@/auth"
 
-export const handleGoogleSignIn = async () => {
-    await signIn("google", { callbackUrl: "/blog/create" })
+export const handleGoogleSignIn = async (callbackUrl = "/blog/create") => {
+    await signIn("google", { redirectTo: callbackUrl })
 }
-export const handleGithubSignIn = async () => {
-    await signIn("github", { callbackUrl: "/blog/create" })
+export const handleGithubSignIn = async (callbackUrl = "/blog/create") => {
+    await signIn("github", { redirectTo: callbackUrl })
 }
 
 export const handleSignout = async () => {

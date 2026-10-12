@@ -4,7 +4,7 @@ import InteractiveResume from "./interactive-resume";
 
 export const metadata = {
   alternates: { canonical: "/resume" },
-  title: "Resume of Sajit Khadka",
+  title: { absolute: "Resume of Sajit Khadka | Software Engineer" },
   description:
     "Resume of Sajit Khadka, a software engineer working on integrations and event-driven backend systems: experience, skills and education.",
   openGraph: {

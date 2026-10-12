@@ -16,6 +16,8 @@ const labels: Record<string, string> = {
   about: "About",
 };
 
+const GREEN = "#2af0a8";
+
 export async function GET(req: NextRequest) {
   try {
     const fontBold = await interBold;
@@ -28,39 +30,60 @@ export async function GET(req: NextRequest) {
       return new Response("No title provided", { status: 400 });
     }
 
-    const heading =
-      title.length > 140 ? `${title.substring(0, 140)}...` : title;
+    const heading = title.length > 110 ? `${title.substring(0, 110)}...` : title;
+    const size = heading.length > 70 ? 54 : heading.length > 40 ? 66 : 80;
 
     return new ImageResponse(
       (
-        <div tw="flex relative flex-col p-12 w-full h-full items-start text-black bg-white">
-          <div tw="flex items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M4 11a9 9 0 0 1 9 9" />
-              <path d="M4 4a16 16 0 0 1 16 16" />
-              <circle cx="5" cy="19" r="1" />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            height: "100%",
+            padding: 64,
+            color: "#e8edf5",
+            backgroundColor: "#0b0e14",
+            backgroundImage:
+              "radial-gradient(circle at 85% 0%, rgba(42,240,168,0.28), rgba(11,14,20,0) 55%), radial-gradient(circle at 0% 100%, rgba(139,124,255,0.18), rgba(11,14,20,0) 50%)",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <svg width="52" height="52" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M23 8.6C21.6 7 19.2 6 16 6c-4.2 0-7 2-7 5 0 3.2 3.2 4.2 7 5 3.8.8 7 1.8 7 5 0 3-2.8 5-7 5-3.2 0-5.7-1-7.2-2.7"
+                stroke="#ffffff"
+                strokeWidth="2.6"
+                strokeLinecap="round"
+              />
+              <circle cx="23.6" cy="9.2" r="2.7" fill={GREEN} />
+              <circle cx="8.4" cy="22.8" r="2.7" fill={GREEN} />
             </svg>
-            <p tw="ml-2 font-bold text-2xl">Sajit</p>
-          </div>
-          <div tw="flex flex-col flex-1 py-10">
-            <div tw="flex text-xl uppercase font-bold tracking-tight font-normal">
-              {label}
+            <div style={{ display: "flex", marginLeft: 16, fontSize: 30, fontWeight: 700 }}>
+              sajit<span style={{ color: GREEN }}>.</span>dev
             </div>
-            <div tw="flex text-[80px] font-bold text-[50px]">{heading}</div>
           </div>
-          <div tw="flex items-center w-full justify-between">
-            <div tw="flex text-xl">{siteConfig.url}</div>
-            {/* <div tw="flex items-center text-xl">
-              <div tw="flex ml-2">{siteConfig.links.github}</div>
-            </div> */}
+
+          <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                marginBottom: 24,
+                fontSize: 24,
+                fontWeight: 700,
+                letterSpacing: 4,
+                textTransform: "uppercase",
+                color: GREEN,
+              }}
+            >
+              {`> ${label}`}
+            </div>
+            <div style={{ display: "flex", fontSize: size, fontWeight: 700, lineHeight: 1.08 }}>{heading}</div>
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 26, color: "#8b95a7" }}>
+            <div style={{ display: "flex" }}>{siteConfig.url.replace("https://", "")}</div>
+            <div style={{ display: "flex" }}>{siteConfig.author.name}</div>
           </div>
         </div>
       ),

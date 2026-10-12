@@ -3,7 +3,7 @@ import { getPrivacyPolicy } from "./actions";
 import { Article } from "@/components/layout/article";
 
 export const metadata = {
-  title: "Privacy Policy | Sajit Khadka",
+  title: "Privacy Policy",
   description: "Privacy policy of Sajit Khadka's blog"
 };
 

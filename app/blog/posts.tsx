@@ -5,16 +5,7 @@ import { QueryPagination } from "@/components/query-pagination";
 export default function Posts({ displayPosts, totalPages }: { displayPosts: BlogPosts, totalPages: number }) {
     return (
         <>
-            <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
-                <div className="flex-1 space-y-4">
-                    <h1 className="inline-block text-2xl">My Blog</h1>
-                    <p className="text-lg text-muted-foreground">
-                        My journey through code, creativity, and personal growth
-                    </p>
-                </div>
-            </div>
             <div className="mt-4">
-                <hr />
                 {displayPosts?.length > 0 ? (
                     <ul className="flex flex-col">
                         {displayPosts.map((post) => (

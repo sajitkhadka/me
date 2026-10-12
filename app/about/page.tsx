@@ -1,9 +1,10 @@
 import { Metadata } from "next";
-import Image from "next/image";
+import { AvatarIllustration } from "@/components/custom-ui/avatar-illustration";
 import Link from "next/link";
 import { siteConfig, ogImage } from "@/config/site";
 
-const title = `About ${siteConfig.author.name}`;
+const title = "About";
+const socialTitle = `About ${siteConfig.author.name}`;
 const description =
   "Software engineer on an integrations team, building event-driven backend systems and running a home Kubernetes cluster.";
 
@@ -13,16 +14,16 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
   openGraph: {
     type: "profile",
-    title,
+    title: socialTitle,
     description,
-    images: [ogImage(title, "about")],
+    images: [ogImage(socialTitle, "about")],
   },
   twitter: {
     card: "summary_large_image",
-    title,
+    title: socialTitle,
     description,
     creator: "@sajitkhadka",
-    images: [ogImage(title, "about")],
+    images: [ogImage(socialTitle, "about")],
   },
 };
 
@@ -31,13 +32,9 @@ export default function AboutPage() {
     <div className="container max-w-4xl px-4 py-10 lg:py-16">
       <div className="flex flex-col items-center gap-10 md:flex-row md:items-start">
         <div className="flex w-48 min-w-48 flex-col items-center gap-2">
-          <Image
-            src="/avatar.webp"
-            alt={`Portrait of ${siteConfig.author.name}`}
-            width={192}
-            height={192}
-            className="rounded-lg"
-            priority
+          <AvatarIllustration
+            title={`Illustrated portrait of ${siteConfig.author.name}`}
+            className="h-48 w-48 rounded-full border shadow-[0_20px_60px_-30px_hsl(var(--primary)/0.5)]"
           />
           <h1 className="text-center text-2xl font-bold">{siteConfig.author.name}</h1>
           <p className="text-center text-muted-foreground">{siteConfig.author.title}</p>

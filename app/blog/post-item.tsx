@@ -26,7 +26,7 @@ export function PostItem({
   totalReactions
 }: PostItemProps) {
   return (
-    <article className="flex flex-col gap-2 border-border border-b py-3">
+    <article className="surface surface-hover my-4 flex flex-col gap-2 p-5">
       <div className="flex justify-between flex-col sm:flex-row gap-4">
         <div>
           <div>
