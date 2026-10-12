@@ -1,0 +1,20 @@
+# Argo CD Application for the portfolio site. Copy to k8s-config/argocd/applications/me.yaml and
+# apply by hand, like the others. Automated sync, selfHeal on, prune off.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: me
+  namespace: argocd
+spec:
+  destination:
+    namespace: me
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: me
+    repoURL: git@github.com:sajitkhadka/k8s-config.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true

@@ -7,6 +7,8 @@ import { MetadataRoute } from 'next'
 // Dates for pages whose content lives in the repo. Bump when the page text changes.
 const siteRefreshed = new Date("2026-10-12")
 
+export const dynamic = 'force-dynamic'
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const posts = (await blogPostService.getPublicBlogPosts()).filter(
         post => post.typeId === BlogPostType.BlogPost,

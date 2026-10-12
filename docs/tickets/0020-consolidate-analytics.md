@@ -11,7 +11,7 @@
 
 - [x] Umami script added to the layout, with the site id from an env var
 - [x] Vercel Analytics and Speed Insights removed
-- [x] Google Analytics kept or removed, and the privacy policy updated to match
+- [ ] Google Analytics kept or removed, and the privacy policy updated to match (GA removed; policy still to edit)
 
 ## How to research
 

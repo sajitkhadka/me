@@ -21,3 +21,7 @@ Non-goals: moving the other apps, changing the site design.
 ## How to research
 
 Follow `D:\projects\CLAUDE.md` "Releasing". `job-quest` is the single-image template. Image tags go to `192.168.0.120:5000`. Needs a self-hosted runner for this repo, secrets `REGISTRY_USER`, `REGISTRY_PASSWORD` and `K8S_CONFIG_DEPLOY_KEY`, and an Argo CD Application in `k8s-config/argocd/applications/`.
+
+## Notes
+
+- Status: repo files done in 0023 (drafts only). 0024 and 0025 are blocked on live infrastructure access. The epic stays open.

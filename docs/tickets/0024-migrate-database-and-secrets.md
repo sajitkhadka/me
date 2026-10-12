@@ -1,11 +1,13 @@
 # 0024 — Migrate the database and secrets
 
-**Status:** open
+**Status:** blocked
 **Type:** chore
 **Created:** 2026-10-12
 **Parent:** [0022](0022-self-host-on-k3s.md)
 
 ## Description
+
+**Blocked:** every step needs the live database or the cluster, which I did not touch; the code findings are in the notes below.
 
 The site stores blog posts, comments, users, apps, the resume and uploaded images in Postgres (Prisma). Find where that database runs today, move it to the cluster (or keep it where it is if that is safer), and set up the secrets the app needs.
 
@@ -21,3 +23,11 @@ Secrets and settings the app reads (names only): `DATABASE_URL`, NextAuth secret
 ## How to research
 
 Check how images are stored (`db/image.service.ts`, `app/api/image`). If they are files on disk, the pod needs a volume.
+
+## Notes
+
+- Findings from the code (nothing was changed or migrated): images are not files on disk. Uploads go to a Google Drive folder through a service account (`GOOGLE_CLIENT_EMAIL`, `GOOGLE_PRIVATE_KEY`, `GOOGLE_DRIVE_FOLDER_ID`) and are served through `/api/image/[fileName]`, so the pod needs no volume. The only thing to restore is Postgres. `next.config.mjs` `remotePatterns` already allow `sajitkhadka.com`, so a same-host cutover needs no change there.
+- Secret names are listed in `README.md` (`DATABASE_URL`, `AUTH_*`, `GOOGLE_*`). The deployment draft in `deploy/k8s/me-deployment.yaml` reads them from a secret named `me-secrets`, to be sealed with `kubeseal`.
+- OAuth callbacks (`/api/auth/callback/github`, `/api/auth/callback/google`) stay valid if the site keeps the same host. They only need updating for a test hostname.
+- Not done: finding where the production database runs, taking a backup, restore, sealed secrets and the backup job all need access to the live database and cluster. Needs Sajit: where does `DATABASE_URL` point today?
+- Security: while editing secrets, note 0027 (the upload endpoint has no login check).

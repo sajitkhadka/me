@@ -35,4 +35,4 @@ Sources for current facts: `D:\projects\career` (history) and the English traine
 - [x] [0018](0018-remove-unused-code-and-files.md) Remove unused code
 - [ ] [0019](0019-upgrade-dependencies.md) Upgrade dependencies
 - [x] [0020](0020-consolidate-analytics.md) Consolidate analytics
-- [ ] [0021](0021-claude-md-and-readme.md) CLAUDE.md and README
+- [x] [0021](0021-claude-md-and-readme.md) CLAUDE.md and README

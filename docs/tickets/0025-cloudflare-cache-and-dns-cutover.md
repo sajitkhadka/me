@@ -1,12 +1,14 @@
 # 0025 — Add Cloudflare caching, switch DNS, keep Vercel as fallback
 
-**Status:** open
+**Status:** blocked
 **Type:** chore
 **Created:** 2026-10-12
 **Parent:** [0022](0022-self-host-on-k3s.md)
 **Blocked by:** [0023](0023-manifests-argo-and-workflow.md), [0024](0024-migrate-database-and-secrets.md)
 
 ## Description
+
+**Blocked:** it waits on 0023 and 0024 and is all DNS and Cloudflare work that only Sajit can do.
 
 Switch `sajitkhadka.com` to the cluster behind the Cloudflare Tunnel. Cache public pages so a short outage does not show errors. Keep Vercel deployed for a while so DNS can be flipped back.
 
@@ -20,3 +22,8 @@ Switch `sajitkhadka.com` to the cluster behind the Cloudflare Tunnel. Cache publ
 ## How to solve
 
 Use the `cloudflared/README.md` in `k8s-config`. Test with a temporary hostname first.
+
+## Notes
+
+- Not started: every step changes DNS, Cloudflare or the cluster, and the ticket is blocked by 0023 and 0024 (both still open). Needs Sajit.
+- Prep from the code: the tunnel routes hostnames straight to a Service (no Ingress), so the route target is `me.me.svc.cluster.local:80`. `/api/health` exists for an uptime probe. Admin, auth and API paths to leave uncached: `/api/*`, `/auth/*`, `/blog/create`, `/blog/*/edit`. Pages are dynamic (the header reads the session), so Cloudflare cache rules must be explicit, with a short TTL and bypass on the session cookie.

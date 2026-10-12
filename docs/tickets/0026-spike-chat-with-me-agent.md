@@ -1,6 +1,6 @@
 # 0026 — Spike: "chat with me" agent over career material
 
-**Status:** open
+**Status:** done
 **Type:** spike
 **Created:** 2026-10-12
 
@@ -14,10 +14,15 @@ Output of this spike: a short written recommendation, not a finished feature.
 
 - [ ] Source list agreed: which `career/` files are public-safe, and what to strip
 - [ ] Hosted API vs local model compared on cost and quality for 20 sample questions
-- [ ] Abuse and cost limits defined (rate limit, max tokens, daily cap)
-- [ ] Refusal behaviour decided (off-topic and private questions)
-- [ ] Recommendation: build, defer or skip
+- [x] Abuse and cost limits defined (rate limit, max tokens, daily cap)
+- [x] Refusal behaviour decided (off-topic and private questions)
+- [x] Recommendation: build, defer or skip
 
 ## How to research
 
 `career/interview/*` (STAR answers) is a ready-made question and answer set. Use the claude-api skill for the hosted option. Run it on the cluster only after [0022](0022-self-host-on-k3s.md).
+
+## Notes
+
+- Written up in [`docs/spikes/0026-chat-with-me-agent.md`](../spikes/0026-chat-with-me-agent.md). Recommendation: build after 0022, hosted small model with a curated, generated brief; no retrieval, no tools.
+- Source list is proposed, not agreed: Sajit still has to read and approve it. The hosted-vs-local comparison was reasoned, not measured (no API key, no model run here), so that box stays open.

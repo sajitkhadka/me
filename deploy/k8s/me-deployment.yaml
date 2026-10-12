@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: me
+  labels:
+    app: me
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: me
+  template:
+    metadata:
+      labels:
+        app: me
+    spec:
+      containers:
+      - name: me
+        image: 192.168.0.120:5000/me:placeholder
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: me-config
+        # Created in ticket 0024 as a sealed secret. Apply that before this Deployment.
+        - secretRef:
+            name: me-secrets
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+          requests:
+            cpu: "0.1"
+            memory: "192Mi"
+      imagePullSecrets:
+      - name: regcred
