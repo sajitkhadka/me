@@ -25,3 +25,5 @@ Follow `D:\projects\CLAUDE.md` "Releasing". `job-quest` is the single-image temp
 ## Notes
 
 - Status: repo files done in 0023 (drafts only). 0024 and 0025 are blocked on live infrastructure access. The epic stays open.
+
+- 2026-10-12: cut over. The image was built on the dev PC (the server ran out of memory building it; `next build` needs `--max-old-space-size=4096`) and pushed to the LAN registry as `me:c29e5f9`. Argo app `me` is Synced, `sajitkhadka.com` and `www` point at the tunnel (old Vercel records saved in `D:/backups/me-neon/dns-before-cutover.json`). Open: set `UMAMI_WEBSITE_ID`, add `AUTH_GITHUB_SECRET` to `me-secrets`, make the `me` runner a service, then re-tag once CI builds work again.

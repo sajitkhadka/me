@@ -32,3 +32,5 @@
 - No Ingress: per `deployment/ARCHITECTURE.md`, public hosts go Cloudflare Tunnel → Service. The tunnel route is ticket 0025.
 - Probes use `/api/health`, which does not touch the database (a DB-dependent probe can cause restart storms, as the Postgres-connections post describes).
 - Not verified: the Docker daemon is not running here and the Tiptap token is missing, so the image was never built. Expect to fix small things on the first `-dev` tag. Needs repo secret `TIPTAP_PRO_TOKEN` in addition to the three the root CLAUDE.md lists.
+
+- 2026-10-12: cut over. The image was built on the dev PC (the server ran out of memory building it; `next build` needs `--max-old-space-size=4096`) and pushed to the LAN registry as `me:c29e5f9`. Argo app `me` is Synced, `sajitkhadka.com` and `www` point at the tunnel (old Vercel records saved in `D:/backups/me-neon/dns-before-cutover.json`). Open: set `UMAMI_WEBSITE_ID`, add `AUTH_GITHUB_SECRET` to `me-secrets`, make the `me` runner a service, then re-tag once CI builds work again.
