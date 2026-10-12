@@ -3,5 +3,4 @@ kind: ConfigMap
 metadata:
   name: me-config
 data:
-  AUTH_URL: "https://sajitkhadka.com"
   AUTH_TRUST_HOST: "true"

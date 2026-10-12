@@ -20,3 +20,7 @@ One-time repo setup: a self-hosted runner for this repo; secrets `REGISTRY_USER`
 ## Hostnames and search indexing
 
 `https://sajitkhadka.com` is the canonical host: the sitemap, robots.txt, canonical tags and `AUTH_URL` all use it. `next.config.mjs` sends `www.sajitkhadka.com` to it with a 308, so both hostnames must route to this Service in the Cloudflare Tunnel (ticket 0025). Do not add a second redirect in Cloudflare, and keep `/api/health` free of redirects. After the cutover, resubmit the sitemap in Search Console and use "Validate fix" on the redirect and duplicate rows.
+
+## Sealing the secrets
+
+`node deploy/seal-secrets.mjs <out-file>` reads `.env.prod` (gitignored), seals the runtime keys for namespace `me` and prints key names only. Copy the output to `k8s-config/me/me-sealedsecret.yaml`. `AUTH_URL` is left out of the ConfigMap on purpose: with `AUTH_TRUST_HOST` the app takes the host from the request, so the test hostname works too. A key missing from `.env.prod` (today `AUTH_GITHUB_SECRET`) can be added later with `kubeseal --merge-into`. Restart the pod after any secret change.
