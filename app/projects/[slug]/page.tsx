@@ -6,14 +6,14 @@ import { Badge } from "@/components/ui/badge";
 import { ogImage } from "@/config/site";
 import { getProject, projects } from "@/config/projects";
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
   return projects.filter((p) => p.caseStudy).map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: Props): Metadata {
-  const project = getProject(params.slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const project = getProject((await params).slug);
   if (!project?.caseStudy) return {};
   return {
     title: project.name,
@@ -23,8 +23,8 @@ export function generateMetadata({ params }: Props): Metadata {
   };
 }
 
-export default function ProjectPage({ params }: Props) {
-  const project = getProject(params.slug);
+export default async function ProjectPage({ params }: Props) {
+  const project = getProject((await params).slug);
   if (!project?.caseStudy) notFound();
   const { name, tagline, stack, liveUrl, repoUrl, caseStudy } = project;
 

@@ -172,7 +172,7 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
                 onClick={commands.onAlignLeft}
                 active={states.isAlignLeft}
               >
-                <Icon name="AlignLeft" />
+                <Icon name="TextAlignStart" />
               </MemoButton>
               <MemoButton
                 tooltip="Align center"
@@ -180,7 +180,7 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
                 onClick={commands.onAlignCenter}
                 active={states.isAlignCenter}
               >
-                <Icon name="AlignCenter" />
+                <Icon name="TextAlignCenter" />
               </MemoButton>
               <MemoButton
                 tooltip="Align right"
@@ -188,7 +188,7 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
                 onClick={commands.onAlignRight}
                 active={states.isAlignRight}
               >
-                <Icon name="AlignRight" />
+                <Icon name="TextAlignEnd" />
               </MemoButton>
               <MemoButton
                 tooltip="Justify"
@@ -196,7 +196,7 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
                 onClick={commands.onAlignJustify}
                 active={states.isAlignJustify}
               >
-                <Icon name="AlignJustify" />
+                <Icon name="TextAlignJustify" />
               </MemoButton>
             </Toolbar.Wrapper>
           </Popover.Content>

@@ -4,7 +4,7 @@ import { BubbleMenu as BaseBubbleMenu, useEditorState } from '@tiptap/react'
 import { MenuProps } from '../types'
 import { LinkEditorPanel, LinkPreviewPanel } from '@/editor/layout/panels'
 
-export const LinkMenu = ({ editor, appendTo }: MenuProps): JSX.Element => {
+export const LinkMenu = ({ editor, appendTo }: MenuProps): React.JSX.Element => {
   const [showEdit, setShowEdit] = useState(false)
   const { link, target } = useEditorState({
     editor,

@@ -28,9 +28,9 @@ export const metadata: Metadata = {
 export const POSTS_PER_PAGE = 10;
 
 export interface BlogPageProps {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
-  };
+  }>;
 }
 
 /**
@@ -42,7 +42,7 @@ export interface BlogPageProps {
  * @returns {JSX.Element} The blog page component
  */
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const currentPage = Number(searchParams?.page) || 1;
+  const currentPage = Number((await searchParams)?.page) || 1;
   const allPosts = await blogPostService.getAllBlogPosts(
     {
       limit: POSTS_PER_PAGE,

@@ -8,16 +8,16 @@ import { absoluteUrl, createSlug } from "@/lib/utils"
 import { ogImage } from "@/config/site"
 
 interface PostPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export async function generateMetadata(
   { params }: PostPageProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const post = await blogPostService.getBlogPostById(parseInt(params.id))
+  const post = await blogPostService.getBlogPostById(parseInt((await params).id))
 
   if (!post) {
     return {
@@ -61,7 +61,7 @@ export async function generateMetadata(
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const id = parseInt(params.id)
+  const id = parseInt((await params).id)
   const post = await blogPostService.getBlogPostById(id)
   const initialComments = await commentService.getCommentsByBlogPostId(id, { limit: 5, offset: 0 })
   const totalComments = await commentService.getCommentCountByBlogPostId(id)

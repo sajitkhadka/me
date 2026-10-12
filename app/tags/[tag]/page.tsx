@@ -6,19 +6,19 @@ import blogPostService from "@/db/blogpost.service";
 import { Metadata } from "next";
 
 interface TagPageProps {
-  params: {
+  params: Promise<{
     tag: string;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     page?: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({
   params,
   searchParams
 }: TagPageProps): Promise<Metadata> {
-  const { tag } = params;
+  const { tag } = await params;
   return {
     title: tag,
     description: `Posts on the topic of ${tag}`,
@@ -32,8 +32,8 @@ export async function generateMetadata({
 // };
 
 export default async function TagPage({ params, searchParams }: TagPageProps) {
-  const { tag } = params;
-  const currentPage = Number(searchParams?.page) || 1;
+  const { tag } = await params;
+  const currentPage = Number((await searchParams)?.page) || 1;
   const _tag = tag.split('-').join(' ');
   const allPosts = await blogPostService.getBlogPostByTag(
     _tag,

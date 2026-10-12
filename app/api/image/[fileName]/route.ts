@@ -19,8 +19,8 @@ const getExtensionFromContentType = (contentType: string | undefined): string =>
     return typeMap[contentType] || 'bin';
 };
 
-export async function GET(req: NextRequest, { params }: { params: { fileName: string } }) {
-    const { fileName } = params;
+export async function GET(req: NextRequest, { params }: { params: Promise<{ fileName: string }> }) {
+    const { fileName } = await params;
     if (!fileName || typeof fileName !== 'string') {
         return NextResponse.json({ error: 'File ID is required' }, { status: 400 });
     }

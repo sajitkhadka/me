@@ -12,7 +12,7 @@ export const useBlockEditor = ({ initialContent }: { initialContent?: string }) 
   const value = initialContent ? generateJSON(initialContent, ExtensionKit().filter((e): e is AnyExtension => e !== undefined)) : undefined;
   const editor = useEditor(
     {
-      immediatelyRender: true,
+      immediatelyRender: false,
       shouldRerenderOnTransaction: false,
       autofocus: true,
       onCreate: ctx => {
