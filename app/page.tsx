@@ -53,11 +53,12 @@ export default async function Home() {
   const posts = await getLatestPosts();
 
   return (
-    <div className="container max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 space-y-14">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
+      <div className="container max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16 md:pt-14 md:pb-24 space-y-14">
       <section className="space-y-6">
         <Image
           src="/avatar.webp"
@@ -164,6 +165,7 @@ export default async function Home() {
           </ul>
         </section>
       )}
-    </div>
+      </div>
+    </>
   );
 }
