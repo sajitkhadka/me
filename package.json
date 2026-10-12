@@ -11,7 +11,8 @@
     "generate": "prisma generate",
     "push": "prisma db push",
     "pull": "prisma db pull",
-    "studio": "prisma studio"
+    "studio": "prisma studio",
+    "resume:pdf": "node scripts/resume-pdf.mjs"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.0",

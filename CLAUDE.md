@@ -21,6 +21,7 @@ There are no tests. Check changes with `npx tsc --noEmit` and `npm run lint`.
 - **Two content homes.** Home, About, /now, `/apps`, `/projects/[slug]` and `/resume` come from files
   in the repo: `config/projects.ts`, `config/resume.ts`, `config/site.ts`, `config/writing.ts` and the
   page files. Blog posts, comments, tags, users and the privacy policy are in Postgres.
+- `public/resume.pdf` is a committed file rendered from `/resume/print`. After editing `config/resume.ts`, run `npm run build && npm start`, then `npm run resume:pdf` (needs Chrome or Edge) and commit the new PDF.
 - `config/resume.ts` is validated with zod at load, so a wrong shape fails the build.
 - **Tiptap Pro.** The editor imports `@tiptap-pro/*` packages. `.npmrc` reads `TIPTAP_PRO_TOKEN`;
   without it `npm install` and `npm run build` fail. Never put the token value in a file.

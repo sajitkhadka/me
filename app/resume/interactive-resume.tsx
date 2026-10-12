@@ -55,13 +55,14 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                   {personal?.summary || "Your professional summary"}
                 </p>
               </div>
-              <Link
-                href="/resume/print"
+              <a
+                href="/resume.pdf"
+                download="Sajit-Khadka-Resume.pdf"
                 className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 border-2 border-foreground text-foreground rounded-lg font-medium hover:bg-foreground hover:text-background transition-all hover:shadow-lg hover:scale-105"
               >
                 <Download size={18} />
                 Download PDF
-              </Link>
+              </a>
             </div>
 
             {/* Contact Info */}

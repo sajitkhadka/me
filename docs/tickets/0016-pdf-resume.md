@@ -23,3 +23,5 @@ Add a `/resume/print` route with print CSS, then either use the browser's print-
 - Approach: `/resume/print` is a plain, print-styled page built from `config/resume.ts`; its button opens the browser print dialog (Save as PDF). The page is `noindex`, and the site header and footer are hidden when printing. No file is generated at build time, so it cannot drift.
 - Replaces the old `NEXT_PUBLIC_RESUME_API_URL` download, which is no longer read; that env var can be removed from the host.
 - Page count (one or two) not checked in a real print preview.
+
+- 2026-10-12: Download PDF now serves `public/resume.pdf` (2 pages), rendered by `npm run resume:pdf` from `/resume/print` with headless Chrome. `/resume/print` stays as the source. I could not view the PDF here (no PDF renderer), so open it once and check the layout.
