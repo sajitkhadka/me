@@ -32,3 +32,4 @@ blocked, done, wontfix. Decisions that were genuinely contested go in `docs/adr/
 | [0025](0025-cloudflare-cache-and-dns-cutover.md) | ↳ Add Cloudflare caching, switch DNS, keep Vercel as fallback | chore | blocked |
 | [0026](0026-spike-chat-with-me-agent.md) | Spike: "chat with me" agent over career material | spike | done |
 | [0027](0027-secure-image-upload-endpoint.md) | Require login on image upload and sanitise the file name | bug | done |
+| [0028](0028-design-refresh-claude-publishing-seo.md) | Design refresh, Claude blog publishing, SEO and AI discoverability | feature | open |

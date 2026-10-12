@@ -36,6 +36,16 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
+# Schema sync, run by the Deployment's init container before the app starts (deploy/k8s/me-deployment.yaml).
+# Just the Prisma CLI and its engines, kept out of the app's own node_modules.
+COPY --from=builder /app/node_modules/prisma /opt/prisma/node_modules/prisma
+COPY --from=builder /app/node_modules/@prisma/engines /opt/prisma/node_modules/@prisma/engines
+COPY --from=builder /app/node_modules/@prisma/engines-version /opt/prisma/node_modules/@prisma/engines-version
+COPY --from=builder /app/node_modules/@prisma/fetch-engine /opt/prisma/node_modules/@prisma/fetch-engine
+COPY --from=builder /app/node_modules/@prisma/get-platform /opt/prisma/node_modules/@prisma/get-platform
+COPY --from=builder /app/node_modules/@prisma/debug /opt/prisma/node_modules/@prisma/debug
+COPY --from=builder /app/db/schema ./db/schema
+
 USER node
 EXPOSE 3000
 CMD ["node", "server.js"]
