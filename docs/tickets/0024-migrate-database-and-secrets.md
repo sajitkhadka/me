@@ -1,0 +1,23 @@
+# 0024 — Migrate the database and secrets
+
+**Status:** open
+**Type:** chore
+**Created:** 2026-10-12
+**Parent:** [0022](0022-self-host-on-k3s.md)
+
+## Description
+
+The site stores blog posts, comments, users, apps, the resume and uploaded images in Postgres (Prisma). Find where that database runs today, move it to the cluster (or keep it where it is if that is safer), and set up the secrets the app needs.
+
+Secrets and settings the app reads (names only): `DATABASE_URL`, NextAuth secret and URL, Google and GitHub OAuth client ids and secrets, `NEXT_PUBLIC_APP_URL`, `GAID`. Values must go in sealed secrets, never in git.
+
+- [ ] Current database host identified, and a backup taken
+- [ ] Data restored into the new database and checked (row counts, images)
+- [ ] OAuth redirect URLs updated for the new host
+- [ ] Secrets created as sealed secrets in `k8s-config`
+- [ ] Backup job added (see the existing Postgres backup post)
+- [ ] Image upload path works (`/api/image/*`, and the `remotePatterns` in `next.config.mjs`)
+
+## How to research
+
+Check how images are stored (`db/image.service.ts`, `app/api/image`). If they are files on disk, the pod needs a volume.
