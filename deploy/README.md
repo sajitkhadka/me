@@ -9,7 +9,7 @@ Drafts of what belongs in the `k8s-config` repo. Nothing here is applied from th
 
 Order matters, because Argo CD syncs any commit to `k8s-config` within minutes:
 
-1. Add the sealed secret `me-secrets` (ticket 0024) and `regcred` in the `me` namespace.
+1. Add the sealed secret `me-secrets` (ticket 0024; `DATABASE_URL` is the existing Neon URL) and `regcred` in the `me` namespace.
 2. Push a `-dev` tag (for example `v1.3.0-dev`). The workflow builds the image and rewrites the image line in `k8s-config/me/me-deployment.yaml`.
 3. Only then copy the manifests and the Argo CD Application, so the pod never starts on the `placeholder` image.
 
