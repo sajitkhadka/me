@@ -18,15 +18,15 @@ export function SiteFooter() {
     >
       <div className="max-w-3xl mx-auto flex justify-center items-center flex-col gap-3">
         <div className="flex space-x-5">
-          <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" className="font-bold hover:text-gray-600 transition-colors duration-200">
+          <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" className="font-bold hover:text-primary transition-colors duration-200">
             <Icons.linkedin className="h-5 w-5" />
             <span className="sr-only">LinkedIn</span>
           </a>
-          <a href="https://github.com/sajitkhadka" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-gray-600 transition-colors duration-200">
+          <a href="https://github.com/sajitkhadka" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-primary transition-colors duration-200">
             <Icons.gitHub className="h-5 w-5" />
             <span className="sr-only">GitHub</span>
           </a>
-          <a href="mailto:sajitkhadka@gmail.com" className="font-bold hover:text-gray-600 transition-colors duration-200">
+          <a href="mailto:sajitkhadka@gmail.com" className="font-bold hover:text-primary transition-colors duration-200">
             <Mail size={20} />
             <span className="sr-only">Email</span>
           </a>

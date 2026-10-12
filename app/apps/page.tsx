@@ -6,6 +6,7 @@ import AppGrid from './components/AppGrid';
 export const metadata: Metadata = {
     title: 'Projects',
     description: 'Apps and tools I have built: a home Kubernetes platform, a shared schedule board, an English speaking trainer and more.',
+    alternates: { canonical: '/apps' },
     keywords: 'projects, Go, Next.js, Kubernetes, side projects',
     openGraph: { type: 'website', title: 'Projects - Sajit Khadka', images: [ogImage('Projects', 'project')] },
 }

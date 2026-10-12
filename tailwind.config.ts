@@ -19,11 +19,9 @@ const config = {
       },
     },
     extend: {
-      // fontFamily: {
-      //   sans: ["var(--font-sans)", ...fontFamily.sans],
-      // },
       fontFamily: {
-        primary: "var(--font-jetbrainsMono)"
+        sans: ["var(--font-inter)", ...fontFamily.sans],
+        mono: ["var(--font-jetbrainsMono)", ...fontFamily.mono],
       },
       colors: {
         border: "hsl(var(--border))",

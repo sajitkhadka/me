@@ -5,6 +5,7 @@ import Posts from "./posts";
 import TagComponent from "./tags-sidebar";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/blog" },
   title: "Blog",
   description:
     "Notes and write-ups by Sajit Khadka on distributed systems, Kubernetes, Postgres and the tools he builds.",

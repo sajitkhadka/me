@@ -32,7 +32,7 @@ export default function AboutPage() {
       <div className="flex flex-col items-center gap-10 md:flex-row md:items-start">
         <div className="flex w-48 min-w-48 flex-col items-center gap-2">
           <Image
-            src="/avatar.png"
+            src="/avatar.webp"
             alt={`Portrait of ${siteConfig.author.name}`}
             width={192}
             height={192}

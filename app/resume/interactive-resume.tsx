@@ -57,34 +57,28 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
   const coreExpertise = data.coreExpertise;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50">
-      {/* Decorative Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-100/40 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-slate-100/40 to-transparent rounded-full blur-3xl" />
-      </div>
-
+    <div className="min-h-screen bg-background">
       <div className="relative">
         {/* Minimal Header */}
         <div
-          className={`border-b transition-all duration-300 ${scrolled ? "shadow-sm bg-white/80 backdrop-blur-md z-50" : "bg-white/60 backdrop-blur-sm"}`}
+          className={`border-b transition-all duration-300 ${scrolled ? "shadow-sm bg-background/80 backdrop-blur-md z-50" : "bg-background/60 backdrop-blur-sm"}`}
         >
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
             <div className="flex flex-col sm:flex-row items-start justify-between gap-4 sm:gap-8">
               <div className="flex-1 w-full">
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-2 tracking-tight">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2 tracking-tight">
                   {personal?.name || "Your Name"}
                 </h1>
-                <p className="text-lg sm:text-xl text-slate-600 mb-3 sm:mb-4">
+                <p className="text-lg sm:text-xl text-muted-foreground mb-3 sm:mb-4">
                   {personal?.title || "Your Title"}
                 </p>
-                <p className="text-sm sm:text-base text-slate-500 max-w-2xl leading-relaxed">
+                <p className="text-sm sm:text-base text-muted-foreground max-w-2xl leading-relaxed">
                   {personal?.summary || "Your professional summary"}
                 </p>
               </div>
               <button
                 onClick={handleDownload}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 border-2 border-slate-900 text-slate-900 rounded-lg font-medium hover:bg-slate-900 hover:text-white transition-all hover:shadow-lg hover:scale-105"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 border-2 border-foreground text-foreground rounded-lg font-medium hover:bg-foreground hover:text-background transition-all hover:shadow-lg hover:scale-105"
               >
                 <Download size={18} />
                 Resume
@@ -92,11 +86,11 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
             </div>
 
             {/* Contact Info */}
-            <div className="flex flex-wrap gap-x-4 sm:gap-x-6 gap-y-2 mt-4 sm:mt-6 text-xs sm:text-sm text-slate-600">
+            <div className="flex flex-wrap gap-x-4 sm:gap-x-6 gap-y-2 mt-4 sm:mt-6 text-xs sm:text-sm text-muted-foreground">
               {personal?.email && (
                 <a
                   href={`mailto:${personal.email}`}
-                  className="flex items-center gap-1.5 hover:text-slate-900 transition-colors group"
+                  className="flex items-center gap-1.5 hover:text-foreground transition-colors group"
                 >
                   <Mail
                     size={16}
@@ -116,7 +110,7 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                   href={personal.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 hover:text-slate-900 transition-colors group"
+                  className="flex items-center gap-1.5 hover:text-foreground transition-colors group"
                 >
                   <Linkedin
                     size={16}
@@ -130,7 +124,7 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                   href={personal.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 hover:text-slate-900 transition-colors group"
+                  className="flex items-center gap-1.5 hover:text-foreground transition-colors group"
                 >
                   <Globe
                     size={16}
@@ -145,7 +139,7 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
 
         {/* Stats Bar */}
         {stats && stats.length > 0 && (
-          <div className="border-b bg-white/60 backdrop-blur-sm">
+          <div className="border-b bg-background/60 backdrop-blur-sm">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
                 {stats.map((stat: any, idx: number) => (
@@ -154,10 +148,10 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                     className={`text-center transition-all duration-700 ${statsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
                     style={{ transitionDelay: `${stat.delay}ms` }}
                   >
-                    <div className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
+                    <div className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
                       {stat.value}
                     </div>
-                    <div className="text-xs text-slate-500 uppercase tracking-wide">
+                    <div className="text-xs text-muted-foreground uppercase tracking-wide">
                       {stat.label}
                     </div>
                   </div>
@@ -177,21 +171,21 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
             <TabsList className="w-full justify-start border-b rounded-none h-auto p-0 bg-transparent mb-6 sm:mb-8 overflow-x-auto">
               <TabsTrigger
                 value="experience"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-slate-900 data-[state=active]:bg-transparent px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-medium whitespace-nowrap"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-medium whitespace-nowrap"
               >
                 <Briefcase size={16} className="mr-1.5 sm:mr-2" />
                 Experience
               </TabsTrigger>
               <TabsTrigger
                 value="skills"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-slate-900 data-[state=active]:bg-transparent px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-medium whitespace-nowrap"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-medium whitespace-nowrap"
               >
                 <Code size={16} className="mr-1.5 sm:mr-2" />
                 Skills
               </TabsTrigger>
               <TabsTrigger
                 value="education"
-                className="rounded-none border-b-2 border-transparent data-[state=active]:border-slate-900 data-[state=active]:bg-transparent px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-medium whitespace-nowrap"
+                className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-medium whitespace-nowrap"
               >
                 <GraduationCap size={18} className="mr-2" />
                 Education
@@ -203,26 +197,26 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                 experiences.map((exp: any, idx: number) => (
                   <div
                     key={exp.id || idx}
-                    className="border-l-2 border-slate-200 pl-8 pb-8 relative group hover:border-blue-400 transition-colors"
+                    className="border-l-2 border-border pl-8 pb-8 relative group hover:border-primary transition-colors"
                   >
-                    <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-white border-2 border-slate-300 group-hover:border-blue-500 group-hover:scale-125 transition-all" />
+                    <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-background border-2 border-border group-hover:border-primary group-hover:scale-125 transition-all" />
 
                     <div className="mb-4">
-                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1">
+                      <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-1">
                         {exp.title}
                       </h3>
-                      <div className="flex flex-wrap items-center gap-2 text-sm sm:text-base text-slate-600 mb-1">
+                      <div className="flex flex-wrap items-center gap-2 text-sm sm:text-base text-muted-foreground mb-1">
                         <span className="font-medium">{exp.company}</span>
                         <span>•</span>
                         <span>{exp.location}</span>
                       </div>
-                      <p className="text-xs sm:text-sm text-slate-500">
+                      <p className="text-xs sm:text-sm text-muted-foreground">
                         {exp.period}
                       </p>
                     </div>
 
                     {exp.description && (
-                      <p className="text-sm sm:text-base text-slate-600 mb-4 leading-relaxed">
+                      <p className="text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed">
                         {exp.description}
                       </p>
                     )}
@@ -232,18 +226,18 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                         {exp.achievements.map((achievement: any, i: number) => (
                           <div
                             key={i}
-                            className="flex items-start gap-3 group/item hover:bg-blue-50/50 p-2 -ml-2 rounded transition-colors"
+                            className="flex items-start gap-3 group/item hover:bg-accent p-2 -ml-2 rounded transition-colors"
                           >
                             <TrendingUp
                               size={16}
-                              className="text-slate-400 mt-0.5 flex-shrink-0 group-hover/item:text-blue-600 transition-colors"
+                              className="text-muted-foreground mt-0.5 flex-shrink-0 group-hover/item:text-primary transition-colors"
                             />
                             <div className="flex-1">
-                              <span className="text-sm sm:text-base text-slate-700">
+                              <span className="text-sm sm:text-base text-foreground">
                                 {achievement.text}
                               </span>
                               {achievement.impact && (
-                                <span className="ml-2 text-xs sm:text-sm font-medium text-slate-900">
+                                <span className="ml-2 text-xs sm:text-sm font-medium text-foreground">
                                   → {achievement.impact}
                                 </span>
                               )}
@@ -258,7 +252,7 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                         {exp.tech.map((tech: string) => (
                           <span
                             key={tech}
-                            className="px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full hover:bg-blue-600 hover:text-white transition-colors cursor-default"
+                            className="px-3 py-1 bg-muted text-foreground text-xs rounded-full hover:bg-primary hover:text-primary-foreground transition-colors cursor-default"
                           >
                             {tech}
                           </span>
@@ -268,7 +262,7 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                   </div>
                 ))
               ) : (
-                <p className="text-slate-500 text-center py-8">
+                <p className="text-muted-foreground text-center py-8">
                   No experience data available
                 </p>
               )}
@@ -281,7 +275,7 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                     {Object.entries(skills).map(
                       ([category, items]: [string, any]) => (
                         <div key={category} className="space-y-3">
-                          <h3 className="text-lg font-semibold text-slate-900 pb-2 border-b border-slate-200">
+                          <h3 className="text-lg font-semibold text-foreground pb-2 border-b border-border">
                             {category}
                           </h3>
                           <div className="flex flex-wrap gap-2">
@@ -295,8 +289,8 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                                   onMouseLeave={() => setHoveredSkill(null)}
                                   className={`px-4 py-2 text-sm rounded-lg cursor-default transition-all duration-200 ${
                                     hoveredSkill === skill
-                                      ? "bg-blue-600 text-white scale-105 shadow-md"
-                                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                                      ? "bg-primary text-primary-foreground scale-105 shadow-md"
+                                      : "bg-muted text-foreground hover:bg-accent"
                                   }`}
                                 >
                                   {skill}
@@ -308,15 +302,15 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                     )}
                   </div>
 
-                  <div className="mt-10 p-6 bg-gradient-to-br from-blue-50/50 to-slate-50/50 rounded-lg border border-slate-200">
-                    <h3 className="text-lg font-semibold text-slate-900 mb-3">
+                  <div className="mt-10 p-6 bg-accent/50 rounded-lg border border-border">
+                    <h3 className="text-lg font-semibold text-foreground mb-3">
                       Core Expertise
                     </h3>
                     <div className="flex flex-wrap gap-3">
                       {coreExpertise.map((expertise: string) => (
                         <span
                           key={expertise}
-                          className="px-4 py-2 border-2 border-slate-900 text-slate-900 rounded-lg font-medium hover:bg-slate-900 hover:text-white transition-colors cursor-default"
+                          className="px-4 py-2 border-2 border-foreground text-foreground rounded-lg font-medium hover:bg-foreground hover:text-background transition-colors cursor-default"
                         >
                           {expertise}
                         </span>
@@ -325,7 +319,7 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                   </div>
                 </>
               ) : (
-                <p className="text-slate-500 text-center py-8">
+                <p className="text-muted-foreground text-center py-8">
                   No skills data available
                 </p>
               )}
@@ -336,13 +330,13 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                 education.map((edu: any, idx: number) => (
                   <div
                     key={idx}
-                    className="p-6 border border-slate-200 rounded-lg hover:border-blue-400 hover:shadow-sm bg-white/60 backdrop-blur-sm transition-all"
+                    className="p-6 border border-border rounded-lg hover:border-primary hover:shadow-sm bg-background/60 backdrop-blur-sm transition-all"
                   >
-                    <h3 className="text-xl font-bold text-slate-900 mb-1">
+                    <h3 className="text-xl font-bold text-foreground mb-1">
                       {edu.degree}
                     </h3>
-                    <p className="text-lg text-slate-600 mb-2">{edu.field}</p>
-                    <div className="flex items-center gap-2 text-slate-500 text-sm">
+                    <p className="text-lg text-muted-foreground mb-2">{edu.field}</p>
+                    <div className="flex items-center gap-2 text-muted-foreground text-sm">
                       <span className="font-medium">{edu.school}</span>
                       <span>•</span>
                       <span>{edu.location}</span>
@@ -352,7 +346,7 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                   </div>
                 ))
               ) : (
-                <p className="text-slate-500 text-center py-8">
+                <p className="text-muted-foreground text-center py-8">
                   No education data available
                 </p>
               )}
@@ -361,9 +355,9 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
         </div>
 
         {/* Footer */}
-        <div className="border-t bg-white/60 backdrop-blur-sm py-6 sm:py-8 mt-12 sm:mt-16">
+        <div className="border-t bg-background/60 backdrop-blur-sm py-6 sm:py-8 mt-12 sm:mt-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-sm sm:text-base text-slate-600">
+            <p className="text-sm sm:text-base text-muted-foreground">
               {data.footer}
             </p>
           </div>

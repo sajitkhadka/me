@@ -27,8 +27,8 @@ Sources for current facts: `D:\projects\career` (history) and the English traine
 - [x] [0010](0010-replace-progress-and-404.md) Replace /progress and fix 404
 - [x] [0011](0011-now-page.md) /now page
 - [x] [0012](0012-fix-appicon-dark-mode.md) Fix AppIcon
-- [ ] [0013](0013-theme-refresh.md) Theme refresh
-- [ ] [0014](0014-seo-improvements.md) SEO
+- [x] [0013](0013-theme-refresh.md) Theme refresh
+- [x] [0014](0014-seo-improvements.md) SEO
 - [ ] [0015](0015-blog-content-refresh.md) Blog content
 - [ ] [0016](0016-pdf-resume.md) PDF resume
 - [ ] [0017](0017-editable-resume-data.md) Editable resume data

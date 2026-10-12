@@ -1,20 +1,24 @@
 import type { Metadata, Viewport } from "next";
-// import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/components/layout/site-header";
 import ThemeProvider from "@/components/providers/theme-provider";
 import { siteConfig } from "@/config/site";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import SessionProvider from "@/components/providers/session-provider";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "700"],
   variable: "--font-jetbrainsMono",
 });
 
@@ -39,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-pt-[3.5rem]" suppressHydrationWarning>
       <body
-        className={cn("min-h-screen bg-background", jetbrainsMono.variable)}
+        className={cn("min-h-screen bg-background font-sans", inter.variable, jetbrainsMono.variable)}
       >
         <ThemeProvider>
           <SessionProvider>

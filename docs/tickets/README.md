@@ -17,8 +17,8 @@ blocked, done, wontfix. Decisions that were genuinely contested go in `docs/adr/
 | [0010](0010-replace-progress-and-404.md) | ↳ Replace placeholder /progress page and fix 404 styling | chore | done |
 | [0011](0011-now-page.md) | ↳ Add a /now page | feature | done |
 | [0012](0012-fix-appicon-dark-mode.md) | ↳ Fix dark mode and random colours in AppIcon | bug | done |
-| [0013](0013-theme-refresh.md) | ↳ Refresh theme: one accent, body font, avatar | feature | open |
-| [0014](0014-seo-improvements.md) | ↳ Improve SEO: sitemap, structured data, OG images | chore | open |
+| [0013](0013-theme-refresh.md) | ↳ Refresh theme: one accent, body font, avatar | feature | done |
+| [0014](0014-seo-improvements.md) | ↳ Improve SEO: sitemap, structured data, OG images | chore | done |
 | [0015](0015-blog-content-refresh.md) | ↳ Blog: republish or link Confluence posts | chore | open |
 | [0016](0016-pdf-resume.md) | ↳ Add a print-friendly PDF resume | feature | open |
 | [0017](0017-editable-resume-data.md) | ↳ Make resume data editable without a script | feature | open |

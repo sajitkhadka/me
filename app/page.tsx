@@ -1,15 +1,17 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Underline from "@/components/custom-ui/underline";
 import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { ogImage } from "@/config/site";
+import { ogImage, siteConfig } from "@/config/site";
 import { featuredProjects } from "@/config/projects";
 import blogPostService from "@/db/blogpost.service";
 import { absoluteUrl, cn, createSlug, formatDate } from "@/lib/utils";
 
 export const metadata = {
+  alternates: { canonical: "/" },
   title: "Sajit Khadka",
   description:
     "Sajit Khadka is a software engineer building integrations and event-driven backend systems, and runs a home Kubernetes cluster for his own projects.",
@@ -28,6 +30,16 @@ export const metadata = {
   },
 };
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: siteConfig.author.name,
+  jobTitle: siteConfig.author.title,
+  url: siteConfig.url,
+  image: `${siteConfig.url}/avatar.webp`,
+  sameAs: [siteConfig.links.github, siteConfig.links.linkedin, siteConfig.links.x],
+};
+
 async function getLatestPosts() {
   try {
     return await blogPostService.getLatestPosts(3);
@@ -42,7 +54,19 @@ export default async function Home() {
 
   return (
     <div className="container max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 space-y-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
       <section className="space-y-6">
+        <Image
+          src="/avatar.webp"
+          alt="Illustrated portrait of Sajit"
+          width={96}
+          height={96}
+          className="rounded-full border bg-muted"
+          priority
+        />
         <div className="space-y-4">
           <h1 className="text-3xl font-bold text-balance">Hello, I am Sajit</h1>
           <Underline />
