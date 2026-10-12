@@ -1,6 +1,6 @@
 # 0009 — Add /projects/[slug] case-study pages
 
-**Status:** open
+**Status:** done
 **Type:** feature
 **Created:** 2026-10-12
 **Parent:** [0001](0001-portfolio-refresh.md)
@@ -11,10 +11,10 @@ Many projects are private or have no public URL (English Communication Trainer, 
 
 Cards from [0008](0008-apps-page-cards.md) should link to these pages.
 
-- [ ] Route `/projects/[slug]` renders a project page
-- [ ] Pages written for: the home k3s platform, SyncToDo, English Communication Trainer, plus one more
-- [ ] Each page: problem, approach, stack, one decision and why, link to repo if public
-- [ ] Listed in the sitemap
+- [x] Route `/projects/[slug]` renders a project page
+- [x] Pages written for: the home k3s platform, SyncToDo, English Communication Trainer, plus one more
+- [x] Each page: problem, approach, stack, one decision and why, link to repo if public
+- [x] Listed in the sitemap
 
 ## How to research
 
@@ -23,3 +23,9 @@ Project `README.md` and `docs/adr/` in each repo (sync-todo has 26 ADRs, filekee
 ## How to solve
 
 Add a "Project" `BlogType` and reuse the existing editor. This is simpler than adding MDX files.
+
+## Notes
+
+- Decision: case studies are typed data in `config/projects.ts` rendered by one page, not a new BlogType, because the database cannot be edited from here. Content is edited in git.
+- Written: home k3s platform, SyncToDo, English Communication Trainer, FileKeeper. Facts were taken from each repo's README and decision records; no internal hostnames or personal data.
+- Repo link shown only for the public repos.

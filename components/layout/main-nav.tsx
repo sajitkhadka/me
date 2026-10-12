@@ -13,6 +13,7 @@ type NavItem = {
 }
 
 export const navItems: NavItem[] = [
+  { href: '/apps', label: 'Projects' },
   { href: '/blog', label: 'Blog' },
   { href: '/about', label: 'About' },
   { href: '/auth/login', label: 'Login', requiresNoAuth: true },

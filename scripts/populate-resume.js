@@ -12,23 +12,16 @@ const prisma = new PrismaClient();
 const resumeData = {
   personal: {
     name: "Sajit Khadka",
-    title: "Senior Software Engineer",
+    title: "Software Engineer, Integrations",
     email: "sajitkhadka@gmail.com",
-    phone: "437-219-7807",
-    location: "Toronto, Canada",
     linkedin: "https://linkedin.com/in/sajitkhadka",
     website: "https://sajitkhadka.com",
     summary:
-      "Building scalable backend systems and distributed applications. Specialized in event-driven architectures and cloud-native solutions.",
+      "Software engineer building integrations and event-driven backend systems on AWS and Kubernetes. Seven years across HR tech, fintech and SaaS.",
   },
-  stats: [
-    { label: "Years Experience", value: "7+", delay: 0 },
-    { label: "Users Impacted", value: "100K+", delay: 100 },
-    { label: "Avg Performance Gain", value: "45%", delay: 200 },
-    { label: "System Uptime", value: "99.9%", delay: 300 },
-  ],
   skills: {
     "Languages & Frameworks": [
+      "Go",
       "Node.js",
       "Java",
       "TypeScript",
@@ -45,29 +38,74 @@ const resumeData = {
       "Docker",
       "Kubernetes",
       "Lambda",
+      "SQS",
       "EC2",
+      "Terraform",
     ],
     "Event Streaming": [
       "Apache Kafka",
+      "AWS SQS",
       "Redis Pub/Sub",
       "Event-Driven Architecture",
     ],
     "DevOps & Monitoring": [
       "CI/CD",
+      "GitOps",
       "Git",
       "Datadog",
       "SonarQube",
       "GitHub Actions",
+      "Argo CD",
     ],
-    "APIs & Protocols": ["REST APIs", "GraphQL", "WebSockets", "Microservices"],
+    "APIs & Protocols": [
+      "REST APIs",
+      "GraphQL",
+      "WebSockets",
+      "Webhooks",
+      "Merge.dev",
+      "Microservices",
+    ],
   },
   experiences: [
     {
+      id: "perceptyx",
+      company: "Perceptyx",
+      title: "Software Engineer, Integrations",
+      location: "Remote",
+      period: "April 2026 – Present",
+      description:
+        "Integrations team for an employee-survey platform, connecting customers' HR and recruiting systems",
+      achievements: [
+        {
+          text: "Moving customer data onboarding from a manual, tool-driven process to event-driven webhooks",
+          impact: "Faster onboarding",
+        },
+        {
+          text: "Building ingestion on AWS Lambda and SQS with Merge.dev as the HRIS/ATS layer",
+          impact: "Self-service setup",
+        },
+        {
+          text: "Managing infrastructure as code with Terraform",
+          impact: "Reviewed, repeatable changes",
+        },
+      ],
+      tech: [
+        "Go",
+        "TypeScript",
+        "AWS Lambda",
+        "SQS",
+        "Terraform",
+        "Kubernetes",
+        "Merge.dev",
+        "Datadog",
+      ],
+    },
+    {
       id: "rakuten",
       company: "Rakuten",
-      title: "Senior Software Engineer",
+      title: "Software Engineer, Backend",
       location: "Toronto, Canada",
-      period: "July 2024 – Present",
+      period: "July 2025 – December 2025",
       description:
         "Backend services for financial products platform processing millions of transactions monthly",
       achievements: [
@@ -105,9 +143,9 @@ const resumeData = {
     {
       id: "guhuza",
       company: "Guhuza",
-      title: "Senior Software Engineer",
+      title: "Senior Software Developer",
       location: "Toronto, Canada",
-      period: "November 2021 – July 2024",
+      period: "November 2021 – July 2025",
       description:
         "Backend architecture for AI-powered SaaS platform scaling to 100K+ active users",
       achievements: [
@@ -144,6 +182,22 @@ const resumeData = {
         "Kubernetes",
         "Stripe",
       ],
+    },
+    {
+      id: "humber-instructor",
+      company: "Humber College",
+      title: "Instructor (Part-time)",
+      location: "Toronto, Canada",
+      period: "September 2023 – December 2024",
+      description:
+        "Taught Core Java, Spring Boot and Android development alongside a full-time engineering role",
+      achievements: [
+        {
+          text: "Taught backend and mobile courses to students entering the industry",
+          impact: "100+ students",
+        },
+      ],
+      tech: ["Java", "Spring Boot", "Android"],
     },
     {
       id: "omadatek",
@@ -223,6 +277,7 @@ const resumeData = {
     },
   ],
   coreExpertise: [
+    "Integration Engineering",
     "Backend Engineering",
     "Distributed Systems",
     "Microservices",
@@ -230,8 +285,7 @@ const resumeData = {
     "Cloud Infrastructure",
     "Performance Optimization",
   ],
-  footer:
-    "Open to exciting opportunities in backend engineering and distributed systems",
+  footer: "Seven years building backend and integration systems",
 };
 
 async function main() {

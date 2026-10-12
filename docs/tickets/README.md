@@ -6,17 +6,17 @@ blocked, done, wontfix. Decisions that were genuinely contested go in `docs/adr/
 | # | Title | Type | Status |
 | --- | --- | --- | --- |
 | [0001](0001-portfolio-refresh.md) | Portfolio refresh | epic | open |
-| [0002](0002-current-role-hero.md) | ↳ Replace job-hunt card with current-role hero | feature | open |
-| [0003](0003-update-resume-data.md) | ↳ Update resume data to match career history | chore | open |
-| [0004](0004-remove-phone-number.md) | ↳ Remove phone number from resume page and seed script | bug | open |
+| [0002](0002-current-role-hero.md) | ↳ Replace job-hunt card with current-role hero | feature | done |
+| [0003](0003-update-resume-data.md) | ↳ Update resume data to match career history | chore | done |
+| [0004](0004-remove-phone-number.md) | ↳ Remove phone number from resume page and seed script | bug | blocked |
 | [0005](0005-fix-site-metadata.md) | ↳ Fix site title, description and OG metadata | chore | open |
 | [0006](0006-rewrite-about-page.md) | ↳ Rewrite About page and admin author fields | chore | open |
-| [0007](0007-audit-apps-list.md) | ↳ Audit and update the apps list | chore | open |
-| [0008](0008-apps-page-cards.md) | ↳ Show app descriptions and screenshots on /apps | feature | open |
-| [0009](0009-project-case-study-pages.md) | ↳ Add /projects/[slug] case-study pages | feature | open |
+| [0007](0007-audit-apps-list.md) | ↳ Audit and update the apps list | chore | done |
+| [0008](0008-apps-page-cards.md) | ↳ Show app descriptions and screenshots on /apps | feature | done |
+| [0009](0009-project-case-study-pages.md) | ↳ Add /projects/[slug] case-study pages | feature | done |
 | [0010](0010-replace-progress-and-404.md) | ↳ Replace placeholder /progress page and fix 404 styling | chore | open |
 | [0011](0011-now-page.md) | ↳ Add a /now page | feature | open |
-| [0012](0012-fix-appicon-dark-mode.md) | ↳ Fix dark mode and random colours in AppIcon | bug | open |
+| [0012](0012-fix-appicon-dark-mode.md) | ↳ Fix dark mode and random colours in AppIcon | bug | done |
 | [0013](0013-theme-refresh.md) | ↳ Refresh theme: one accent, body font, avatar | feature | open |
 | [0014](0014-seo-improvements.md) | ↳ Improve SEO: sitemap, structured data, OG images | chore | open |
 | [0015](0015-blog-content-refresh.md) | ↳ Blog: republish or link Confluence posts | chore | open |

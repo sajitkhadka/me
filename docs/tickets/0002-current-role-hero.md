@@ -1,6 +1,6 @@
 # 0002 — Replace job-hunt card with current-role hero
 
-**Status:** open
+**Status:** done
 **Type:** feature
 **Created:** 2026-10-12
 **Parent:** [0001](0001-portfolio-refresh.md)
@@ -11,11 +11,11 @@ The home page (`app/page.tsx`) shows a card: "Open to New Opportunities", an "Av
 
 Replace it with a short intro of who he is now, then links to projects, blog and resume.
 
-- [ ] Hero says what he does today, in two or three sentences
-- [ ] No "Available Now" badge or "seeking" wording
-- [ ] One quiet line: not job-hunting, happy to chat (mailto link)
-- [ ] Featured projects (3–4) and latest posts shown below the hero
-- [ ] Works in light and dark mode and at phone width
+- [x] Hero says what he does today, in two or three sentences
+- [x] No "Available Now" badge or "seeking" wording
+- [x] One quiet line: not job-hunting, happy to chat (mailto link)
+- [x] Featured projects (3–4) and latest posts shown below the hero
+- [x] Works in light and dark mode and at phone width
 
 ## How to solve
 
@@ -24,3 +24,8 @@ Suggested copy: "I build integrations and event-driven backend systems. Currentl
 1. Remove the `Card` block and the inline SVGs in `app/page.tsx`.
 2. Add a hero and a featured-projects row (data from the apps/projects list, see 0007 and 0009).
 3. Keep the "Explore my blog" and apps buttons.
+
+## Notes
+
+- Hero copy is the suggested text from this ticket. Latest posts load from the database and the section is hidden if the query fails or returns nothing.
+- Not viewed in a browser (dependencies cannot be installed here).

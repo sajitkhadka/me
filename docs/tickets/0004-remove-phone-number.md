@@ -1,6 +1,6 @@
 # 0004 — Remove phone number from resume page and seed script
 
-**Status:** open
+**Status:** blocked
 **Type:** bug
 **Created:** 2026-10-12
 **Parent:** [0001](0001-portfolio-refresh.md)
@@ -9,8 +9,8 @@
 
 The resume page shows a phone number with a `tel:` link (`app/resume/interactive-resume.tsx`, around line 109). The number is also committed in `scripts/populate-resume.js`, and the `me` repo is public. Anyone can scrape it.
 
-- [ ] Phone removed from the resume page (or replaced by an email link)
-- [ ] Phone removed from `scripts/populate-resume.js`
+- [x] Phone removed from the resume page (or replaced by an email link)
+- [x] Phone removed from `scripts/populate-resume.js`
 - [ ] `User.resume` JSON in the database no longer contains a phone
 - [ ] Decide whether to clean git history (the number stays in old commits)
 
@@ -19,3 +19,8 @@ The resume page shows a phone number with a `tel:` link (`app/resume/interactive
 1. Delete the `personal.phone` block in the component and the field in the seed script.
 2. Re-run the seed script (after 0003) to update the database.
 3. Optional: rewrite history, or accept that the old number stays in it.
+
+## Notes
+
+- The `User.resume` JSON in the database still holds the old phone until the seed script is re-run (or ticket 0017 lands). Needs Sajit: re-run against production.
+- History: left as is. Rewriting history of a public repo is Sajit's call; consider the number public already.

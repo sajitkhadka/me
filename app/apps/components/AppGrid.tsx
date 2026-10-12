@@ -1,32 +1,27 @@
 'use client'
 
 import { motion } from 'framer-motion';
-import AppIcon from './AppIcon';
-import { MyApp } from '@prisma/client';
+import ProjectCard from './ProjectCard';
+import type { Project } from '@/config/projects';
 
-interface AppGridProps {
-    apps: MyApp[];
-}
-
-export default function AppGrid({ apps }: AppGridProps) {
+export default function AppGrid({ projects }: { projects: Project[] }) {
     return (
         <motion.div
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+            className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
         >
-            {apps.map((app, index) => (
+            {projects.map((project, index) => (
                 <motion.div
-                    key={app.id}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
+                    key={project.slug}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.2, delay: index * 0.05 }}
                 >
-                    <AppIcon app={app} />
+                    <ProjectCard project={project} />
                 </motion.div>
             ))}
         </motion.div>
     );
 }
-

@@ -31,6 +31,14 @@ class BlogPostService {
       }
     })
   }
+  async getLatestPosts(limit: number) {
+    return prisma.blogPost.findMany({
+      where: { published: true, typeId: BlogPostType.BlogPost },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+    });
+  }
+
   async getAllBlogPosts(pagination: Pagination): Promise<BlogPosts> {
     const session = await auth();
     return await prisma.blogPost.findMany({

@@ -16,17 +16,17 @@ Do not publish confidential employer details: no colleague names, no reorg news,
 
 Sources for current facts: `D:\projects\career` (history) and the English trainer `data/profile.md` (current work).
 
-- [ ] [0002](0002-current-role-hero.md) Current-role hero
-- [ ] [0003](0003-update-resume-data.md) Update resume data
+- [x] [0002](0002-current-role-hero.md) Current-role hero
+- [x] [0003](0003-update-resume-data.md) Update resume data
 - [ ] [0004](0004-remove-phone-number.md) Remove phone number
 - [ ] [0005](0005-fix-site-metadata.md) Fix site metadata
 - [ ] [0006](0006-rewrite-about-page.md) Rewrite About page
-- [ ] [0007](0007-audit-apps-list.md) Audit apps list
-- [ ] [0008](0008-apps-page-cards.md) Apps page cards
-- [ ] [0009](0009-project-case-study-pages.md) Case-study pages
+- [x] [0007](0007-audit-apps-list.md) Audit apps list
+- [x] [0008](0008-apps-page-cards.md) Apps page cards
+- [x] [0009](0009-project-case-study-pages.md) Case-study pages
 - [ ] [0010](0010-replace-progress-and-404.md) Replace /progress and fix 404
 - [ ] [0011](0011-now-page.md) /now page
-- [ ] [0012](0012-fix-appicon-dark-mode.md) Fix AppIcon
+- [x] [0012](0012-fix-appicon-dark-mode.md) Fix AppIcon
 - [ ] [0013](0013-theme-refresh.md) Theme refresh
 - [ ] [0014](0014-seo-improvements.md) SEO
 - [ ] [0015](0015-blog-content-refresh.md) Blog content

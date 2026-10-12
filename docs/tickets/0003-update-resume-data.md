@@ -1,6 +1,6 @@
 # 0003 — Update resume data to match career history
 
-**Status:** open
+**Status:** done
 **Type:** chore
 **Created:** 2026-10-12
 **Parent:** [0001](0001-portfolio-refresh.md)
@@ -17,12 +17,12 @@ The resume data (seeded by `scripts/populate-resume.js`, stored as JSON in `User
 - The footer says "Open to exciting opportunities".
 - Stats tiles ("100K+ users", "45% avg performance gain", "99.9% uptime") need a source.
 
-- [ ] Experience list, titles and dates match `career/README.md`
-- [ ] Perceptyx and Humber entries added
-- [ ] Skills updated
-- [ ] Stats kept only if Sajit can back them up
-- [ ] Footer line updated (no "open to opportunities")
-- [ ] No confidential employer details (see epic)
+- [x] Experience list, titles and dates match `career/README.md`
+- [x] Perceptyx and Humber entries added
+- [x] Skills updated
+- [x] Stats kept only if Sajit can back them up
+- [x] Footer line updated (no "open to opportunities")
+- [x] No confidential employer details (see epic)
 
 ## How to research
 
@@ -33,3 +33,9 @@ The resume data (seeded by `scripts/populate-resume.js`, stored as JSON in `User
 
 1. Edit the `resumeData` object in `scripts/populate-resume.js`.
 2. Run it against a dev database first, then production. It writes to whatever `DATABASE_URL` points at.
+
+## Notes
+
+- Stats tiles removed (no source). City omitted from the header; per-job cities kept.
+- Perceptyx entry is public-safe: no customer names, no scale figures. Existing Rakuten/Guhuza bullet points kept as written.
+- The database copy only changes when the seed script is re-run (or after 0017). Needs Sajit: run it against production.

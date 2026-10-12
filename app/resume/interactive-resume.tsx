@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Mail,
-  Phone,
   Linkedin,
   Globe,
   MapPin,
@@ -104,18 +103,6 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
                     className="group-hover:scale-110 transition-transform"
                   />
                   <span>{personal.email}</span>
-                </a>
-              )}
-              {personal?.phone && (
-                <a
-                  href={`tel:${personal.phone.replace(/\D/g, "")}`}
-                  className="flex items-center gap-1.5 hover:text-slate-900 transition-colors group"
-                >
-                  <Phone
-                    size={16}
-                    className="group-hover:scale-110 transition-transform"
-                  />
-                  <span>{personal.phone}</span>
                 </a>
               )}
               {personal?.location && (
@@ -377,8 +364,7 @@ const InteractiveResume = ({ resumeData }: { resumeData: any }) => {
         <div className="border-t bg-white/60 backdrop-blur-sm py-6 sm:py-8 mt-12 sm:mt-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-sm sm:text-base text-slate-600">
-              {data.footer ||
-                "Open to exciting opportunities in backend engineering and distributed systems"}
+              {data.footer}
             </p>
           </div>
         </div>
