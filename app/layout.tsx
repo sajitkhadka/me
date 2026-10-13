@@ -103,7 +103,6 @@ export default function RootLayout({
               >
                 Skip to content
               </a>
-              <div aria-hidden className="bg-grid pointer-events-none absolute inset-x-0 top-0 -z-0 h-[36rem]" />
               <SiteHeader />
               <main id="main" className="relative flex-1 w-full">{children}</main>
               <SiteFooter />

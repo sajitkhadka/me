@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* Design tokens. Dark is the default; light is the same palette on paper.
-   Primary is a terminal green, brand-2 a cool violet used only in gradients and glows. */
+   Primary is a warm amber, brand-2 a deeper orange used only in gradients and glows. */
 @layer base {
   :root {
     --background: 210 25% 98%;
@@ -12,20 +12,20 @@
     --card-foreground: 222 30% 12%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 30% 12%;
-    --primary: 162 92% 24%;
+    --primary: 28 92% 38%;
     --primary-foreground: 0 0% 100%;
     --secondary: 214 22% 92%;
     --secondary-foreground: 222 30% 16%;
     --muted: 214 22% 93%;
     --muted-foreground: 218 14% 38%;
-    --accent: 162 40% 92%;
+    --accent: 38 60% 92%;
     --accent-foreground: 222 30% 12%;
     --destructive: 0 70% 48%;
     --destructive-foreground: 0 0% 100%;
     --border: 214 20% 86%;
     --input: 214 20% 86%;
-    --ring: 162 92% 24%;
-    --brand-2: 255 70% 52%;
+    --ring: 28 92% 38%;
+    --brand-2: 20 85% 45%;
     --grid-line: 222 30% 12% / 0.045;
     --radius: 0.625rem;
   }
@@ -37,7 +37,7 @@
     --card-foreground: 210 20% 92%;
     --popover: 222 26% 9%;
     --popover-foreground: 210 20% 92%;
-    --primary: 158 82% 52%;
+    --primary: 40 91% 60%;
     --primary-foreground: 222 30% 6%;
     --secondary: 222 20% 15%;
     --secondary-foreground: 210 20% 90%;
@@ -49,8 +49,8 @@
     --destructive-foreground: 210 20% 96%;
     --border: 222 18% 18%;
     --input: 222 18% 20%;
-    --ring: 158 82% 52%;
-    --brand-2: 255 90% 72%;
+    --ring: 40 91% 60%;
+    --brand-2: 24 90% 62%;
     --grid-line: 210 30% 90% / 0.045;
   }
 }
@@ -94,23 +94,20 @@
   }
 
   .text-gradient {
-    background-image: linear-gradient(100deg, hsl(var(--primary)) 0%, hsl(190 90% 60%) 50%, hsl(var(--brand-2)) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: hsl(var(--primary));
   }
 
   /* Mono eyebrow label used above section headings. */
   .eyebrow {
-    @apply font-mono text-xs uppercase tracking-[0.18em] text-primary;
+    @apply font-mono text-xs text-muted-foreground;
   }
 
   .surface {
-    @apply rounded-xl border bg-card/70 backdrop-blur-sm;
+    @apply rounded-lg border bg-card;
   }
 
   .surface-hover {
-    @apply transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[0_8px_30px_-12px_hsl(var(--primary)/0.35)];
+    @apply transition-colors hover:border-foreground/30;
   }
 
   .cursor-blink::after {

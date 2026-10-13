@@ -8,26 +8,37 @@ import { User } from '@prisma/client';
 // Helper functions
 const isLoggedIn = (auth: any) => !!auth?.user;
 
-const handleRedirect = (url: URL, pathname: string) => NextResponse.redirect(new URL(pathname, url));
+// Behind the ingress the server binds to HOSTNAME=0.0.0.0, so nextUrl.origin is http://0.0.0.0:3000.
+// Build redirects from the public address instead.
+const publicBase = (request: NextRequest) => {
+    const host = request.headers.get('x-forwarded-host') ?? request.headers.get('host');
+    if (host && !host.startsWith('0.0.0.0')) {
+        const proto = request.headers.get('x-forwarded-proto')?.split(',')[0] ?? request.nextUrl.protocol.replace(':', '');
+        return `${proto}://${host}`;
+    }
+    return process.env.NEXT_PUBLIC_APP_URL ?? request.nextUrl.origin;
+};
+
+const handleRedirect = (request: NextRequest, pathname: string) => NextResponse.redirect(new URL(pathname, publicBase(request)));
 
 // Authorization logic
-const handleAuthorization = ({ auth, request: { nextUrl } }: {
+const handleAuthorization = ({ auth, request }: {
     request: NextRequest;
     auth: Session | null;
 }) => {
-    const { pathname } = nextUrl;
+    const { pathname } = request.nextUrl;
     if (publicPages.includes(pathname)) {
         return true;
     }
     if (privatePages.includes(pathname)) {
         if (!isLoggedIn(auth)) {
-            return handleRedirect(nextUrl, '/auth/login');
+            return handleRedirect(request, '/auth/login');
         }
         return true;
     }
     if (guestOnlyPages.includes(pathname)) {
         if (isLoggedIn(auth)) {
-            return handleRedirect(nextUrl, '/blog/create');
+            return handleRedirect(request, '/blog/create');
         }
         return true;
     }

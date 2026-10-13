@@ -16,7 +16,7 @@ const labels: Record<string, string> = {
   about: "About",
 };
 
-const GREEN = "#2af0a8";
+const GREEN = "#f5b73b";
 
 export async function GET(req: NextRequest) {
   try {
@@ -45,7 +45,7 @@ export async function GET(req: NextRequest) {
             color: "#e8edf5",
             backgroundColor: "#0b0e14",
             backgroundImage:
-              "radial-gradient(circle at 85% 0%, rgba(42,240,168,0.28), rgba(11,14,20,0) 55%), radial-gradient(circle at 0% 100%, rgba(139,124,255,0.18), rgba(11,14,20,0) 50%)",
+              "radial-gradient(circle at 85% 0%, rgba(245,183,59,0.22), rgba(11,14,20,0) 55%), radial-gradient(circle at 0% 100%, rgba(245,120,59,0.10), rgba(11,14,20,0) 50%)",
           }}
         >
           <div style={{ display: "flex", alignItems: "center" }}>

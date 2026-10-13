@@ -76,6 +76,10 @@ const config = {
           from: { transform: "translateX(0)" },
           to: { transform: "translateX(-50%)" },
         },
+        drift: {
+          "0%, 100%": { transform: "translate(-50%, 0) scale(1)" },
+          "50%": { transform: "translate(-42%, 24px) scale(1.12)" },
+        },
         "fade-up": {
           from: { opacity: "0", transform: "translateY(12px)" },
           to: { opacity: "1", transform: "none" },
@@ -85,6 +89,7 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         marquee: "marquee 38s linear infinite",
+        drift: "drift 16s ease-in-out infinite",
         "fade-up": "fade-up 0.6s ease-out both",
       },
     },

@@ -10,12 +10,12 @@ export function AvatarIllustration({ title = "Illustrated portrait of Sajit", ..
     <svg viewBox="0 0 320 320" role="img" aria-label={title} {...props}>
       <defs>
         <linearGradient id="av-bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#0f2b2c" />
+          <stop offset="0" stopColor="#2b2410" />
           <stop offset="1" stopColor="#161a3a" />
         </linearGradient>
         <radialGradient id="av-glow" cx="0.5" cy="0.9" r="0.7">
-          <stop offset="0" stopColor="#2af0a8" stopOpacity="0.38" />
-          <stop offset="1" stopColor="#2af0a8" stopOpacity="0" />
+          <stop offset="0" stopColor="#f5b73b" stopOpacity="0.38" />
+          <stop offset="1" stopColor="#f5b73b" stopOpacity="0" />
         </radialGradient>
         <linearGradient id="av-shirt" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#5b79c9" />
@@ -117,11 +117,11 @@ export function AvatarIllustration({ title = "Illustrated portrait of Sajit", ..
         {/* laptop lid with a glowing prompt */}
         <path d="M86 320l12-36c2-6 8-10 14-10h96c6 0 12 4 14 10l12 36z" fill="#10131f" />
         <path d="M86 320l12-36c2-6 8-10 14-10h96c6 0 12 4 14 10l12 36" fill="none" stroke="#2c3350" strokeWidth="3" />
-        <g stroke="#2af0a8" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" fill="none">
+        <g stroke="#f5b73b" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" fill="none">
           <path d="M140 293l9 8-9 8" />
           <path d="M160 310h14" />
         </g>
-        <circle cx="160" cy="302" r="30" fill="#2af0a8" opacity="0.07" />
+        <circle cx="160" cy="302" r="30" fill="#f5b73b" opacity="0.07" />
       </g>
     </svg>
   );
