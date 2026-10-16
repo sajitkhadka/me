@@ -41,7 +41,7 @@ const schemas = {
 export const toolDefinitions = [
   {
     name: "list_posts",
-    description: "List blog posts (newest first), drafts included unless filtered. Returns id, title, status, tags and URL.",
+    description: "List posts of every type and author (newest first), drafts included unless filtered. Returns id, title, type, status, tags and URL.",
     inputSchema: {
       type: "object",
       properties: {
@@ -106,11 +106,12 @@ export const toolDefinitions = [
 const postUrl = (post: { id: number; title: string }) =>
   `${process.env.NEXT_PUBLIC_APP_URL ?? siteConfig.url}/blog/${post.id}/${createSlug(post.title)}`;
 
-type PostRow = { id: number; title: string; published: boolean; updatedAt: Date; tags: { tag: { name: string } }[] };
+type PostRow = { id: number; title: string; typeId: number; published: boolean; updatedAt: Date; tags: { tag: { name: string } }[] };
 
 const summaryOf = (post: PostRow) => ({
   id: post.id,
   title: post.title,
+  type: BlogPostType[post.typeId]?.replace(/^./, (c) => c.toLowerCase()) ?? post.typeId,
   status: post.published ? "published" : "draft",
   tags: post.tags.map((t) => t.tag.name),
   updatedAt: post.updatedAt.toISOString(),
@@ -120,12 +121,11 @@ const summaryOf = (post: PostRow) => ({
 const tagWrites = (tags: string[]) =>
   tags.map((name) => ({ tag: { connectOrCreate: { where: { name }, create: { name } } } }));
 
-/** Only the caller's own blog posts are reachable. The privacy policy and About page are not. */
-const owned = (principal: McpPrincipal, id?: number) => ({
-  ...(id === undefined ? {} : { id }),
-  authorId: principal.userId,
-  typeId: BlogPostType.BlogPost,
-});
+/** Writes reach posts the caller authored, of any type: the privacy policy and About page are the admin's own content. */
+const owned = (principal: McpPrincipal, id: number) => ({ id, authorId: principal.userId });
+
+/** Tokens are admin-only, so reads see every post of every type and author. */
+const readable = (id?: number) => (id === undefined ? {} : { id });
 
 /** Returns null for a tool name this server does not have. */
 export async function callTool(principal: McpPrincipal, name: string, rawArgs: unknown): Promise<ToolResult | null> {
@@ -142,7 +142,6 @@ export async function callTool(principal: McpPrincipal, name: string, rawArgs: u
     case "list_posts": {
       const posts = await prisma.blogPost.findMany({
         where: {
-          ...owned(principal),
           ...(args.status === "all" ? {} : { published: args.status === "published" }),
         },
         include: { tags: { include: { tag: true } } },
@@ -153,7 +152,7 @@ export async function callTool(principal: McpPrincipal, name: string, rawArgs: u
     }
     case "get_post": {
       const post = await prisma.blogPost.findFirst({
-        where: owned(principal, args.id),
+        where: readable(args.id),
         include: { tags: { include: { tag: true } } },
       });
       if (!post) return fail(`No post with id ${args.id}.`);

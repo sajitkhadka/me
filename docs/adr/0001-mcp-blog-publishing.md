@@ -20,7 +20,7 @@ TickOff runs the MCP server as a separate Go service because it fronts a separat
 2. Credentials are **personal tokens** (`sk_me_` plus 32 random bytes, only the SHA-256 stored, 90 days by default, at most 365, revocable at once). They are resolved to a user on every request, so revoking ends access immediately.
 3. **OAuth for hosted clients**, in the same app: dynamic client registration, authorization code with PKCE (S256 only), a consent page at `/oauth/authorize`, and `/.well-known/oauth-*` discovery. A successful exchange issues an ordinary personal token plus a single-use rotating refresh token, so Settings shows OAuth connections beside manual tokens.
 4. **Only admins** can create or use a token, and the consent page is admin-only. Sign-in on this site is open to anyone with a Google or GitHub account, so a signed-in user is not enough.
-5. A token reaches **blog posts and tags only**, and only the caller's own posts of type "post". It cannot touch comments, users, the privacy policy, the About page, or token management (those need the browser session).
+5. A token reaches **blog posts and tags only**. Reads (`list_posts`, `get_post`) see every post of every type and author, drafts and the privacy policy and About page included, since only admins hold tokens. `update_post` edits any post the caller authored, of any type, so the admin's privacy policy and About page are editable too; `create_post` only makes blog posts. It cannot touch comments, users or token management (those need the browser session).
 6. `create_post` saves a **draft** unless `published: true` is passed. Input is Markdown, rendered with raw HTML escaped, so an assistant cannot inject markup. There is no delete tool: unpublishing is `published: false`.
 
 ## Rationale
