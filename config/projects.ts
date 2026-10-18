@@ -17,7 +17,7 @@ export type Project = {
   caseStudy?: CaseStudy;
 };
 
-// Order here is the order shown on /apps. Every liveUrl was opened on 2026-10-12.
+// Order here is the order shown on /apps. Every liveUrl was opened on 2026-10-12 (lexicon: 2026-10-18).
 export const projects: Project[] = [
   {
     slug: "home-k3s-platform",
@@ -126,6 +126,14 @@ export const projects: Project[] = [
       "A to-do list for a couple's life: one line to add a task, points for finishing it, and a view of each other's day.",
     stack: ["Go", "Next.js", "PostgreSQL", "MCP"],
     liveUrl: "https://tickoff.sajitkhadka.com",
+  },
+  {
+    slug: "lexicon",
+    name: "Lexicon",
+    tagline:
+      "A vocabulary trainer: add a word, Claude fills in the meaning and examples, and spaced repetition makes it stick.",
+    stack: ["Go", "Next.js", "PostgreSQL", "MCP"],
+    liveUrl: "https://lexicon.sajitkhadka.com",
   },
   {
     slug: "ai-interview-coach",

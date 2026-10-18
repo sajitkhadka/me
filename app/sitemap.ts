@@ -5,7 +5,7 @@ import { projects } from '@/config/projects'
 import { MetadataRoute } from 'next'
 
 // Dates for pages whose content lives in the repo. Bump when the page text changes.
-const siteRefreshed = new Date("2026-10-12")
+const siteRefreshed = new Date("2026-10-18")
 
 export const dynamic = 'force-dynamic'
 
