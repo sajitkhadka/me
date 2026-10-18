@@ -1,7 +1,5 @@
-import { Calendar } from "lucide-react";
 import Link from "next/link";
-import { buttonVariants } from "../../components/ui/button";
-import { absoluteUrl, cn, createSlug, formatDate } from "@/lib/utils";
+import { createSlug } from "@/lib/utils";
 import { Tag } from "../../components/custom-ui/tag";
 import { Tag as TagType } from "@prisma/client";
 import Reaction from "./reaction";
@@ -25,39 +23,33 @@ export function PostItem({
   totalComments,
   totalReactions
 }: PostItemProps) {
+  const href = `/blog/${postId}/${createSlug(title)}`;
   return (
-    <article className="surface surface-hover my-4 flex flex-col gap-2 p-5">
-      <div className="flex justify-between flex-col sm:flex-row gap-4">
-        <div>
-          <div>
-            <h2 className="text-xl font-medium">
-              <Link href={absoluteUrl("/blog/" + postId) + "/" + createSlug(title)}>{title}</Link>
-            </h2>
-          </div>
-          <div className="flex gap-2 mt-3">
-            {tags?.map((tag) => (
-              <Tag tag={tag.name} key={tag.id} />
-            ))}
-          </div>
-        </div>
-
-      </div>
-      <div className="max-w-none text-muted-foreground">{summary}</div>
-      <div className="flex flex-col justify-start sm:justify-between sm:items-center  sm:flex-row">
-        <dl>
-          <Reaction
-            reactionsCount={totalReactions}
-            commentsCount={totalComments}
-            postId={postId}
-            createdDate={new Date(date)}
-          />
-        </dl>
+    <article className="surface surface-hover group relative flex flex-col gap-3 p-5 has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring has-[a:focus-visible]:ring-offset-2 has-[a:focus-visible]:ring-offset-background">
+      <h2 className="text-lg font-semibold leading-snug tracking-tight sm:text-xl">
+        {/* The stretched link makes the whole card clickable; tags sit above it. */}
         <Link
-          href={(absoluteUrl("/blog/" + postId) + "/" + createSlug(title))}
-          className={cn(buttonVariants({ variant: "link" }), "py-0 justify-start")}
+          href={href}
+          className="after:absolute after:inset-0 after:content-[''] group-hover:text-primary group-focus-within:text-primary focus-visible:outline-none"
         >
-          Read more →
+          {title}
         </Link>
+      </h2>
+      {summary && <p className="line-clamp-3 text-sm text-muted-foreground sm:text-base">{summary}</p>}
+      {tags && tags.length > 0 && (
+        <div className="relative z-10 flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <Tag tag={tag.name} key={tag.id} />
+          ))}
+        </div>
+      )}
+      <div className="border-t pt-3">
+        <Reaction
+          reactionsCount={totalReactions}
+          commentsCount={totalComments}
+          postId={postId}
+          createdDate={new Date(date)}
+        />
       </div>
     </article>
   );

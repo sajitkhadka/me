@@ -300,6 +300,15 @@ class BlogPostService {
     })
   }
 
+  // update() only ever turns published on; this also turns it off.
+  async setPublished(id: number, published: boolean) {
+    const session = await auth();
+    return prisma.blogPost.update({
+      where: { id, author: { id: session?.user?.id } },
+      data: { published },
+    })
+  }
+
 }
 
 const blogPostService = new BlogPostService();

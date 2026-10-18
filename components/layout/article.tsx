@@ -5,6 +5,7 @@ import { Calendar, Clock, Edit2 } from "lucide-react"
 import AuthorCard from "../custom-ui/author-card"
 import { auth } from "@/auth"
 import Link from "next/link"
+import { PublishToggle } from "../custom-ui/publish-toggle"
 
 const readingMinutes = (html: string) =>
     Math.max(1, Math.round(html.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length / 220))
@@ -22,7 +23,7 @@ export const Article = async ({ post, includeAuthor = true }: {
     const session = await auth()
     const user = session?.user;
     const edited = post.updatedAt.getTime() - post.createdAt.getTime() > 24 * 60 * 60 * 1000
-    return <article className="prose max-w-none dark:prose-invert prose-headings:tracking-tight prose-a:text-primary prose-a:underline-offset-4 prose-code:font-mono prose-pre:border prose-pre:bg-card">
+    return <article className="prose max-w-none dark:prose-invert prose-headings:tracking-tight prose-a:text-primary prose-a:underline-offset-4 prose-code:font-mono">
         <header className="not-prose mb-10 space-y-5 border-b pb-8">
             {!post.published && (
                 <p className="inline-block rounded-md border border-amber-500/50 bg-amber-500/10 px-2 py-1 font-mono text-xs text-amber-600 dark:text-amber-400">
@@ -49,6 +50,7 @@ export const Article = async ({ post, includeAuthor = true }: {
                         <Edit2 className="h-3.5 w-3.5" /> edit
                     </Link>
                 )}
+                {user?.role === "admin" && <PublishToggle postId={post.id} published={post.published} />}
             </div>
             {post.tags?.length > 0 && (
                 <div className="flex flex-wrap gap-2">

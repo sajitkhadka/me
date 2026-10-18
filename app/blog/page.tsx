@@ -4,6 +4,7 @@ import { ogImage } from "@/config/site";
 import { externalPosts } from "@/config/writing";
 import Posts from "./posts";
 import TagComponent from "./tags-sidebar";
+import { POSTS_PER_PAGE } from "@/config/blog";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/blog" },
@@ -24,8 +25,6 @@ export const metadata: Metadata = {
     creator: "@sajitkhadka",
   },
 };
-
-export const POSTS_PER_PAGE = 10;
 
 export interface BlogPageProps {
   searchParams: Promise<{
@@ -54,8 +53,8 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
 
   return (
-    <div className="container flex flex-col-reverse max-w-6xl py-6 gap-10 lg:py-10 sm:grid sm:grid-cols-12">
-      <div className="col-span-12 col-start-1 sm:col-span-9">
+    <div className="page-x grid gap-10 py-8 lg:grid-cols-[minmax(0,1fr)_16rem] lg:py-12">
+      <div className="min-w-0">
         <header className="mb-8 space-y-2">
           <h1 className="text-3xl font-bold">Blog</h1>
           <p className="text-muted-foreground">

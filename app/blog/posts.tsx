@@ -7,7 +7,7 @@ export default function Posts({ displayPosts, totalPages }: { displayPosts: Blog
         <>
             <div className="mt-4">
                 {displayPosts?.length > 0 ? (
-                    <ul className="flex flex-col">
+                    <ul className="flex flex-col gap-4">
                         {displayPosts.map((post) => (
                             <li key={post.id}>
                                 <PostItem

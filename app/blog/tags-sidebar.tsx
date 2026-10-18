@@ -7,7 +7,7 @@ export default async function TagsSidebar({ tagparam }: { tagparam?: string }) {
     const tags = await tagService.getAllTags();
     const sortedTags = sortTagsByCount(tags);
     return (
-        <div className="col-span-12 h-fit sm:col-span-4 sm:col-start-10">
+        <div className="order-first h-fit lg:sticky lg:top-24 lg:order-none lg:max-h-[calc(100vh-7rem)] lg:overflow-auto">
             <Card>
                 <CardHeader className="px-4 py-3">
                     <CardTitle>Tags</CardTitle>

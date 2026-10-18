@@ -53,6 +53,18 @@
     --brand-2: 24 90% 62%;
     --grid-line: 210 30% 90% / 0.045;
   }
+
+  /* Paper is white: undo the dark theme's pale text when printing. */
+  @media print {
+    .dark {
+      --background: 0 0% 100%;
+      --foreground: 222 30% 12%;
+      --card: 0 0% 100%;
+      --card-foreground: 222 30% 12%;
+      --muted-foreground: 218 14% 38%;
+      --border: 214 20% 86%;
+    }
+  }
 }
 
 @layer base {
@@ -83,6 +95,27 @@
 }
 
 @layer components {
+  /* Code in rendered posts: scrollable blocks, pill-style inline code with no typography backticks. */
+  .page-x {
+    @apply mx-auto max-w-5xl px-4 sm:px-6;
+  }
+  .prose pre {
+    @apply my-6 overflow-x-auto rounded-lg border bg-card p-4 text-sm leading-relaxed text-card-foreground;
+    -webkit-overflow-scrolling: touch;
+  }
+  .prose pre code {
+    @apply block min-w-max bg-transparent p-0 text-inherit;
+    white-space: pre;
+    font-size: inherit;
+  }
+  .prose :not(pre):not(.not-prose *) > code {
+    @apply rounded border bg-muted px-1.5 py-0.5 text-[0.875em] font-normal;
+    overflow-wrap: anywhere;
+  }
+  .prose :not(pre):not(.not-prose *) > code::before,
+  .prose :not(pre):not(.not-prose *) > code::after {
+    content: none;
+  }
   /* A faint engineering-paper grid that fades out toward the bottom of its box. */
   .bg-grid {
     background-image:

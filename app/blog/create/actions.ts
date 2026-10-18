@@ -9,6 +9,7 @@ import { ImageType } from '@/editor/extensions/ImageTracker';
 import { ImageApi } from '@/lib/api/ImageApi';
 import prisma from '@/lib/prisma';
 import { BlogType } from '@prisma/client';
+import { revalidatePath } from 'next/cache';
 
 export interface IPostData {
     title: string
@@ -86,6 +87,22 @@ export async function updateBlogPost(post: BlogPostWithTagComments, data: IPostD
     } catch (error: any) {
         console.error('Failed to update blog post:', error)
         return { success: false, error: 'Failed to update blog post' + error.message }
+    }
+}
+
+export async function setPostPublished(id: number, published: boolean) {
+    const session = await auth();
+    if (session?.user?.role !== 'admin') {
+        return { success: false, error: 'Only the admin can publish posts' };
+    }
+    try {
+        await blogPostService.setPublished(id, published);
+        revalidatePath('/blog');
+        revalidatePath(`/blog/${id}`, 'layout');
+        return { success: true };
+    } catch (error) {
+        console.error('Failed to change publish state:', error);
+        return { success: false, error: 'Failed to change publish state' };
     }
 }
 

@@ -32,11 +32,9 @@ const isActive = (pathname: string, href: string) => pathname === href || pathna
 
 function Wordmark() {
   return (
-    <Link href="/" className="group flex items-center gap-2 rounded-lg px-1.5 py-1" aria-label="Sajit Khadka, home">
+    <Link href="/" className="group flex items-center gap-2 rounded-lg px-1.5 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="Sajit Khadka, home">
       <Logo className="h-7 w-7 transition-transform duration-300 group-hover:rotate-[-8deg] group-hover:scale-110" />
-      <span className="font-mono text-sm font-semibold tracking-tight">
-        sajit<span className="text-primary">.</span>dev
-      </span>
+      <span className="text-base font-semibold tracking-tight">Sajit</span>
     </Link>
   );
 }
@@ -87,7 +85,7 @@ export function HeaderNav({ user }: { user: HeaderUser }) {
 
   return (
     <header className="sticky top-0 z-50 px-3 pt-3 print:hidden sm:px-4">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-2 rounded-2xl border border-border/70 bg-background/70 px-2.5 shadow-[0_8px_30px_-18px_rgb(0_0_0/0.5)] backdrop-blur-xl supports-[backdrop-filter]:bg-background/55">
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-2 rounded-2xl border border-border/70 bg-background/70 px-2 sm:px-3 shadow-[0_8px_30px_-18px_rgb(0_0_0/0.5)] backdrop-blur-xl supports-[backdrop-filter]:bg-background/55">
         <Wordmark />
 
         <nav aria-label="Main" className="hidden items-center gap-1 sm:flex">
@@ -99,7 +97,7 @@ export function HeaderNav({ user }: { user: HeaderUser }) {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "relative rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
+                  "relative rounded-lg px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
                 )}
               >

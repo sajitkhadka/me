@@ -1,5 +1,5 @@
 // import { posts } from "#site/content";
-import { POSTS_PER_PAGE } from "@/app/blog/page";
+import { POSTS_PER_PAGE } from "@/config/blog";
 import Posts from "@/app/blog/posts";
 import TagComponent from "@/app/blog/tags-sidebar";
 import blogPostService from "@/db/blogpost.service";
