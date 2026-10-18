@@ -4,7 +4,7 @@ name: Deploy
 #   1. builds the image and pushes it to the registry,
 #   2. commits the new image tag into the k8s-config repo,
 #   3. Argo CD (automated sync) notices the commit and rolls it out,
-#   4. a GitHub Release is created with notes generated from the merged changes.
+#   4. a GitHub Release is created with notes listing every commit since the previous release.
 #
 # This workflow never talks to the cluster. Argo CD owns what is running; this file only changes the
 # desired state in git. Same shape as sync-todo, tickoff and every other deployable repo.
@@ -115,6 +115,11 @@ jobs:
     permissions:
       contents: write
     steps:
+      # Full history and tags, so the notes can list every commit since the previous release.
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -124,7 +129,20 @@ jobs:
           if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             echo "release $GITHUB_REF_NAME already exists"; exit 0
           fi
-          flags=(--generate-notes --verify-tag --title "$GITHUB_REF_NAME")
+          # --generate-notes only lists merged PRs, and commits here go straight to main, so build the
+          # summary from the commits between the previous release tag and this one.
+          prev=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | grep -vx "$GITHUB_REF_NAME" | head -n1 || true)
+          range=${prev:+$prev..}$GITHUB_REF_NAME
+          {
+            echo "## What's changed"
+            echo
+            git log --no-merges --format='- %s (%h)' "$range"
+            if [ -n "$prev" ]; then
+              echo
+              echo "**Full changelog**: https://github.com/$GITHUB_REPOSITORY/compare/$prev...$GITHUB_REF_NAME"
+            fi
+          } > "$RUNNER_TEMP/notes.md"
+          flags=(--notes-file "$RUNNER_TEMP/notes.md" --verify-tag --title "$GITHUB_REF_NAME")
           # v1.2.3-rc1 (any pre-release suffix) is a pre-release.
           [[ "$GITHUB_REF_NAME" == *-* ]] && flags+=(--prerelease)
           gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" "${flags[@]}"
